@@ -1,48 +1,46 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-
 module.exports = {
   extends: [
-    // Chúng ta sẽ dùng các rule mặc định từ các plugin mà chúng ta đã cài.
-    'eslint:recommended',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
-    'plugin:jsx-a11y/recommended',
+    // add more generic rulesets here, such as:
+    // 'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    // Disable các rule mà eslint xung đột với prettier.
-    // Để cái này ở dưới để nó override các rule phía trên!.
+    'eslint:recommended',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
+    'plugin:vue/vue3-recommended',
+    //"plugin:vue/recommended",
+    'prettier/vue',
+    'plugin:vue/vue3-recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
     'eslint-config-prettier',
     'prettier'
   ],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'import', '@typescript-eslint'],
   settings: {
-    react: {
-      // Nói eslint-plugin-react tự động biết version của React.
-      version: 'detect'
-    },
     // Nói ESLint cách xử lý các import
     'import/resolver': {
       node: {
         paths: [path.resolve(__dirname, '')],
-        extensions: [, '.ts', '.vue']
+        extensions: ['.js', '.vue']
       }
     }
   },
-  env: {
-    node: true
-  },
   rules: {
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars-experimental': 'error',
+    // override/add rules settings here, such as:
+    // 'vue/no-unused-vars': 'error'
     'prettier/prettier': [
       'warn',
       {
         arrowParens: 'always',
-        semi: false,
+        semi: true,
         trailingComma: 'none',
         tabWidth: 2,
         endOfLine: 'auto',
         useTabs: false,
         singleQuote: true,
-        printWidth: 120,
+        printWidth: 100,
         jsxSingleQuote: true
       }
     ]

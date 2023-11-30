@@ -1,48 +1,43 @@
-<script>
+<!-- Cach 1: -->
+<script setup lang="ts">
+import { ref, defineProps } from 'vue';
+
+interface HelloWorldProps {
+  msg: string;
+}
+
+const { msg } = defineProps<HelloWorldProps>();
+</script>
+
+<!-- <script lang="ts">
 import { ref } from 'vue';
+
+interface HelloWorldProps {
+  msg: string;
+}
+
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: {
+      type: String,
+      required: true
+    }
   },
-  setup(props) {
-    // Sử dụng defineProps để nhận các props
-
-    // Sử dụng ref để tạo reactive variable
+  setup(props: HelloWorldProps) {
     const count = ref(0);
 
-    // Trả về các biến và hàm mà bạn muốn sử dụng trong template
     return {
       msg: props.msg,
       count
     };
   }
 };
-</script>
+</script> -->
 
 <template>
   <div>
     <h1>{{ msg }}</h1>
-
-    <div class="card">
-      <button type="button" @click="count++">count is {{ count }}</button>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-    </div>
-
-    <p>
-      Check out
-      <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank">create-vue</a>, the official Vue + Vite
-      starter
-    </p>
-    <p>
-      Install
-      <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-      in your IDE for a better DX
-    </p>
-    <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
   </div>
 </template>
 
