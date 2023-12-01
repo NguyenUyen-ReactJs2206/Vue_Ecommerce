@@ -1,6 +1,6 @@
 <!-- Cach 1: -->
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { defineProps } from 'vue';
 
 interface HelloWorldProps {
   msg: string;
@@ -40,9 +40,3 @@ export default {
     <h1>{{ msg }}</h1>
   </div>
 </template>
-
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-</style>
