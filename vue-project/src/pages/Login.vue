@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <AuthNavBar title="Đăng Ký" />
-    <div></div>
+  <div class="login">
+    <AuthNavBar title="Đăng Nhập" />
+
+    <div class="authForm"></div>
   </div>
 </template>
 

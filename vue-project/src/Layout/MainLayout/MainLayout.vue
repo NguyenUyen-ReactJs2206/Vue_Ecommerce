@@ -1,13 +1,11 @@
 <template>
   <div>
     <MainNavBar />
-    <Footer />
   </div>
 </template>
 
 <script setup lang="ts">
-import MainNavBar from '../../components/NavBar/MainNavBar.vue';
-import Footer from '../../components/Footer/Footer.vue';
+import MainNavBar from 'src/components/NavBar/MainNavBar.vue';
 </script>
 
 <style></style>

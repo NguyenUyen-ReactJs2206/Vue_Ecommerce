@@ -1,17 +1,10 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue';
+<script setup lang="ts">
 import Footer from './components/Footer/Footer.vue';
 </script>
 
 <template>
-  <div class="d-block">
+  <div>
     <router-view></router-view>
     <Footer />
   </div>
 </template>
-
-<style scoped>
-.d-block {
-  display: inline-block;
-}
-</style>
