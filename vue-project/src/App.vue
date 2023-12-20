@@ -1,10 +1,11 @@
-<script setup lang="ts">
-import Footer from './components/Footer/Footer.vue';
-</script>
-
 <template>
-  <div>
+  <div class="">
     <router-view></router-view>
     <Footer />
+    <Register />
   </div>
 </template>
+
+<script setup>
+import Footer from 'src/components/Footer/Footer.vue';
+</script>

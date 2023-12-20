@@ -1,1 +1,12 @@
 $color-primary: rgb(0 115 181);
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    padding: 0 10px;
+  }
+}

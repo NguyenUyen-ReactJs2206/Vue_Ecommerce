@@ -1,3 +1,15 @@
 @import './SASS/variable.scss';
 
 @import './components/Navbar/navbar.scss';
+
+@import './pages/pages.scss';
+
+html,
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  height: 100%;
+  width: 100%;
+  line-height: 1.2;
+  margin: 0 auto;
+}

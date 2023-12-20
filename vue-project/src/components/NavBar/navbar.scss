@@ -1,44 +1,44 @@
 // CSS FOR MAIN NAVBAR
 
-// CSS FOR AUTH NAVBAR
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 0px;
-  display: flex;
-  justify-content: flex-start;
-}
+//---CSS FOR AUTH NAVBAR----//
 .authHeader {
   width: 100%;
   background: white;
 
   &__content {
     display: flex;
+    justify-content: flex-end;
+    padding: 10px 0px;
   }
 
   &__logo {
-    padding: 0 20px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &-svg {
-      height: 50px;
+      height: 60px;
       fill: $color-primary;
     }
   }
 
   &__title {
-    font-size: x-large;
+    font-size: xx-large;
     font-weight: 700;
+    margin-bottom: 10px;
+    margin-right: 80px;
   }
 }
 
-.authForm {
-  width: 100%;
-}
 @media screen and (max-width: 768px) {
   .authHeader {
+    &__content {
+      justify-content: center;
+    }
     &__logo {
-      padding: 0 10px;
-
+      padding: 0 20px;
+      display: block;
       &-svg {
         height: 40px;
         fill: $color-primary;
@@ -48,6 +48,8 @@
     &__title {
       font-size: large;
       font-weight: 600;
+      margin-bottom: 0px;
+      margin-right: 0px;
     }
   }
 }

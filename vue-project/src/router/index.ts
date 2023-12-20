@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import MainLayout from '../Layout/MainLayout/MainLayout.vue';
+// import MainLayout from '../Layout/MainLayout/MainLayout.vue';
 import Register from '../pages/Register.vue';
 import Login from '../pages/Login.vue';
 import path from 'src/constants/path';
+import MainLayoutVue from '../Layout/MainLayout/MainLayout.vue';
 
 const routes = [
-  { name: 'main', path: `${path.home}`, component: MainLayout },
+  { name: 'main', path: `${path.home}`, component: MainLayoutVue },
   { name: 'login', path: `${path.login}`, component: Login },
   { name: 'register', path: `${path.register}`, component: Register }
 ];

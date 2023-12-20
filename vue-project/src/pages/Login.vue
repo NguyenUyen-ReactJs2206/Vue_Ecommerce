@@ -2,7 +2,13 @@
   <div class="login">
     <AuthNavBar title="Đăng Nhập" />
 
-    <div class="authForm"></div>
+    <div class="authForm">
+      <div class="container">
+        <div class="authForm__main">
+          <form action="" class="authForm__a"></form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
