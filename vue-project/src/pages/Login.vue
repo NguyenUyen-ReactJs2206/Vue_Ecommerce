@@ -18,7 +18,7 @@
               <div class="span-group">
                 <span>Bạn chưa có tài khoản? </span>
                 <span>
-                  <router-link to="{ name: 'register' }">Đăng ký</router-link>
+                  <router-link :to="{ name: 'register' }" exact>Đăng ký</router-link>
                 </span>
               </div>
             </div>
