@@ -1,0 +1,33 @@
+@import './variable.scss';
+
+@import 'src/components/Navbar/navbar.scss';
+
+@import 'src/pages/pages.scss';
+
+/* Global Style */
+:root {
+  --green: #259875;
+  --primary: rgb(0 115 181);
+  --primary-light: rgba(0, 115, 181, 0.8);
+  --secondary: #202726;
+  --third: #e0e0e0;
+  --dark: #0b0f0e;
+  --dark-light: rgba(67, 67, 67, 0.7);
+  --light: #ffffff;
+  --error: #fa040c;
+
+  --font: 'Nunito', sans-serif;
+  --textSize: 16px;
+  --shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.14);
+}
+
+html,
+body {
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  height: 100%;
+  width: 100%;
+  line-height: 1.2;
+  margin: 0 auto;
+}

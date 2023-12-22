@@ -1,5 +1,5 @@
 import './style.css';
-import './main.scss';
+import 'src/assets/css/global.scss';
 
 import App from './App.vue';
 import router from './router';

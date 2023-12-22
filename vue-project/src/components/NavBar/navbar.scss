@@ -7,7 +7,7 @@
 
   &__content {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding: 10px 0px;
   }
 
@@ -19,7 +19,7 @@
 
     &-svg {
       height: 60px;
-      fill: $color-primary;
+      fill: var(--primary);
     }
   }
 
@@ -32,6 +32,7 @@
 }
 
 @media screen and (max-width: 768px) {
+  //---SCREEN FOR AUTH NAVBAR----//
   .authHeader {
     &__content {
       justify-content: center;
@@ -41,7 +42,7 @@
       display: block;
       &-svg {
         height: 40px;
-        fill: $color-primary;
+        fill: var(--primary);
       }
     }
 

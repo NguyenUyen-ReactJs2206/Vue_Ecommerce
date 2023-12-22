@@ -2,7 +2,6 @@
   <div class="">
     <router-view></router-view>
     <Footer />
-    <Register />
   </div>
 </template>
 

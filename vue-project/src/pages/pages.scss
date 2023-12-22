@@ -1,22 +1,72 @@
 //---CSS for AUTH PAGE----//
 .authForm {
   width: 100%;
-  min-height: 100vh;
-  background-color: $color-primary;
-  padding-top: 8rem;
+  min-height: fit-content;
+  background-color: var(--primary);
 
-  &__main {
-    display: flex;
-    justify-content: flex-end;
-    height: 300px;
-    background: #000;
-    padding: 0 5rem;
+  & form {
+    padding: 4rem 0;
   }
 
-  &__a {
-    background-color: aliceblue;
-    width: 60%;
-    height: 300px;
-    padding-right: 0rem;
+  &__main {
+    max-width: 500px;
+    margin: 0 auto;
+    min-height: 300px;
+    background: var(--light);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: start;
+    padding: 1rem 3rem;
+
+    .span-group {
+      & span:first-child {
+        color: var(--dark-light);
+      }
+
+      & span:last-child {
+        & a {
+          text-decoration: none;
+          color: var(--primary-light);
+          font-weight: 600;
+
+          &:hover {
+            color: var(--primary);
+            transition: all 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  //---Screen for AUTH PAGE----//
+  .authForm {
+    &__main {
+      max-width: 450px;
+    }
+
+    &__content {
+      padding: 1rem 2rem;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  //---Screen for AUTH PAGE----//
+  .authForm {
+    &__main {
+      max-width: 400px;
+    }
+
+    &__content {
+      gap: 1rem;
+      padding: 1rem;
+    }
   }
 }
