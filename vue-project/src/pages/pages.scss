@@ -9,7 +9,7 @@
   }
 
   &__main {
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
     min-height: 300px;
     background: var(--light);
@@ -25,6 +25,8 @@
     padding: 1rem 3rem;
 
     .span-group {
+      margin-bottom: 1rem;
+
       & span:first-child {
         color: var(--dark-light);
       }
@@ -49,7 +51,7 @@
   //---Screen for AUTH PAGE----//
   .authForm {
     &__main {
-      max-width: 450px;
+      max-width: 500px;
     }
 
     &__content {
@@ -60,13 +62,27 @@
 @media screen and (max-width: 768px) {
   //---Screen for AUTH PAGE----//
   .authForm {
+    & form {
+      padding: 3rem 0;
+    }
+
     &__main {
-      max-width: 400px;
+      max-width: 700px;
     }
 
     &__content {
       gap: 1rem;
       padding: 1rem;
+
+      .span-group {
+        & span:first-child {
+          font-size: small;
+        }
+
+        & span:last-child {
+          font-size: medium;
+        }
+      }
     }
   }
 }
