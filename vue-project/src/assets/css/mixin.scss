@@ -1,0 +1,11 @@
+//Mixin for element a
+@mixin link-styles($text-color, $hover-color, $x) {
+  text-decoration: none;
+  color: $text-color;
+  font-weight: $x;
+
+  &:hover {
+    color: $hover-color;
+    transition: all 0.3s ease-in-out;
+  }
+}
