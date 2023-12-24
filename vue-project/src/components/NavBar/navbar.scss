@@ -1,4 +1,120 @@
 // CSS FOR MAIN NAVBAR
+.mainHeader {
+  background-color: var(--primary);
+  padding: 0.5rem 0;
+
+  &__navbar {
+    color: var(--third);
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    &-language {
+      display: flex;
+      align-items: center;
+      margin-right: 1rem;
+      cursor: pointer;
+
+      & span {
+        margin: 0 0.3rem;
+        display: block;
+        min-width: fit-content;
+      }
+
+      & svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      &:hover {
+        color: rgba(245, 245, 245, 0.7);
+        transition: all 0.2s ease-in-out;
+      }
+    }
+
+    &-register {
+      padding: 0 1rem;
+      border-right: 2px solid rgba(245, 245, 245, 0.5);
+      & a {
+        @include link-styles(var(--third), rgba(245, 245, 245, 0.7), 400);
+      }
+    }
+
+    &-login {
+      padding: 0 1rem;
+      & a {
+        @include link-styles(var(--third), rgba(245, 245, 245, 0.7), 400);
+      }
+    }
+  }
+
+  &__shopping {
+    padding: 2rem;
+    @include grid-template-styles(12, 0.5rem);
+
+    &-logo {
+      @include grid-col-styles(1, 2);
+
+      & svg {
+        height: 50px;
+        fill: var(--light);
+      }
+    }
+
+    &-search {
+      @include grid-col-styles(3, 9);
+
+      form {
+        .input-group {
+          display: flex;
+          border-radius: 0.125rem;
+          background-color: var(--light);
+          padding: 4px;
+
+          input {
+            flex-grow: 1;
+            border-style: none;
+            padding: 8px 12px;
+
+            &:focus {
+              outline: none;
+
+              @at-root .mainHeader__shopping-search:focus-within {
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+              }
+            }
+          }
+
+          button {
+            width: 6rem;
+            flex-shrink: 0;
+            border-radius: 0.125rem;
+            padding: 8px 24px;
+
+            svg {
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+
+    &-cart {
+      @include grid-col-styles(12, 1);
+      display: flex;
+      justify-content: start;
+      color: var(--light);
+      padding-left: 1rem;
+
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+}
 
 //---CSS FOR AUTH NAVBAR----//
 .authHeader {
@@ -32,7 +148,91 @@
   }
 }
 
+@media screen and (max-width: 1200px) {
+  .mainHeader {
+    &__shopping {
+      padding: 2rem;
+
+      &-logo {
+        & svg {
+          height: 38px;
+        }
+      }
+
+      &-search {
+        form {
+          .input-group {
+            input {
+              padding: 6px 10px;
+            }
+
+            button {
+              width: 4rem;
+              padding: 6px 20px;
+
+              svg {
+                width: 1.25rem;
+                height: 1.25rem;
+              }
+            }
+          }
+        }
+      }
+
+      &-cart {
+        padding-left: 1rem;
+
+        svg {
+          width: 1.75rem;
+          height: 1.75rem;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
+  .mainHeader {
+    &__shopping {
+      padding: 1rem;
+
+      &-logo {
+        & svg {
+          height: 30px;
+        }
+      }
+
+      &-search {
+        form {
+          .input-group {
+            input {
+              padding: 6px 8px;
+            }
+
+            button {
+              width: 3rem;
+              padding: 6px 16px;
+
+              svg {
+                width: 1.25rem;
+                height: 1.25rem;
+              }
+            }
+          }
+        }
+      }
+
+      &-cart {
+        padding-left: 1rem;
+
+        svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+    }
+  }
+
   //---SCREEN FOR AUTH NAVBAR----//
   .authHeader {
     &__content {
@@ -52,6 +252,35 @@
       font-weight: 600;
       margin-bottom: 0px;
       margin-right: 0px;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  //---SCREEN FOR MAIN NAVBAR----//
+  .mainHeader {
+    &__navbar {
+      &-language {
+        margin-right: 0.5rem;
+
+        & span {
+          margin: 0 0.5rem;
+        }
+      }
+
+      &-register,
+      &-login {
+        padding: 0 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  //---SCREEN FOR MAIN NAVBAR----//
+  .mainHeader {
+    &__navbar {
+      font-size: small;
     }
   }
 }

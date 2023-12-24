@@ -1,4 +1,4 @@
-//Mixin for element a
+//Mixin for ELEMENT LINK (a)
 @mixin link-styles($text-color, $hover-color, $x) {
   text-decoration: none;
   color: $text-color;
@@ -8,4 +8,17 @@
     color: $hover-color;
     transition: all 0.3s ease-in-out;
   }
+}
+
+//Mixin for GRID LAYOUT - columns
+@mixin grid-template-styles($x-col, $y) {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat($x-col, minmax(0, 1fr));
+  gap: $y;
+}
+
+@mixin grid-col-styles($x, $y) {
+  grid-column: $x / span $y;
 }
