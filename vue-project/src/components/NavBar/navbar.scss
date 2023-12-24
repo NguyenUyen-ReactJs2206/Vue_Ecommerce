@@ -88,9 +88,9 @@
 
           button {
             width: 6rem;
-            flex-shrink: 0;
             border-radius: 0.125rem;
             padding: 8px 24px;
+            flex-shrink: 0;
 
             svg {
               width: 1.5rem;
@@ -107,6 +107,7 @@
       justify-content: start;
       color: var(--light);
       padding-left: 1rem;
+      cursor: pointer;
 
       svg {
         width: 2rem;
@@ -148,6 +149,7 @@
   }
 }
 
+//---------RESPONSIVE-----------//
 @media screen and (max-width: 1200px) {
   .mainHeader {
     &__shopping {
@@ -273,6 +275,55 @@
         padding: 0 1rem;
       }
     }
+
+    &__shopping {
+      &-logo {
+        @include grid-col-styles(1, 8);
+
+        & svg {
+          height: 40px;
+        }
+      }
+
+      &-search {
+        @include grid-col-styles(9, 2);
+
+        form {
+          .input-group {
+            padding: 0;
+            background-color: var(--primary);
+            padding: 4px;
+            input {
+              display: none;
+            }
+
+            button {
+              width: 100%;
+              flex-shrink: 0;
+              border-radius: 0.125rem;
+              padding: 4px;
+              background-color: var(--light);
+              color: var(--primary);
+
+              svg {
+                width: 1.5rem;
+                height: 1.5rem;
+              }
+            }
+          }
+        }
+      }
+
+      &-cart {
+        @include grid-col-styles(11, 2);
+
+        padding-left: 0.5rem;
+        svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+    }
   }
 }
 
@@ -281,6 +332,22 @@
   .mainHeader {
     &__navbar {
       font-size: small;
+    }
+
+    &__shopping {
+      &-search {
+        form {
+          .input-group {
+            button {
+              padding: 2px;
+              svg {
+                width: 1.25rem;
+                height: 1.25rem;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
