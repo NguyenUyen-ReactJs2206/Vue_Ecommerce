@@ -1,8 +1,9 @@
-//-----CSS FOR COMPONENT PRODUCT LIST------//
+//-----CSS FOR PRODUCT LIST------//
 .productList {
   width: 100%;
   height: 100%;
-  padding: 1rem 0;
+  padding: 2rem 0;
+  background-color: var(--bg-grey);
 
   &__main {
     @include grid-template-styles(12, 0.5rem);
@@ -17,11 +18,102 @@
   }
 }
 
+//-----CSS FOR COMPONENT ASIDE FILTER-------//
+.asideFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__all-category {
+    & a {
+      display: flex;
+      align-items: center;
+
+      @include link-styles(var(--dark), var(--dark), 600);
+
+      svg {
+        margin-right: 0.5rem;
+        height: 1rem;
+        width: 0.75rem;
+      }
+    }
+
+    & ul {
+      list-style: none;
+
+      li {
+        padding: 3px 0;
+        margin: 4px 0;
+      }
+    }
+  }
+
+  &__search-filter {
+    & a {
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+
+      @include link-styles(var(--dark), var(--dark), 600);
+
+      svg {
+        margin-right: 0.5rem;
+        height: 1rem;
+        width: 0.75rem;
+        fill: currentColor;
+        stroke: currentColor;
+      }
+    }
+
+    form {
+      & .input-group {
+        display: flex;
+        align-items: center;
+
+        input {
+          width: 100%;
+          padding: 6px 4px;
+          margin: 0.5rem 0;
+        }
+
+        div {
+          margin: 0 6px;
+        }
+      }
+    }
+
+    button {
+      border-radius: 0;
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__rating-start {
+    div {
+      font-size: small;
+    }
+  }
+
+  &__line {
+    margin: 1rem 0;
+    height: 1px;
+    width: 100%;
+    background-color: var(--dark-light);
+  }
+
+  button {
+    border-radius: 0;
+    margin-top: 0.5rem;
+  }
+}
+
+//-----CSS FOR COMPONENT SORT PRODUCT LIST-------//
+
+//-----CSS FOR COMPONENT PRODUCT-------//
+
 @media screen and (max-width: 768px) {
   .productList {
-    width: 100%;
-    height: 100%;
-    padding: 0.5rem 0;
+    padding: 1rem 0;
 
     &__main {
       &-left {
