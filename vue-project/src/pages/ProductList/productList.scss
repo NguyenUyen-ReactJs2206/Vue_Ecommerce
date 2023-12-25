@@ -103,7 +103,28 @@
 
   button {
     border-radius: 0;
-    margin-top: 0.5rem;
+  }
+}
+
+//-----CSS FOR COMPONENT RATING START-------//
+.ratingStart {
+  list-style: none;
+
+  &__list {
+    margin: 6px 0;
+
+    &-item {
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      font-size: small;
+
+      svg {
+        margin-right: 4px;
+        height: 1rem;
+        width: 1rem;
+      }
+    }
   }
 }
 
