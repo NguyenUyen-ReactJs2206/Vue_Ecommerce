@@ -1,4 +1,3 @@
-//---CSS for AUTH PAGE----//
 .authForm {
   width: 100%;
   min-height: fit-content;
@@ -40,8 +39,8 @@
   }
 }
 
+//-------RESPONSIVE------//
 @media screen and (max-width: 1200px) {
-  //---Screen for AUTH PAGE----//
   .authForm {
     &__main {
       max-width: 500px;
@@ -52,8 +51,8 @@
     }
   }
 }
+
 @media screen and (max-width: 768px) {
-  //---Screen for AUTH PAGE----//
   .authForm {
     & form {
       padding: 3rem 0;

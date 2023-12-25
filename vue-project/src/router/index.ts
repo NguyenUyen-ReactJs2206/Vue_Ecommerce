@@ -1,12 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router';
-// import MainLayout from '../Layout/MainLayout/MainLayout.vue';
-import Register from '../pages/Register.vue';
-import Login from '../pages/Login.vue';
+import Register from '../pages/Auth/Register.vue';
+import Login from '../pages/Auth/Login.vue';
 import path from 'src/constants/path';
 import MainLayoutVue from '../Layout/MainLayout/MainLayout.vue';
+import ProductList from 'src/pages/ProductList/ProductList.vue';
 
 const routes = [
-  { name: 'main', path: `${path.home}`, component: MainLayoutVue },
+  {
+    path: `${path.home}`,
+    component: MainLayoutVue,
+    children: [
+      {
+        name: 'main',
+        path: '', // Child route path is empty to render inside the parent's <router-view>
+        component: ProductList
+      }
+    ]
+  },
   { name: 'login', path: `${path.login}`, component: Login },
   { name: 'register', path: `${path.register}`, component: Register }
 ];

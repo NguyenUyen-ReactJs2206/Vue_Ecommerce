@@ -1,4 +1,4 @@
-//Mixin for ELEMENT LINK (a)
+//------MIXIN for ELEMENT LINK (a)-------//
 @mixin link-styles($text-color, $hover-color, $x) {
   text-decoration: none;
   color: $text-color;
@@ -10,7 +10,7 @@
   }
 }
 
-//Mixin for GRID LAYOUT - columns
+//------MIXIN for GRID LAYOUT - columns--------//
 @mixin grid-template-styles($x-col, $y) {
   display: grid;
   justify-content: center;

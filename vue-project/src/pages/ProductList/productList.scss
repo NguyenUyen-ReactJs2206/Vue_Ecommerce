@@ -1,0 +1,36 @@
+//-----CSS FOR COMPONENT PRODUCT LIST------//
+.productList {
+  width: 100%;
+  height: 100%;
+  padding: 1rem 0;
+
+  &__main {
+    @include grid-template-styles(12, 0.5rem);
+
+    &-left {
+      @include grid-col-styles(1, 3);
+    }
+
+    &-right {
+      @include grid-col-styles(4, 9);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .productList {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem 0;
+
+    &__main {
+      &-left {
+        @include grid-col-styles(1, 1);
+      }
+
+      &-right {
+        @include grid-col-styles(2, 11);
+      }
+    }
+  }
+}

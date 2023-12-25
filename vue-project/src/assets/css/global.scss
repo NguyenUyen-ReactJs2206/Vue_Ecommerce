@@ -1,9 +1,10 @@
 @import './variable.scss';
 @import './mixin.scss';
 
-@import 'src/pages/pages.scss';
 @import 'src/components/Navbar/navbar.scss';
 @import 'src/components/Footer/footer.scss';
+@import '../../pages/Auth/auth.scss';
+@import '../../pages/ProductList/productList.scss';
 
 /* Global Style */
 :root {
