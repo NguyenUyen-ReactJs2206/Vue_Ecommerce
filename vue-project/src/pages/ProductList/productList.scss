@@ -1,5 +1,5 @@
 //-----CSS FOR PRODUCT LIST------//
-.productList {
+.product-list {
   width: 100%;
   height: 100%;
   padding: 2rem 0;
@@ -17,81 +17,64 @@
     }
   }
 }
-
 //-----CSS FOR COMPONENT ASIDE FILTER-------//
 .asideFilter {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 
-  &__all-category {
-    & a {
+  &__link {
+    @include link-styles(var(--dark), var(--dark), 600);
+
+    &--flex {
       display: flex;
       align-items: center;
-
-      @include link-styles(var(--dark), var(--dark), 600);
-
-      svg {
-        margin-right: 0.5rem;
-        height: 1rem;
-        width: 0.75rem;
-      }
     }
 
-    & ul {
-      list-style: none;
-
-      li {
-        padding: 3px 0;
-        margin: 4px 0;
-      }
-    }
-  }
-
-  &__search-filter {
-    & a {
-      display: flex;
-      align-items: center;
+    &--uppercase {
       text-transform: uppercase;
-
-      @include link-styles(var(--dark), var(--dark), 600);
-
-      svg {
-        margin-right: 0.5rem;
-        height: 1rem;
-        width: 0.75rem;
-        fill: currentColor;
-        stroke: currentColor;
-      }
-    }
-
-    form {
-      & .input-group {
-        display: flex;
-        align-items: center;
-
-        input {
-          width: 100%;
-          padding: 6px 4px;
-          margin: 0.5rem 0;
-        }
-
-        div {
-          margin: 0 6px;
-        }
-      }
-    }
-
-    button {
-      border-radius: 0;
-      margin-top: 0.5rem;
     }
   }
 
-  &__rating-start {
-    div {
-      font-size: small;
+  &__icon {
+    margin-right: 0.5rem;
+    height: 1rem;
+    width: 0.75rem;
+
+    &--current-color {
+      fill: currentColor;
+      stroke: currentColor;
     }
+  }
+
+  &__category {
+    &-list {
+      list-style: none;
+    }
+
+    &-item {
+      padding: 3px 0;
+      margin: 4px 0;
+    }
+  }
+
+  &__price-form-input {
+    display: flex;
+    align-items: center;
+  }
+
+  &__price-divider {
+    margin: 0 6px;
+  }
+
+  &__price-input {
+    width: 100%;
+    padding: 6px 4px;
+    margin: 0.5rem 0;
+  }
+
+  &__rating-title {
+    font-size: small;
   }
 
   &__line {
@@ -101,30 +84,40 @@
     background-color: var(--dark-light);
   }
 
-  button {
+  &__apply-button,
+  &__reset-button {
     border-radius: 0;
   }
 }
 
 //-----CSS FOR COMPONENT RATING START-------//
-.ratingStart {
+.rating-starts {
   list-style: none;
 
   &__list {
     margin: 6px 0;
+  }
 
-    &-item {
-      display: flex;
+  &__item {
+    &--pointer {
       cursor: pointer;
-      align-items: center;
-      font-size: small;
-
-      svg {
-        margin-right: 4px;
-        height: 1rem;
-        width: 1rem;
-      }
     }
+
+    &--flex {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__filled-star,
+  &__hollow-star {
+    margin-right: 4px;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  &__upvote {
+    font-size: small;
   }
 }
 
@@ -133,7 +126,7 @@
 //-----CSS FOR COMPONENT PRODUCT-------//
 
 @media screen and (max-width: 768px) {
-  .productList {
+  .product-list {
     padding: 1rem 0;
 
     &__main {

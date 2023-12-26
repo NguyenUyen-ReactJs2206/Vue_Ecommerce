@@ -4,13 +4,13 @@ import SortProductList from './components/SortProductList/SortProductList.vue';
 </script>
 
 <template>
-  <div class="productList">
+  <div class="product-list">
     <div class="container">
-      <div class="productList__main">
-        <div class="productList__main-left">
+      <div class="product-list__main">
+        <div class="product-list__main-left">
           <AsideFilter />
         </div>
-        <div class="productList__main-right">
+        <div class="product-list__main-right">
           <SortProductList />
         </div>
       </div>

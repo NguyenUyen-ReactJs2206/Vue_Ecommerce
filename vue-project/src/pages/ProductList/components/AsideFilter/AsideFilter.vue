@@ -1,8 +1,8 @@
 <template>
   <div class="asideFilter">
-    <div class="asideFilter__all-category">
-      <router-link :to="`${path.home}`">
-        <svg viewBox="0 0 12 10" className="mr-3 h-4 w-3 fill-current">
+    <div class="asideFilter__category">
+      <router-link :to="`${path.home}`" class="asideFilter__link asideFilter__link--flex">
+        <svg viewBox="0 0 12 10" class="asideFilter__icon">
           <g fillRule="evenodd" stroke="none" strokeWidth="1">
             <g transform="translate(-373 -208)">
               <g transform="translate(155 191)">
@@ -18,16 +18,22 @@
         Tất cả danh mục
       </router-link>
       <div className="asideFilter__line" />
-      <ul>
-        <li>Đồng hồ</li>
-        <li>Áo thun</li>
-        <li>Điện thoại</li>
+      <ul class="asideFilter__category-list">
+        <li class="asideFilter__category-item">Đồng hồ</li>
+        <li class="asideFilter__category-item">Áo thun</li>
+        <li class="asideFilter__category-item">Điện thoại</li>
       </ul>
     </div>
 
     <div class="asideFilter__search-filter">
-      <router-link :to="`${path.home}`">
-        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0">
+      <router-link :to="`${path.home}`" class="asideFilter__link asideFilter__link--flex asideFilter__link--uppercase">
+        <svg
+          class="asideFilter__icon asideFilter__icon--current-color"
+          enable-background="new 0 0 15 15"
+          viewBox="0 0 15 15"
+          x="0"
+          y="0"
+        >
           <g>
             <polyline
               fill="none"
@@ -41,27 +47,28 @@
         Bộ lọc tìm kiếm
       </router-link>
       <div className="asideFilter__line" />
-      <div>Khoản giá</div>
+      <div class="asideFilter__price-range">Khoản giá</div>
       <form action="">
-        <div class="input-group">
-          <input type="number" placeholder="₫ TỪ" />
-          <div>-</div>
-          <input type="number" placeholder="₫ ĐẾN" />
+        <div class="asideFilter__price-form-input">
+          <input type="number" placeholder="₫ TỪ" class="asideFilter__price-input" />
+          <div class="asideFilter__price-divider">-</div>
+          <input type="number" placeholder="₫ ĐẾN" class="asideFilter__price-input" />
         </div>
-        <button>Áp dụng</button>
+
+        <button class="asideFilter__apply-button">Áp dụng</button>
       </form>
     </div>
 
     <div className="asideFilter__line" />
 
     <div class="asideFilter__rating-start">
-      <div>Đánh giá</div>
+      <div class="asideFilter__rating-title">Đánh giá</div>
       <RatingStart />
     </div>
 
     <div className="asideFilter__line" />
 
-    <button>Xóa tất cả</button>
+    <button class="asideFilter__reset-button">Xóa tất cả</button>
   </div>
 </template>
 
