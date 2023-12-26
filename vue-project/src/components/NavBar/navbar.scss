@@ -1,35 +1,35 @@
 // CSS FOR MAIN NAVBAR
-.mainHeader {
+.main-header {
   background-color: var(--primary);
   padding: 0.5rem 0;
 
   &__navbar {
     color: var(--third);
 
-    display: flex;
-    justify-content: end;
-    align-items: center;
+    &--flex {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+    }
 
     &-language {
       display: flex;
       align-items: center;
+
       margin-right: 1rem;
       cursor: pointer;
 
-      & span {
+      &--title {
         margin: 0 0.3rem;
         display: block;
         min-width: fit-content;
       }
 
-      & svg {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-
-      &:hover {
-        color: rgba(245, 245, 245, 0.7);
-        transition: all 0.2s ease-in-out;
+      &--hover {
+        &:hover {
+          color: rgba(245, 245, 245, 0.7);
+          transition: all 0.2s ease-in-out;
+        }
       }
     }
 
@@ -49,76 +49,86 @@
     }
   }
 
+  &__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
   &__shopping {
     padding: 2rem;
     @include grid-template-styles(12, 0.5rem);
+  }
 
-    &-logo {
+  &__logo {
+    &-link {
       @include grid-col-styles(1, 2);
-
-      & svg {
-        height: 50px;
-        fill: var(--light);
-      }
     }
 
-    &-search {
-      @include grid-col-styles(3, 9);
+    &-icon {
+      display: flex;
+      justify-content: end;
 
-      form {
-        .input-group {
-          display: flex;
-          border-radius: 0.125rem;
-          background-color: var(--light);
-          padding: 4px;
+      width: 10rem;
+      fill: var(--light);
+    }
+  }
 
-          input {
-            flex-grow: 1;
-            border-style: none;
-            padding: 8px 12px;
+  &__form-search {
+    @include grid-col-styles(3, 9);
+  }
 
-            &:focus {
-              outline: none;
+  &__search-mobile {
+    display: none;
+  }
 
-              @at-root .mainHeader__shopping-search:focus-within {
-                box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-              }
-            }
-          }
+  &__input-group {
+    display: flex;
+    border-radius: 0.125rem;
+    background-color: var(--light);
+    padding: 4px;
+  }
 
-          button {
-            width: 6rem;
-            border-radius: 0.125rem;
-            padding: 8px 24px;
-            flex-shrink: 0;
+  &__input {
+    flex-grow: 1;
+    border-style: none;
+    padding: 8px 12px;
+    font-size: medium;
 
-            svg {
-              width: 1.5rem;
-              height: 1.5rem;
-            }
-          }
-        }
+    &:focus {
+      outline: none;
+
+      @at-root .main-header__form-search:focus-within {
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
       }
     }
+  }
 
-    &-cart {
-      @include grid-col-styles(12, 1);
+  &__button {
+    width: 5rem;
+    border-radius: 0.125rem;
+    padding: 8px 24px;
+    flex-shrink: 0;
+  }
+
+  &__cart {
+    @include grid-col-styles(12, 1);
+
+    &-link {
       display: flex;
       justify-content: start;
+      margin-left: 8px;
       color: var(--light);
-      padding-left: 1rem;
-      cursor: pointer;
+    }
 
-      svg {
-        width: 2rem;
-        height: 2rem;
-      }
+    &-icon {
+      width: 2rem;
+      height: 2rem;
     }
   }
 }
 
 //---CSS FOR AUTH NAVBAR----//
-.authHeader {
+.auth-header {
   width: 100%;
   background: white;
 
@@ -128,16 +138,16 @@
     padding: 10px 0px;
   }
 
-  &__logo {
+  &__link {
     padding: 0 30px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
 
-    &-svg {
-      height: 60px;
-      fill: var(--primary);
-    }
+  &__logo {
+    height: 60px;
+    fill: var(--primary);
   }
 
   &__title {
@@ -151,102 +161,60 @@
 
 //---------RESPONSIVE-----------//
 @media screen and (max-width: 1200px) {
-  .mainHeader {
+  .main-header {
     &__shopping {
-      padding: 2rem;
+      padding: 1.75rem 0;
+    }
 
-      &-logo {
-        & svg {
-          height: 38px;
-        }
+    &__logo {
+      &-icon {
+        width: 100%;
+        fill: var(--light);
       }
+    }
 
-      &-search {
-        form {
-          .input-group {
-            input {
-              padding: 6px 10px;
-            }
+    &__input {
+      padding: 6px 12px;
+    }
 
-            button {
-              width: 4rem;
-              padding: 6px 20px;
+    &__button {
+      width: 4.75rem;
+    }
 
-              svg {
-                width: 1.25rem;
-                height: 1.25rem;
-              }
-            }
-          }
-        }
-      }
-
-      &-cart {
-        padding-left: 1rem;
-
-        svg {
-          width: 1.75rem;
-          height: 1.75rem;
-        }
+    &__cart {
+      &-icon {
+        width: 1.75rem;
+        height: 1.75rem;
       }
     }
   }
 }
 
 @media screen and (max-width: 768px) {
-  .mainHeader {
-    &__shopping {
-      padding: 1rem;
+  //---SCREEN FOR MAIN NAVBAR----//
+  .main-header {
+    &__input-group {
+      padding: 2px;
+    }
 
-      &-logo {
-        & svg {
-          height: 30px;
-        }
-      }
-
-      &-search {
-        form {
-          .input-group {
-            input {
-              padding: 6px 8px;
-            }
-
-            button {
-              width: 3rem;
-              padding: 6px 16px;
-
-              svg {
-                width: 1.25rem;
-                height: 1.25rem;
-              }
-            }
-          }
-        }
-      }
-
-      &-cart {
-        padding-left: 1rem;
-
-        svg {
-          width: 1.5rem;
-          height: 1.5rem;
-        }
-      }
+    &__button {
+      width: 4.5rem;
     }
   }
-
   //---SCREEN FOR AUTH NAVBAR----//
-  .authHeader {
+  .auth-header {
     &__content {
       justify-content: center;
     }
-    &__logo {
+
+    &__link {
       padding: 0 20px;
       display: block;
-      &-svg {
-        height: 40px;
-        fill: var(--primary);
-      }
+    }
+
+    &__logo {
+      height: 40px;
+      fill: var(--primary);
     }
 
     &__title {
@@ -260,67 +228,87 @@
 
 @media screen and (max-width: 640px) {
   //---SCREEN FOR MAIN NAVBAR----//
-  .mainHeader {
+  .main-header {
     &__navbar {
+      font-size: small;
       &-language {
-        margin-right: 0.5rem;
+        margin-right: 0.3rem;
 
-        & span {
-          margin: 0 0.5rem;
+        &--title {
+          margin: 0 0.3rem;
         }
       }
 
-      &-register,
+      &-register {
+        padding: 0 0.5rem;
+      }
+
       &-login {
-        padding: 0 1rem;
+        padding: 0 0.5rem;
       }
     }
 
+    &__icon {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
     &__shopping {
-      &-logo {
-        @include grid-col-styles(1, 8);
+      padding: 1.5rem;
+    }
 
-        & svg {
-          height: 40px;
-        }
+    &__logo {
+      &-link {
+        @include grid-col-styles(1, 5);
       }
 
-      &-search {
-        @include grid-col-styles(9, 2);
-
-        form {
-          .input-group {
-            padding: 0;
-            background-color: var(--primary);
-            padding: 4px;
-            input {
-              display: none;
-            }
-
-            button {
-              width: 100%;
-              flex-shrink: 0;
-              border-radius: 0.125rem;
-              padding: 4px;
-              background-color: var(--light);
-              color: var(--primary);
-
-              svg {
-                width: 1.5rem;
-                height: 1.5rem;
-              }
-            }
-          }
-        }
+      &-icon {
+        max-width: 8rem;
+        fill: var(--light);
       }
+    }
 
-      &-cart {
-        @include grid-col-styles(11, 2);
+    &__form-search {
+      @include grid-col-styles(9, 2);
+    }
 
-        padding-left: 0.5rem;
+    &__input-group {
+      display: none;
+    }
+
+    &__search-mobile {
+      display: block;
+      color: var(--light);
+      cursor: pointer;
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+
+        width: 100%;
+
         svg {
-          width: 1.5rem;
-          height: 1.5rem;
+          max-width: 2rem;
+        }
+      }
+    }
+
+    &__cart {
+      @include grid-col-styles(11, 2);
+
+      &-link {
+        color: var(--light);
+      }
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: 100%;
+
+        svg {
+          max-width: 2rem;
         }
       }
     }
@@ -330,22 +318,35 @@
 @media screen and (max-width: 400px) {
   //---SCREEN FOR MAIN NAVBAR----//
   .mainHeader {
-    &__navbar {
-      font-size: small;
+    &__logo {
+      &-link {
+        @include grid-col-styles(1, 6);
+      }
+
+      &-icon {
+        width: 0rem;
+        width: 100%;
+      }
     }
 
-    &__shopping {
-      &-search {
-        form {
-          .input-group {
-            button {
-              padding: 2px;
-              svg {
-                width: 1.25rem;
-                height: 1.25rem;
-              }
-            }
-          }
+    &__form-search {
+      @include grid-col-styles(7, 3);
+    }
+
+    &__search-mobile {
+      &-icon {
+        svg {
+          width: 1.25rem;
+        }
+      }
+    }
+
+    &__cart {
+      @include grid-col-styles(10, 3);
+
+      &-icon {
+        svg {
+          width: 1.25rem;
         }
       }
     }
