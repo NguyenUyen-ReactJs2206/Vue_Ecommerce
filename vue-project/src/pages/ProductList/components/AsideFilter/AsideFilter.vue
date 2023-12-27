@@ -67,7 +67,6 @@
     </div>
 
     <div className="asideFilter__line" />
-
     <button class="asideFilter__reset-button">Xóa tất cả</button>
   </div>
 </template>
