@@ -135,7 +135,9 @@
   &__content {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     padding: 10px 0px;
+    gap: 4px;
   }
 
   &__link {
@@ -151,11 +153,16 @@
   }
 
   &__title {
-    min-width: 100px;
-    font-size: xx-large;
-    font-weight: 700;
-    margin-bottom: 10px;
-    margin-right: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      font-size: xx-large;
+      font-weight: 700;
+      margin-bottom: 10px;
+      margin-right: 0px;
+    }
   }
 }
 
@@ -218,10 +225,11 @@
     }
 
     &__title {
-      font-size: large;
-      font-weight: 600;
-      margin-bottom: 0px;
-      margin-right: 0px;
+      h1 {
+        font-size: x-large;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
     }
   }
 }
@@ -317,7 +325,7 @@
 
 @media screen and (max-width: 400px) {
   //---SCREEN FOR MAIN NAVBAR----//
-  .mainHeader {
+  .main-header {
     &__logo {
       &-link {
         @include grid-col-styles(1, 6);
@@ -348,6 +356,17 @@
         svg {
           width: 1.25rem;
         }
+      }
+    }
+  }
+
+  //---SCREEN FOR AUTH NAVBAR----//
+  .auth-header {
+    &__title {
+      h1 {
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 6px;
       }
     }
   }

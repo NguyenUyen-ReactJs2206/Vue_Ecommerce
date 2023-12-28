@@ -1,13 +1,11 @@
 <template>
   <Teleport to="body">
-    <div class="overlay" @click.self="$emit('closePopup')">
-      <Transition>
-        <div class="popup">
-          <div class="content">
-            <AsideFilter />
-          </div>
+    <div class="overlay" :class="{ fade: showPopupAsideFilterMobile }" @click.self="$emit('closePopup')">
+      <div class="popup">
+        <div class="content">
+          <AsideFilter />
         </div>
-      </Transition>
+      </div>
     </div>
   </Teleport>
 </template>
@@ -16,19 +14,11 @@
 import { Teleport } from 'vue';
 import AsideFilter from 'src/pages/ProductList/components/AsideFilter/AsideFilter.vue';
 
-// const { showPopupAsideFilterMobile } = defineProps(['showPopupAsideFilterMobile']);
+const { showPopupAsideFilterMobile } = defineProps(['showPopupAsideFilterMobile']);
 defineEmits(['closePopup']);
 </script>
 
 <style scoped lang="scss">
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 3s ease;
-}
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
 .overlay {
   position: absolute;
   inset: 0;
@@ -50,5 +40,15 @@ defineEmits(['closePopup']);
 
 .content {
   padding: 30px 10px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -11,9 +11,11 @@
             </g>
           </svg>
         </router-link>
-        <h1 class="authHeader__title">
-          {{ title }}
-        </h1>
+        <div class="auth-header__title">
+          <h1>
+            {{ title }}
+          </h1>
+        </div>
       </nav>
     </div>
   </header>

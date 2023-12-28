@@ -1,25 +1,16 @@
-<!-- <template>
-  <div class="ratingStart">
-
-
-    
-  </div>
-</template>
-
-<script setup></script> -->
 <template>
   <ul class="rating-stars">
-    <li v-for="(item, index) in Array(5).fill(0)" :key="index" class="rating-stars__list">
+    <li v-for="(_, index) in Array(5).fill(0)" :key="index" class="rating-stars__list">
       <div
         @click="handleFilterStar(5 - index)"
-        class="rating-stars__item--pointer rating-stars__item--flex"
+        class="rating-stars__item--pointer rating-stars__item--flex rating-stars__item"
         tabindex="0"
         role="button"
         aria-hidden="true"
       >
-        <template v-for="(star, indexStar) in Array(5).fill(0)" :key="indexStar">
+        <template v-for="(_, indexStar) in Array(5).fill(0)" :key="indexStar">
           <template v-if="indexStar < 5 - index">
-            <svg viewBox="0 0 9.5 8" class="rating-starts__filled-star">
+            <svg viewBox="0 0 9.5 8" class="rating-stars__filled-star">
               <defs>
                 <linearGradient id="ratingStarGradient" x1="50%" x2="50%" y1="0%" y2="100%">
                   <stop offset="0" stop-color="#ffca11"></stop>
@@ -46,7 +37,7 @@
             </svg>
           </template>
           <template v-else>
-            <svg viewBox="0 0 30 30" class="rating-starts__hollow-star">
+            <svg viewBox="0 0 30 30" class="rating-stars__hollow-star">
               <defs>
                 <linearGradient id="star__hollow" x1="50%" x2="50%" y1="0%" y2="99.0177926%">
                   <stop offset="0%" stop-color="#FFD211" />
@@ -70,9 +61,6 @@
 </template>
 
 <script setup lang="ts">
-// Import Vue's reactive function
-import { ref } from 'vue';
-
 // Define methods
 const handleFilterStar = (rating: number) => {
   console.log(`Filter stars for rating: ${rating}`);
