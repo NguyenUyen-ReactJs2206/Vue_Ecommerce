@@ -20,7 +20,39 @@
         </div>
         <div class="product-list__main-right">
           <SortProductList />
-          <div>aaaâ</div>
+
+          <div class="product-list__products">
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+            <div class="product-list__item">
+              <Product />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -32,6 +64,7 @@ import PopupAsideFilterMobile from 'src/components/PopupAsideFilterMobile/PopupA
 import AsideFilter from './components/AsideFilter/AsideFilter.vue';
 import SortProductList from './components/SortProductList/SortProductList.vue';
 import { ref, onMounted, onBeforeUnmount, watchEffect, Transition } from 'vue';
+import Product from './components/Product/Product.vue';
 </script>
 
 <style scoped lang="scss">

@@ -17,6 +17,16 @@
       @include grid-col-styles(4, 9);
     }
   }
+
+  &__products {
+    width: 100%;
+    padding: 2rem 0;
+    @include grid-template-styles(5, 0.5rem);
+  }
+
+  &__item {
+    @include grid-col-span(1);
+  }
 }
 
 //-----CSS FOR COMPONENT ASIDE FILTER-------//
@@ -135,7 +145,7 @@
   &__list {
     display: flex;
     align-items: center;
-
+    justify-content: center;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
@@ -215,9 +225,127 @@
 }
 
 //-----CSS FOR COMPONENT PRODUCT-------//
+.product {
+  text-decoration: none;
+  color: var(--dark);
+
+  &__container {
+    overflow: hidden;
+    border-radius: 0.125rem;
+    background-color: var(--light);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      transform: translateY(-0.04rem);
+    }
+  }
+
+  &__image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+  }
+
+  &__image {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+  }
+
+  &__info {
+    overflow: hidden;
+    padding: 0.5rem;
+  }
+
+  &__name {
+    min-height: 2rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  &__prices {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__price {
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgb(107 114 128);
+
+    &:first-child {
+      text-decoration-line: line-through;
+    }
+
+    &:last-child {
+      margin-left: 6px;
+      color: rgb(238 77 45);
+    }
+  }
+
+  &__currency {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  &__value {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  &__additional-info {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__sold-info {
+    margin-left: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  &__sold-text {
+    width: fit-content;
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+  }
+}
 
 //-------------RESPONSE---------------//
 
+@media screen and (max-width: 1200px) {
+  //-----CSS FOR PRODUCT LIST------//
+  .product-list {
+    &__products {
+      @include grid-template-styles(4, 0.5rem);
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  //-----CSS FOR PRODUCT LIST------//
+  .product-list {
+    &__products {
+      @include grid-template-styles(3, 0.5rem);
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   //-------PRODUCT LIST-------//
   .product-list {
@@ -232,10 +360,21 @@
         @include grid-col-styles(1, 12);
       }
     }
+
+    &__products {
+      @include grid-template-styles(3, 0.5rem);
+    }
   }
 }
 
 @media screen and (max-width: 640px) {
+  //-----CSS FOR PRODUCT LIST------//
+  .product-list {
+    &__products {
+      @include grid-template-styles(2, 0.5rem);
+    }
+  }
+
   //-----CSS FOR COMPONENT SORT PRODUCT LIST-------//
   .sort-product-list {
     display: flex;
@@ -255,6 +394,15 @@
     &__count-page {
       width: 100%;
       margin-top: 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  //-----CSS FOR PRODUCT LIST------//
+  .product-list {
+    &__products {
+      @include grid-template-styles(1, 0.5rem);
     }
   }
 }

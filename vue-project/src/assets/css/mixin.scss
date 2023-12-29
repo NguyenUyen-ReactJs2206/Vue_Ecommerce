@@ -19,8 +19,13 @@
   gap: $y;
 }
 
+//$x:bắt đầu từ vị trí thứ x  - $y:số cột
 @mixin grid-col-styles($x, $y) {
   grid-column: $x / span $y;
+}
+
+@mixin grid-col-span($x) {
+  grid-column: span $x / span 1;
 }
 
 //------MIXIN for BUTTON--------//

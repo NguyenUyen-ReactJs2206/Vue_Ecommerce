@@ -2,14 +2,22 @@
   <div class="sort-product-list">
     <div class="sort-product-list__list">
       <div class="sort-product-list__title">Sắp xếp theo</div>
-      <button class="sort-product-list__button">Phổ Biến</button>
-      <button class="sort-product-list__button">Mới Nhất</button>
-      <button class="sort-product-list__button">Bán Chạy</button>
-      <select class="sort-product-list__select">
-        <option class="sort-product-list__select-option">Giá</option>
-        <option class="sort-product-list__select-option">Giá: Thấp đến cao</option>
-        <option class="sort-product-list__select-option">Giá: Cao đến thấp</option>
-      </select>
+      <div>
+        <button class="sort-product-list__button">Phổ Biến</button>
+      </div>
+      <div>
+        <button class="sort-product-list__button">Mới Nhất</button>
+      </div>
+      <div>
+        <button class="sort-product-list__button">Bán Chạy</button>
+      </div>
+      <div>
+        <select class="sort-product-list__select">
+          <option class="sort-product-list__select-option">Giá</option>
+          <option class="sort-product-list__select-option">Giá: Thấp đến cao</option>
+          <option class="sort-product-list__select-option">Giá: Cao đến thấp</option>
+        </select>
+      </div>
     </div>
     <div class="sort-product-list__count-page">
       <div class="sort-product-list__page-indicator">
