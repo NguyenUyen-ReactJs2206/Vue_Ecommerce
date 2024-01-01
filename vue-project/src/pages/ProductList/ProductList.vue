@@ -49,9 +49,6 @@
             <div class="product-list__item">
               <Product />
             </div>
-            <div class="product-list__item">
-              <Product />
-            </div>
           </div>
         </div>
       </div>

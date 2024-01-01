@@ -4,8 +4,11 @@ import Login from '../pages/Auth/Login.vue';
 import path from 'src/constants/path';
 import MainLayoutVue from '../Layout/MainLayout/MainLayout.vue';
 import ProductList from 'src/pages/ProductList/ProductList.vue';
+import ProductDetail from 'src/pages/ProductDetail/ProductDetail.vue';
 
 const routes = [
+  { name: 'login', path: `${path.login}`, component: Login },
+  { name: 'register', path: `${path.register}`, component: Register },
   {
     path: `${path.home}`,
     component: MainLayoutVue,
@@ -17,8 +20,18 @@ const routes = [
       }
     ]
   },
-  { name: 'login', path: `${path.login}`, component: Login },
-  { name: 'register', path: `${path.register}`, component: Register }
+  {
+    // path: `${path.productDetail}`,
+    path: '/product-detail',
+    component: MainLayoutVue,
+    children: [
+      {
+        name: 'productDetail',
+        path: '',
+        component: ProductDetail
+      }
+    ]
+  }
 ];
 const router = createRouter({
   // 4. Provide the history implementation to use. We are using the hash history for simplicity here.

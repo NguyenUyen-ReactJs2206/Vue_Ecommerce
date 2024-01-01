@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/" class="product">
+  <router-link to="/product-detail" class="product">
     <div class="product__container">
       <div class="product__image-container">
         <img
