@@ -9,12 +9,7 @@
             <div class="authForm__content">
               <h1>Đăng Nhập</h1>
               <div class="input-wrap" :class="{ 'input-wrap--flex-column': emailError.status || emailSuccess.status }">
-                <input
-                  type="text"
-                  placeholder="Email"
-                  v-model="formLogin.email"
-                  :class="{ 'input-success': emailSuccess.status, 'input-error': emailError.status }"
-                />
+                <input type="text" placeholder="Email" v-model="formLogin.email" />
                 <p class="error-text" v-if="emailError.status">*{{ emailError.messageError }}</p>
                 <p class="success-text" v-else-if="emailSuccess.status">
                   {{ emailSuccess.messageSuccess }}
@@ -24,12 +19,7 @@
                 class="input-wrap"
                 :class="{ 'input-wrap--flex-column': passwordError.status || passwordSuccess.status }"
               >
-                <input
-                  type="password"
-                  placeholder="Password"
-                  v-model="formLogin.password"
-                  :class="{ 'input-success': passwordSuccess.status, 'input-error': passwordError.status }"
-                />
+                <input type="password" placeholder="Password" v-model="formLogin.password" />
                 <p class="error-text" v-if="passwordError.status">*{{ passwordError.messageError }}</p>
                 <p class="success-text" v-else-if="passwordSuccess.status">
                   {{ passwordSuccess.messageSuccess }}
@@ -167,7 +157,7 @@ const onSubmit = () => {
       success.value = { messageSuccess: '', status: false };
       return false;
     } else {
-      success.value = { messageSuccess: 'Look great!', status: true };
+      success.value = { messageSuccess: '', status: true };
       error.value = { messageError: '', status: false };
       return true;
     }
@@ -203,13 +193,6 @@ const onSubmit = () => {
   gap: 2px;
 }
 
-.input-success {
-  border: 1px solid var(--success);
-}
-
-.input-error {
-  border: 1px solid var(--error);
-}
 .error-text {
   color: var(--error);
   margin: 0;
