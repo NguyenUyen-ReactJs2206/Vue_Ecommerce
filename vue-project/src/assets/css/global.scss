@@ -5,6 +5,7 @@
 @import 'src/components/Footer/footer.scss';
 @import '../../pages/Auth/auth.scss';
 @import '../../pages/ProductList/productList.scss';
+@import '../../pages/ProductDetail/productDetail.scss';
 
 /* Global Style */
 :root {
@@ -18,7 +19,7 @@
   --dark-light: rgba(67, 67, 67, 0.7);
   --light: #ffffff;
   --error: #fa040c;
-
+  --success: #259875;
   --font: 'Nunito', sans-serif;
   --textSize: 16px;
   --shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.14);

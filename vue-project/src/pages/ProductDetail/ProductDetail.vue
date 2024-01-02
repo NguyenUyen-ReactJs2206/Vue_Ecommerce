@@ -1,5 +1,9 @@
 <template>
-  <h1>product detail</h1>
+  <div class="product-detail">
+    <div class="container">
+      <h1>Product Detail</h1>
+    </div>
+  </div>
 </template>
 
 <script setup></script>

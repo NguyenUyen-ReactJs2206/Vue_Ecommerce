@@ -19,7 +19,7 @@
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     justify-content: start;
     padding: 1rem 3rem;
 
@@ -36,6 +36,11 @@
         }
       }
     }
+  }
+
+  &__input-wrap {
+    display: flex;
+    flex-direction: column;
   }
 }
 
