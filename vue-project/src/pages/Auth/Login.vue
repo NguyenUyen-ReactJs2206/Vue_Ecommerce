@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import AuthNavBar from 'src/components/NavBar/AuthNavBar.vue';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 
 const formLogin = ref({
   email: '',
@@ -65,69 +65,135 @@ const passwordError = ref({ messageError: '', status: false });
 const emailSuccess = ref({ messageSuccess: '', status: false });
 const passwordSuccess = ref({ messageSuccess: '', status: false });
 
+// const onSubmit = () => {
+//   const emailRegex = /\S+@\S+\.\S+/;
+//   const passwordRegex = /^(?=.*[A-Z]).{6,15}$/;
+
+//   let isEmailValid = false;
+//   let isPasswordValid = false;
+
+//   if (formLogin.value.email === '') {
+//     emailError.value = {
+//       messageError: 'Please enter email',
+//       status: true
+//     };
+//     emailSuccess.value = {
+//       messageSuccess: '',
+//       status: false
+//     };
+//   } else if (!emailRegex.test(formLogin.value.email)) {
+//     emailError.value = {
+//       messageError: 'Invalid email format',
+//       status: true
+//     };
+//     emailSuccess.value = {
+//       messageSuccess: '',
+//       status: false
+//     };
+//   } else {
+//     emailSuccess.value = {
+//       messageSuccess: 'Look great!',
+//       status: true
+//     };
+//     emailError.value = {
+//       messageError: '',
+//       status: false
+//     };
+
+//     isEmailValid = true;
+//   }
+
+//   if (formLogin.value.password === '') {
+//     passwordError.value = {
+//       messageError: 'Please enter password',
+//       status: true
+//     };
+//     passwordSuccess.value = {
+//       messageSuccess: '',
+//       status: false
+//     };
+//   } else if (!passwordRegex.test(formLogin.value.password)) {
+//     passwordError.value = {
+//       messageError:
+//         'Please enter the correct password with at least 1 capital letter, minimum 6 characters, maximum 15 characters',
+//       status: true
+//     };
+//     passwordSuccess.value = {
+//       messageSuccess: '',
+//       status: false
+//     };
+//   } else {
+//     passwordSuccess.value = {
+//       messageSuccess: 'Look great!',
+//       status: true
+//     };
+//     passwordError.value = {
+//       messageError: '',
+//       status: false
+//     };
+
+//     isPasswordValid = true;
+//   }
+
+//   if (isEmailValid && isPasswordValid) {
+//     console.log(formLogin.value);
+//   }
+// };
+
 const onSubmit = () => {
   const emailRegex = /\S+@\S+\.\S+/;
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,15}$/;
+  const passwordRegex = /^(?=.*[A-Z]).{6,15}$/;
 
-  if (formLogin.value.email === '') {
-    emailError.value = {
-      messageError: 'Please enter email',
-      status: true
-    };
-    emailSuccess.value = {
-      messageSuccess: '',
-      status: false
-    };
-  } else if (!emailRegex.test(formLogin.value.email)) {
-    emailError.value = {
-      messageError: 'Invalid email format',
-      status: true
-    };
-    emailSuccess.value = {
-      messageSuccess: '',
-      status: false
-    };
-  } else {
-    emailSuccess.value = {
-      messageSuccess: 'Look great!',
-      status: true
-    };
-    emailError.value = {
-      messageError: '',
-      status: false
-    };
+  const validateField = (
+    fieldName: string,
+    value: string,
+    regex: RegExp,
+    error: Ref<{
+      messageError: string;
+      status: boolean;
+    }>,
+    success: Ref<{
+      messageSuccess: string;
+      status: boolean;
+    }>,
+    errorMessage: string
+  ) => {
+    if (value === '') {
+      error.value = { messageError: `Please enter ${fieldName}`, status: true };
+      success.value = { messageSuccess: '', status: false };
+      return false;
+    } else if (!regex.test(value)) {
+      error.value = { messageError: `${errorMessage}`, status: true };
+      success.value = { messageSuccess: '', status: false };
+      return false;
+    } else {
+      success.value = { messageSuccess: 'Look great!', status: true };
+      error.value = { messageError: '', status: false };
+      return true;
+    }
+  };
+
+  const isEmailValid = validateField(
+    'email',
+    formLogin.value.email,
+    emailRegex,
+    emailError,
+    emailSuccess,
+    'Invalid email format'
+  );
+
+  const isPasswordValid = validateField(
+    'password',
+    formLogin.value.password,
+    passwordRegex,
+    passwordError,
+    passwordSuccess,
+    'Please enter the correct password with at least 1 capital letter, minimum 6 characters, maximum 15 characters'
+  );
+
+  if (isEmailValid && isPasswordValid) {
+    console.log(formLogin.value);
   }
-
-  if (formLogin.value.password === '') {
-    passwordError.value = {
-      messageError: 'Please enter password',
-      status: true
-    };
-    passwordSuccess.value = {
-      messageSuccess: '',
-      status: false
-    };
-  } else if (!passwordRegex.test(formLogin.value.password)) {
-    passwordError.value = {
-      messageError: 'Invalid password format',
-      status: true
-    };
-    passwordSuccess.value = {
-      messageSuccess: '',
-      status: false
-    };
-  } else {
-    passwordSuccess.value = {
-      messageSuccess: 'Look great!',
-      status: true
-    };
-    passwordError.value = {
-      messageError: '',
-      status: false
-    };
-  }
-
-  console.log(formLogin.value);
 };
 </script>
 
