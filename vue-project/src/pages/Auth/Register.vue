@@ -52,7 +52,9 @@
 
 <script setup lang="ts">
 import AuthNavBar from 'src/components/NavBar/AuthNavBar.vue';
-import { Ref, ref } from 'vue';
+import { ref } from 'vue';
+import { validateField } from 'src/utils/rules.ts';
+import { useUserStore } from 'src/stores/user.store';
 
 const formRegister = ref({
   email: '',
@@ -68,38 +70,11 @@ const emailSuccess = ref({ messageSuccess: '', status: false });
 const passwordSuccess = ref({ messageSuccess: '', status: false });
 const confirmPasswordSuccess = ref({ messageSuccess: '', status: false });
 
-const onSubmit = () => {
+const userStore = useUserStore();
+
+const onSubmit = async () => {
   const emailRegex = /\S+@\S+\.\S+/;
   const passwordRegex = /^(?=.*[A-Z]).{6,15}$/;
-
-  const validateField = (
-    fieldName: string,
-    value: string,
-    regex: RegExp,
-    error: Ref<{
-      messageError: string;
-      status: boolean;
-    }>,
-    success: Ref<{
-      messageSuccess: string;
-      status: boolean;
-    }>,
-    errorMessage: string
-  ) => {
-    if (value === '') {
-      error.value = { messageError: `Please enter ${fieldName}`, status: true };
-      success.value = { messageSuccess: '', status: false };
-      return false;
-    } else if (!regex.test(value)) {
-      error.value = { messageError: `${errorMessage}`, status: true };
-      success.value = { messageSuccess: '', status: false };
-      return false;
-    } else {
-      success.value = { messageSuccess: '', status: true };
-      error.value = { messageError: '', status: false };
-      return true;
-    }
-  };
 
   const isEmailValid = validateField(
     'email',
@@ -143,6 +118,13 @@ const onSubmit = () => {
 
   if (isEmailValid && isPasswordValid && isPasswordMatched) {
     console.log(formRegister.value);
+    try {
+      // Gọi action để đăng ký người dùng
+      const response = await userStore.registerUser(formRegister.value);
+      console.log(response, 'rrrrrrrrrrr');
+    } catch (error) {
+      console.log(error, 'eeeeeeee');
+    }
   }
 };
 </script>
