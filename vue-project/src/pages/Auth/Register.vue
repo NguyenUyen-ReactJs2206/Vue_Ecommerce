@@ -29,7 +29,7 @@
                 class="input-wrap"
                 :class="{ 'input-wrap--flex-column': confirmPasswordError.status || confirmPasswordSuccess.status }"
               >
-                <input type="password" placeholder="Confirm Password" v-model="formRegister.confirmPassword" />
+                <input type="password" placeholder="Confirm Password" v-model="formRegister.confirm_password" />
                 <p class="error-text" v-if="confirmPasswordError.status">*{{ confirmPasswordError.messageError }}</p>
                 <p class="success-text" v-else-if="confirmPasswordSuccess.status">
                   {{ confirmPasswordSuccess.messageSuccess }}
@@ -59,9 +59,12 @@ import { useUserStore } from 'src/stores/user.store';
 const formRegister = ref({
   email: '',
   password: '',
-  confirmPassword: ''
+  confirm_password: ''
 });
 
+const userStore = useUserStore();
+
+//Validate Message for Email and Password
 const emailError = ref({ messageError: '', status: false });
 const passwordError = ref({ messageError: '', status: false });
 const confirmPasswordError = ref({ messageError: '', status: false });
@@ -70,8 +73,7 @@ const emailSuccess = ref({ messageSuccess: '', status: false });
 const passwordSuccess = ref({ messageSuccess: '', status: false });
 const confirmPasswordSuccess = ref({ messageSuccess: '', status: false });
 
-const userStore = useUserStore();
-
+//Event Submit Form
 const onSubmit = async () => {
   const emailRegex = /\S+@\S+\.\S+/;
   const passwordRegex = /^(?=.*[A-Z]).{6,15}$/;
@@ -94,7 +96,8 @@ const onSubmit = async () => {
     'Please enter the correct password with at least 1 capital letter, minimum 6 characters, maximum 15 characters'
   );
 
-  const isPasswordMatched = formRegister.value.password === formRegister.value.confirmPassword;
+  //Check Confirm_Password
+  const isPasswordMatched = formRegister.value.password === formRegister.value.confirm_password;
 
   if (!isPasswordMatched) {
     confirmPasswordError.value = {
@@ -116,10 +119,11 @@ const onSubmit = async () => {
     };
   }
 
+  //Post FormData to the Server
   if (isEmailValid && isPasswordValid && isPasswordMatched) {
     console.log(formRegister.value);
     try {
-      // Gọi action để đăng ký người dùng
+      // Call the action to register the user
       const response = await userStore.registerUser(formRegister.value);
       console.log(response, 'rrrrrrrrrrr');
     } catch (error) {

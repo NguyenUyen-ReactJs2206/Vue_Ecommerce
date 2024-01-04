@@ -42,12 +42,16 @@
 
 <script setup lang="ts">
 import AuthNavBar from 'src/components/NavBar/AuthNavBar.vue';
-import { Ref, ref } from 'vue';
+import { validateField } from 'src/utils/rules';
+import { ref } from 'vue';
+import { useUserStore } from 'src/stores/user.store';
 
 const formLogin = ref({
   email: '',
   password: ''
 });
+
+const userStore = useUserStore();
 
 const emailError = ref({ messageError: '', status: false });
 const passwordError = ref({ messageError: '', status: false });
@@ -55,6 +59,7 @@ const passwordError = ref({ messageError: '', status: false });
 const emailSuccess = ref({ messageSuccess: '', status: false });
 const passwordSuccess = ref({ messageSuccess: '', status: false });
 
+//Validate Way 1
 // const onSubmit = () => {
 //   const emailRegex = /\S+@\S+\.\S+/;
 //   const passwordRegex = /^(?=.*[A-Z]).{6,15}$/;
@@ -130,38 +135,9 @@ const passwordSuccess = ref({ messageSuccess: '', status: false });
 //   }
 // };
 
-const onSubmit = () => {
+const onSubmit = async () => {
   const emailRegex = /\S+@\S+\.\S+/;
   const passwordRegex = /^(?=.*[A-Z]).{6,15}$/;
-
-  const validateField = (
-    fieldName: string,
-    value: string,
-    regex: RegExp,
-    error: Ref<{
-      messageError: string;
-      status: boolean;
-    }>,
-    success: Ref<{
-      messageSuccess: string;
-      status: boolean;
-    }>,
-    errorMessage: string
-  ) => {
-    if (value === '') {
-      error.value = { messageError: `Please enter ${fieldName}`, status: true };
-      success.value = { messageSuccess: '', status: false };
-      return false;
-    } else if (!regex.test(value)) {
-      error.value = { messageError: `${errorMessage}`, status: true };
-      success.value = { messageSuccess: '', status: false };
-      return false;
-    } else {
-      success.value = { messageSuccess: '', status: true };
-      error.value = { messageError: '', status: false };
-      return true;
-    }
-  };
 
   const isEmailValid = validateField(
     'email',
@@ -183,6 +159,13 @@ const onSubmit = () => {
 
   if (isEmailValid && isPasswordValid) {
     console.log(formLogin.value);
+    try {
+      // Call the action to register the user
+      const response = await userStore.loginUser(formLogin.value);
+      console.log(response, 'rrrrrrrrrrr');
+    } catch (error) {
+      console.log(error, 'eeeeeeee');
+    }
   }
 };
 </script>
