@@ -55,6 +55,8 @@ import AuthNavBar from 'src/components/NavBar/AuthNavBar.vue';
 import { ref } from 'vue';
 import { validateField } from 'src/utils/rules.ts';
 import { useUserStore } from 'src/stores/user.store';
+import { isAxiosUnprocessableEntityError } from 'src/utils/utils.ts';
+import { ErrorResponseApi } from 'src/types/utils.type';
 
 const formRegister = ref({
   email: '',
@@ -127,7 +129,11 @@ const onSubmit = async () => {
       const response = await userStore.registerUser(formRegister.value);
       console.log(response, 'rrrrrrrrrrr');
     } catch (error) {
-      console.log(error, 'eeeeeeee');
+      console.log(error, 'eeeeeeee1111');
+
+      if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormData>>(error)) {
+        console.log(error, 'errrrrrrrrrr');
+      }
     }
   }
 };

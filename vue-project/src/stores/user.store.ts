@@ -22,6 +22,7 @@ export const useUserStore = defineStore('user', {
         return response;
       } catch (error) {
         console.log(error, 'errrrrrr');
+        throw error;
       }
     },
     async loginUser(formData: Omit<FormDataUser, 'confirm_password'>) {
@@ -37,6 +38,7 @@ export const useUserStore = defineStore('user', {
         return response;
       } catch (error) {
         console.log(error, 'errrrrrr');
+        throw error;
       }
     }
   }
