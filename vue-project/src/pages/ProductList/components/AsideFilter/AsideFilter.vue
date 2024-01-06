@@ -55,7 +55,7 @@
           <input type="number" placeholder="₫ ĐẾN" class="asideFilter__price-input" />
         </div>
 
-        <button class="asideFilter__apply-button">Áp dụng</button>
+        <button class="button asideFilter__apply-button">Áp dụng</button>
       </form>
     </div>
 
@@ -67,7 +67,7 @@
     </div>
 
     <div className="asideFilter__line" />
-    <button class="asideFilter__reset-button">Xóa tất cả</button>
+    <button class="button asideFilter__reset-button">Xóa tất cả</button>
   </div>
 </template>
 

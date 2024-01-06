@@ -25,7 +25,7 @@
                   {{ passwordSuccess.messageSuccess }}
                 </p>
               </div>
-              <button>Đăng Nhập</button>
+              <button class="button">Đăng Nhập</button>
               <div class="span-group">
                 <span>Bạn chưa có tài khoản? </span>
                 <span>

@@ -35,7 +35,7 @@
                   {{ confirmPasswordSuccess.messageSuccess }}
                 </p>
               </div>
-              <button>Đăng Ký</button>
+              <button class="button">Đăng Ký</button>
               <div class="span-group">
                 <span>Bạn chưa có tài khoản? </span>
                 <span>

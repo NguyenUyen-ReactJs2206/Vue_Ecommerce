@@ -53,7 +53,7 @@
           <form action="">
             <div className="main-header__input-group">
               <input type="text" placeholder="Free Ship Đơn từ 0Đ" className="main-header__input" />
-              <button className="main-header__button">
+              <button className="button main-header__button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
