@@ -15,7 +15,7 @@ export const validateField = (
   errorMessage: string
 ) => {
   if (value === '') {
-    error.value = { messageError: `Please enter ${fieldName}`, status: true };
+    error.value = { messageError: `Vui lòng nhập ${fieldName}`, status: true };
     success.value = { messageSuccess: '', status: false };
     return false;
   } else if (!regex.test(value)) {

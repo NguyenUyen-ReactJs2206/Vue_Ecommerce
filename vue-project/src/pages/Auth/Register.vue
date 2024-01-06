@@ -57,6 +57,7 @@ import { validateField } from 'src/utils/rules.ts';
 import { useUserStore } from 'src/stores/user.store';
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils.ts';
 import { ErrorResponseApi } from 'src/types/utils.type';
+import { FormDataUser } from 'src/types/auth.type';
 
 const formRegister = ref({
   email: '',
@@ -86,7 +87,7 @@ const onSubmit = async () => {
     emailRegex,
     emailError,
     emailSuccess,
-    'Invalid email format'
+    'Email không đúng định dạng'
   );
 
   const isPasswordValid = validateField(
@@ -95,7 +96,7 @@ const onSubmit = async () => {
     passwordRegex,
     passwordError,
     passwordSuccess,
-    'Please enter the correct password with at least 1 capital letter, minimum 6 characters, maximum 15 characters'
+    'Vui lòng nhập đúng mật khẩu có ít nhất 1 chữ in hoa, tối thiểu 6 ký tự, tối đa 15 ký tự'
   );
 
   //Check Confirm_Password
@@ -103,7 +104,7 @@ const onSubmit = async () => {
 
   if (!isPasswordMatched) {
     confirmPasswordError.value = {
-      messageError: 'Password and Confirm Password do not match',
+      messageError: 'Password và confirm password không khớp',
       status: true
     };
     confirmPasswordSuccess.value = {
@@ -131,8 +132,22 @@ const onSubmit = async () => {
     } catch (error) {
       console.log(error, 'eeeeeeee1111');
 
-      if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormData>>(error)) {
+      if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormDataUser>>(error)) {
         console.log(error, 'errrrrrrrrrr');
+        const formError = error.response?.data.data;
+
+        if (formError?.email) {
+          emailError.value = {
+            messageError: formError.email,
+            status: true
+          };
+        }
+        if (formError?.password) {
+          passwordError.value = {
+            messageError: formError.password,
+            status: true
+          };
+        }
       }
     }
   }

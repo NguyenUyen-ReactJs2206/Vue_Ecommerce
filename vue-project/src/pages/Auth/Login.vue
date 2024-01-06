@@ -45,6 +45,9 @@ import AuthNavBar from 'src/components/NavBar/AuthNavBar.vue';
 import { validateField } from 'src/utils/rules';
 import { ref } from 'vue';
 import { useUserStore } from 'src/stores/user.store';
+import { isAxiosUnprocessableEntityError } from 'src/utils/utils';
+import { ErrorResponseApi } from 'src/types/utils.type';
+import { FormDataUser } from 'src/types/auth.type';
 
 const formLogin = ref({
   email: '',
@@ -145,7 +148,7 @@ const onSubmit = async () => {
     emailRegex,
     emailError,
     emailSuccess,
-    'Invalid email format'
+    'Email không đúng định dạng'
   );
 
   const isPasswordValid = validateField(
@@ -154,7 +157,7 @@ const onSubmit = async () => {
     passwordRegex,
     passwordError,
     passwordSuccess,
-    'Please enter the correct password with at least 1 capital letter, minimum 6 characters, maximum 15 characters'
+    'Password không đúng'
   );
 
   if (isEmailValid && isPasswordValid) {
@@ -165,6 +168,23 @@ const onSubmit = async () => {
       console.log(response, 'rrrrrrrrrrr');
     } catch (error) {
       console.log(error, 'eeeeeeee');
+      if (isAxiosUnprocessableEntityError<ErrorResponseApi<Omit<FormDataUser, 'confirm_password'>>>(error)) {
+        console.log(error, 'errrrrrrrrrr');
+        const formError = error.response?.data.data;
+
+        if (formError?.email) {
+          emailError.value = {
+            messageError: formError.email,
+            status: true
+          };
+        }
+        if (formError?.password) {
+          passwordError.value = {
+            messageError: formError.password,
+            status: true
+          };
+        }
+      }
     }
   }
 };
