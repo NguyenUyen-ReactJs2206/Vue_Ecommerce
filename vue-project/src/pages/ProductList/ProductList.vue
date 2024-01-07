@@ -17,6 +17,7 @@
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button> -->
+          <button @click="showPopup">click</button>
         </div>
         <div class="product-list__main-right">
           <SortProductList />
@@ -53,6 +54,8 @@
         </div>
       </div>
     </div>
+
+    <PopupAsideFilterMobile :showPopupAsideFilterMobile="showPopupAsideFilterMobile" />
   </div>
 </template>
 
@@ -62,6 +65,12 @@ import AsideFilter from './components/AsideFilter/AsideFilter.vue';
 import SortProductList from './components/SortProductList/SortProductList.vue';
 import { ref, onMounted, onBeforeUnmount, watchEffect, Transition } from 'vue';
 import Product from './components/Product/Product.vue';
+
+const showPopupAsideFilterMobile = ref(false);
+
+const showPopup = () => {
+  showPopupAsideFilterMobile.value = !showPopupAsideFilterMobile.value;
+};
 </script>
 
 <style scoped lang="scss">

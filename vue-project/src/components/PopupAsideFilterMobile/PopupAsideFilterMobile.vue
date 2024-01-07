@@ -1,12 +1,19 @@
 <template>
   <Teleport to="body">
-    <div class="overlay" :class="{ fade: showPopupAsideFilterMobile }" @click.self="$emit('closePopup')">
-      <div class="popup">
-        <div class="content">
-          <AsideFilter />
+    <transition name="fade">
+      <div
+        class="overlay"
+        v-if="showPopupAsideFilterMobile"
+        :class="{ fade: showPopupAsideFilterMobile }"
+        @click.self="$emit('closePopup')"
+      >
+        <div class="popup">
+          <div class="content">
+            <AsideFilter />
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </Teleport>
 </template>
 
