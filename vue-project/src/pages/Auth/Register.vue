@@ -58,6 +58,7 @@ import { useUserStore } from 'src/stores/user.store';
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils.ts';
 import { ErrorResponseApi } from 'src/types/utils.type';
 import { FormDataUser } from 'src/types/auth.type';
+import { useRouter } from 'vue-router';
 
 const formRegister = ref({
   email: '',
@@ -65,6 +66,7 @@ const formRegister = ref({
   confirm_password: ''
 });
 
+const router = useRouter();
 const userStore = useUserStore();
 
 //Validate Message for Email and Password
@@ -128,12 +130,15 @@ const onSubmit = async () => {
     try {
       // Call the action to register the user
       const response = await userStore.registerUser(formRegister.value);
-      console.log(response, 'rrrrrrrrrrr');
-    } catch (error) {
-      console.log(error, 'eeeeeeee1111');
+      //save token
+      userStore.token = response.data.data.access_token;
 
+      router.push({
+        name: 'login',
+        query: { email: formRegister.value.email, password: formRegister.value.password }
+      });
+    } catch (error) {
       if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormDataUser>>(error)) {
-        console.log(error, 'errrrrrrrrrr');
         const formError = error.response?.data.data;
 
         if (formError?.email) {

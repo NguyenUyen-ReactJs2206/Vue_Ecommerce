@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import AuthNavBar from 'src/components/NavBar/AuthNavBar.vue';
 import { validateField } from 'src/utils/rules';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useUserStore } from 'src/stores/user.store';
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils';
 import { ErrorResponseApi } from 'src/types/utils.type';
@@ -54,8 +54,10 @@ const formLogin = ref({
   password: ''
 });
 
-const userStore = useUserStore();
+const autoFill = ref(false);
 
+const userStore = useUserStore();
+console.log(userStore.token, 'ttttttttttttt');
 const emailError = ref({ messageError: '', status: false });
 const passwordError = ref({ messageError: '', status: false });
 
@@ -165,11 +167,10 @@ const onSubmit = async () => {
     try {
       // Call the action to register the user
       const response = await userStore.loginUser(formLogin.value);
-      console.log(response, 'rrrrrrrrrrr');
+      //save token
+      userStore.token = response.data.data.access_token;
     } catch (error) {
-      console.log(error, 'eeeeeeee');
       if (isAxiosUnprocessableEntityError<ErrorResponseApi<Omit<FormDataUser, 'confirm_password'>>>(error)) {
-        console.log(error, 'errrrrrrrrrr');
         const formError = error.response?.data.data;
 
         if (formError?.email) {
@@ -188,6 +189,18 @@ const onSubmit = async () => {
     }
   }
 };
+
+// Kiểm tra xem có thông tin người dùng để tự động điền form không
+onMounted(() => {
+  if (userStore.user) {
+    autoFill.value = true;
+
+    formLogin.value = {
+      email: userStore.user.email,
+      password: ''
+    };
+  }
+});
 </script>
 
 <style scoped>
