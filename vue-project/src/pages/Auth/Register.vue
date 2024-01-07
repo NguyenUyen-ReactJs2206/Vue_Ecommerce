@@ -134,8 +134,7 @@ const onSubmit = async () => {
       userStore.token = response.data.data.access_token;
 
       router.push({
-        name: 'login',
-        query: { email: formRegister.value.email, password: formRegister.value.password }
+        name: 'login'
       });
     } catch (error) {
       if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormDataUser>>(error)) {

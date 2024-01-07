@@ -29,11 +29,21 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
           </svg>
         </div>
-        <div class="main-header__navbar-register">
+        <div v-if="!isAuthenticated" class="main-header__navbar-register">
           <router-link :to="{ name: 'register' }">Đăng Ký</router-link>
         </div>
-        <div class="main-header__navbar-login">
+        <div v-if="!isAuthenticated" class="main-header__navbar-login">
           <router-link :to="{ name: 'login' }">Đăng Nhập</router-link>
+        </div>
+
+        <div v-if="isAuthenticated" class="main-header__navbar-profile">
+          <div class="main-header__navbar-avatar">
+            <img
+              src="https://hips.hearstapps.com/digitalspyuk.cdnds.net/17/05/1486135181-avatar.jpg?crop=0.564xw:1.00xh;0.436xw,0&resize=1200:*"
+              alt="avatar"
+            />
+          </div>
+          <div class="main-header__name">Uyen</div>
         </div>
       </div>
       <div class="main-header__shopping">
@@ -107,4 +117,8 @@
   </header>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from 'src/stores/user.store';
+
+const { isAuthenticated } = useUserStore();
+</script>

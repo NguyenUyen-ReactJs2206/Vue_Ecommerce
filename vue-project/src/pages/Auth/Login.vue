@@ -48,12 +48,13 @@ import { useUserStore } from 'src/stores/user.store';
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils';
 import { ErrorResponseApi } from 'src/types/utils.type';
 import { FormDataUser } from 'src/types/auth.type';
+import { useRouter } from 'vue-router';
 
 const formLogin = ref({
   email: '',
   password: ''
 });
-
+const router = useRouter();
 const autoFill = ref(false);
 
 const userStore = useUserStore();
@@ -169,6 +170,10 @@ const onSubmit = async () => {
       const response = await userStore.loginUser(formLogin.value);
       //save token
       userStore.token = response.data.data.access_token;
+
+      router.push({
+        name: 'main'
+      });
     } catch (error) {
       if (isAxiosUnprocessableEntityError<ErrorResponseApi<Omit<FormDataUser, 'confirm_password'>>>(error)) {
         const formError = error.response?.data.data;
