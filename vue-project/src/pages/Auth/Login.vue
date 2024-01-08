@@ -168,9 +168,12 @@ const onSubmit = async () => {
     try {
       // Call the action to register the user
       const response = await userStore.loginUser(formLogin.value);
+
       //save token
       userStore.token = response.data.data.access_token;
+      userStore.setIsAuthenticated(true);
 
+      //navigate
       router.push({
         name: 'main'
       });
