@@ -25,7 +25,7 @@
                   {{ passwordSuccess.messageSuccess }}
                 </p>
               </div>
-              <button class="button">Đăng Nhập</button>
+              <ButtonAuth title="Đăng Nhập" />
               <div class="span-group">
                 <span>Bạn chưa có tài khoản? </span>
                 <span>
@@ -42,6 +42,7 @@
 
 <script setup lang="ts">
 import AuthNavBar from 'src/components/NavBar/AuthNavBar.vue';
+import ButtonAuth from 'src/components/ButtonAuth/ButtonAuth.vue';
 import { validateField } from 'src/utils/rules';
 import { onMounted, ref } from 'vue';
 import { useUserStore } from 'src/stores/user.store';
@@ -166,6 +167,7 @@ const onSubmit = async () => {
   if (isEmailValid && isPasswordValid) {
     console.log(formLogin.value);
     try {
+      userStore.setIsLoading(true);
       // Call the action to register the user
       const response = await userStore.loginUser(formLogin.value);
 
@@ -176,6 +178,7 @@ const onSubmit = async () => {
       //save profile
       userStore.setProfile(response.data.data.user);
 
+      userStore.setIsLoading(false);
       //navigate
       router.push({
         name: 'main'

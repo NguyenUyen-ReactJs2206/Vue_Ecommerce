@@ -35,7 +35,7 @@
                   {{ confirmPasswordSuccess.messageSuccess }}
                 </p>
               </div>
-              <button class="button">Đăng Ký</button>
+              <ButtonAuth title="Đăng Ký" />
               <div class="span-group">
                 <span>Bạn chưa có tài khoản? </span>
                 <span>
@@ -52,6 +52,7 @@
 
 <script setup lang="ts">
 import AuthNavBar from 'src/components/NavBar/AuthNavBar.vue';
+import ButtonAuth from 'src/components/ButtonAuth/ButtonAuth.vue';
 import { ref } from 'vue';
 import { validateField } from 'src/utils/rules.ts';
 import { useUserStore } from 'src/stores/user.store';

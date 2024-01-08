@@ -62,6 +62,9 @@ export const useUserStore = defineStore('user', {
     },
     setProfile(value: User | null): void {
       this.profile = value;
+    },
+    setIsLoading(value: boolean): void {
+      this.isLoading = value;
     }
   }
 });
