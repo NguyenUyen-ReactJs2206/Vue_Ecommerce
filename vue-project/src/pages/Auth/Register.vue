@@ -135,6 +135,9 @@ const onSubmit = async () => {
       userStore.token = response.data.data.access_token;
       userStore.setIsAuthenticated(true);
 
+      //save profile
+      userStore.setProfile(response.data.data.user);
+
       //navigate
       router.push({
         name: 'login'

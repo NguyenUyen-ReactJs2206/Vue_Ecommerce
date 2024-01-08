@@ -2,12 +2,12 @@ import { defineStore } from 'pinia';
 import { loginAccount, registerAccount } from 'src/apis/auth.api';
 import { AuthResponse, FormDataUser } from 'src/types/auth.type';
 import { User } from 'src/types/user.type';
-import { getAccessTokenFromLS, saveAccessTokenToLS } from 'src/utils/auth';
+import { getAccessTokenFromLS, getProfileFromLocalStorage, saveAccessTokenToLS, saveProfileToLS } from 'src/utils/auth';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     userData: null as AuthResponse | null,
-    user: null as User | null,
+    profile: getProfileFromLocalStorage(),
     token: null as string | null,
     isLoading: false,
     isAuthenticated: Boolean(getAccessTokenFromLS())
@@ -23,10 +23,11 @@ export const useUserStore = defineStore('user', {
         //Save user information to the store
         this.userData = response.data;
 
-        this.user = response.data.data.user;
+        this.profile = response.data.data.user;
         this.token = response.data.data.access_token;
 
-        saveAccessTokenToLS(response.data.data.access_token);
+        saveAccessTokenToLS(this.token);
+        saveProfileToLS(this.profile);
 
         this.isLoading = false;
         return response;
@@ -43,10 +44,13 @@ export const useUserStore = defineStore('user', {
         //Save user information to the store
         this.userData = response.data;
 
-        this.user = response.data.data.user;
+        this.profile = response.data.data.user;
+
         this.token = response.data.data.access_token;
 
-        saveAccessTokenToLS(response.data.data.access_token);
+        saveAccessTokenToLS(this.token);
+        saveProfileToLS(this.profile);
+
         this.isLoading = false;
         return response;
       } catch (error) {
@@ -55,6 +59,9 @@ export const useUserStore = defineStore('user', {
     },
     setIsAuthenticated(value: boolean): void {
       this.isAuthenticated = value;
+    },
+    setProfile(value: User | null): void {
+      this.profile = value;
     }
   }
 });

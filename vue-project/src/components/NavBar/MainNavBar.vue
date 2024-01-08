@@ -38,12 +38,9 @@
 
         <div v-if="isAuthenticated" class="main-header__navbar-profile">
           <div class="main-header__navbar-avatar">
-            <img
-              src="https://hips.hearstapps.com/digitalspyuk.cdnds.net/17/05/1486135181-avatar.jpg?crop=0.564xw:1.00xh;0.436xw,0&resize=1200:*"
-              alt="avatar"
-            />
+            <img :src="getAvatarUrl(profile?.avatar)" alt="avatar" />
           </div>
-          <div class="main-header__name">Uyen</div>
+          <div class="main-header__name">{{ profile?.email }}</div>
         </div>
       </div>
       <div class="main-header__shopping">
@@ -119,6 +116,7 @@
 
 <script setup lang="ts">
 import { useUserStore } from 'src/stores/user.store';
+import { getAvatarUrl } from 'src/utils/utils';
 
-const { isAuthenticated } = useUserStore();
+const { isAuthenticated, profile } = useUserStore();
 </script>

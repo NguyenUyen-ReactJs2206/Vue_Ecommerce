@@ -173,6 +173,9 @@ const onSubmit = async () => {
       userStore.token = response.data.data.access_token;
       userStore.setIsAuthenticated(true);
 
+      //save profile
+      userStore.setProfile(response.data.data.user);
+
       //navigate
       router.push({
         name: 'main'
@@ -200,11 +203,11 @@ const onSubmit = async () => {
 
 // Kiểm tra xem có thông tin người dùng để tự động điền form không
 onMounted(() => {
-  if (userStore.user) {
+  if (userStore.profile) {
     autoFill.value = true;
 
     formLogin.value = {
-      email: userStore.user.email,
+      email: userStore.profile.email,
       password: ''
     };
   }
