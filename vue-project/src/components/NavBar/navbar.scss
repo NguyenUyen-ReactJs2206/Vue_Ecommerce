@@ -3,6 +3,54 @@
   background-color: var(--primary);
   padding: 0.5rem 0;
 
+  //POPOVER
+  &__popover-triangle {
+    position: absolute;
+    border: 10px solid white;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: white;
+
+    transform: translateY(-99%);
+  }
+
+  &__popover {
+    border: 1px solid var(--third);
+    border-top-color: white;
+    position: relative;
+    border-radius: 0.125rem;
+    background-color: var(--light);
+    box-shadow: var(--shadow);
+
+    &-content {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-left: 0.75rem;
+      padding-right: 7rem;
+      display: flex;
+      flex-direction: column;
+
+      &-title {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        text-align: left;
+        border: none;
+        background-color: white;
+
+        &:hover {
+          color: var(--primary);
+        }
+
+        &--mt {
+          margin-top: 0.5rem;
+        }
+      }
+    }
+  }
+
   &__navbar {
     color: var(--third);
 

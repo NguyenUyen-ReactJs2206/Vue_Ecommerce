@@ -2,12 +2,7 @@
   <header className="main-header">
     <div class="container">
       <div class="main-header__navbar main-header__navbar--flex">
-        <div
-          class="main-header__navbar-language main-header__navbar-language--hover"
-          ref="reference"
-          @mouseenter="showPopover"
-          @mouseleave="handleMouseLeave"
-        >
+        <Popover :renderPopover="popoverContent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -33,44 +28,8 @@
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
           </svg>
+        </Popover>
 
-          <Teleport to="body">
-            <transition name="fade">
-              <div
-                v-if="isOpenPopover"
-                :class="{ fade: isOpenPopover }"
-                @mouseenter="cancelHidePopover"
-                @mouseleave="hidePopover"
-              >
-                <div
-                  ref="floating"
-                  :style="{
-                    position: strategy,
-                    top: y + 'px',
-                    left: x + 'px',
-                    width: 'max-content',
-                    transformOrigin: `${middlewareData.arrow?.x}px top`
-                  }"
-                >
-                  <span
-                    ref="arrowRef"
-                    class="popover-triangle"
-                    :style="{
-                      left: middlewareData.arrow?.x + 'px',
-                      top: middlewareData.arrow?.y + 'px'
-                    }"
-                  ></span>
-                  <div class="popover">
-                    <div class="popover-content">
-                      <button class="popover-content-title">Tiếng Việt</button>
-                      <button class="popover-content-title popover-content-title--mt-2">English</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </transition>
-          </Teleport>
-        </div>
         <div v-if="!isAuthenticated" class="main-header__navbar-register">
           <router-link :to="{ name: 'register' }">Đăng Ký</router-link>
         </div>
@@ -159,106 +118,16 @@
 <script setup lang="ts">
 import { useUserStore } from 'src/stores/user.store';
 import { getAvatarUrl } from 'src/utils/utils';
+import Popover from 'src/components/Popover/Popover.vue';
 
 const { isAuthenticated, profile } = useUserStore();
 
-import { ref } from 'vue';
-import { useFloating, arrow, shift, offset } from '@floating-ui/vue';
-
-const reference = ref(null);
-const floating = ref(null);
-const isOpenPopover = ref<boolean>(false);
-const arrowRef = ref<HTMLElement | null>(null);
-
-const { x, y, strategy, middlewareData } = useFloating(reference, floating, {
-  middleware: [
-    offset(12),
-    shift(),
-
-    arrow({
-      element: arrowRef
-    })
-  ]
-});
-
-const showPopover = () => {
-  isOpenPopover.value = true;
-};
-const hidePopover = () => {
-  isOpenPopover.value = false;
-};
-const cancelHidePopover = () => {
-  clearTimeout(hidePopoverTimeout);
-};
-
-let hidePopoverTimeout: number | undefined;
-
-const handleMouseLeave = (event: MouseEvent | any) => {
-  // Kiểm tra xem target liên quan có nằm trong phần tử cha không
-  if (!event.relatedTarget || !event.currentTarget.contains(event.relatedTarget)) {
-    // Đặt một độ trễ trước khi ẩn popover để có thời gian cho chuột vào popover
-    hidePopoverTimeout = setTimeout(() => {
-      isOpenPopover.value = false;
-    }, 200);
-  }
-};
+const popoverContent = `<div class='main-header__popover'>
+              <div class='main-header__popover-content'>
+                <button class='main-header__popover-content-title'>Tiếng Việt</button>
+                <button class='main-header__popover-content-title main-header__popover-content-title--mt-2'>English</button>
+              </div>
+          </div>`;
 </script>
 
-<style scoped lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.popover-triangle {
-  position: absolute;
-  border: 10px solid white;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  border-bottom-color: white;
-
-  transform: translateY(-99%);
-}
-
-.popover {
-  border: 1px solid var(--third);
-  border-top-color: white;
-  position: relative;
-  border-radius: 0.125rem;
-  background-color: var(--light);
-  box-shadow: var(--shadow);
-
-  &-content {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.75rem;
-    padding-right: 7rem;
-    display: flex;
-    flex-direction: column;
-
-    &-title {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-      text-align: left;
-      border: none;
-      background-color: white;
-
-      &:hover {
-        color: var(--primary);
-      }
-
-      &--mt {
-        margin-top: 0.5rem;
-      }
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
