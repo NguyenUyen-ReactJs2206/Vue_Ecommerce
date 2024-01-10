@@ -132,8 +132,7 @@ const onSubmit = async () => {
       // Call the action to register the user
       const response = await userStore.registerUser(formRegister.value);
 
-      //save token
-      userStore.token = response.data.data.access_token;
+      //set token
       userStore.setIsAuthenticated(true);
 
       //save profile

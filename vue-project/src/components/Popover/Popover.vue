@@ -1,6 +1,6 @@
 <template>
   <div :class="className" ref="reference" @mouseenter="showPopover" @mouseleave="handleMouseLeave">
-    <slot />
+    <slot name="main" />
 
     <Teleport to="body">
       <transition name="fade">
@@ -28,7 +28,8 @@
                 top: middlewareData.arrow?.y + 'px'
               }"
             ></span>
-            <div v-html="renderedContent"></div>
+            <!-- <div v-html="renderedContent"></div> -->
+            <slot name="renderPopover" />
           </div>
         </div>
       </transition>
@@ -37,15 +38,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useFloating, arrow, shift, offset } from '@floating-ui/vue';
 
 interface Props {
-  renderPopover: string;
   className: string;
 }
 
-const { renderPopover, className } = defineProps<Props>();
+const { className } = defineProps<Props>();
 
 const reference = ref(null);
 const floating = ref(null);
@@ -85,9 +85,9 @@ const handleMouseLeave = (event: MouseEvent | any) => {
   }
 };
 
-const renderedContent = computed(() => {
-  return renderPopover;
-});
+// const renderedContent = computed(() => {
+//   return renderPopover;
+// });
 </script>
 <style scoped lang="scss">
 .fade-enter-active,

@@ -32,6 +32,7 @@
       flex-direction: column;
 
       &-title {
+        font-size: medium;
         padding-left: 0.75rem;
         padding-right: 0.75rem;
         padding-top: 0.5rem;
@@ -39,6 +40,7 @@
         text-align: left;
         border: none;
         background-color: white;
+        cursor: pointer;
 
         &:hover {
           color: var(--primary);
@@ -107,6 +109,7 @@
       align-items: center;
       gap: 2px;
       padding: 0 1rem;
+      cursor: pointer;
     }
 
     &-avatar {

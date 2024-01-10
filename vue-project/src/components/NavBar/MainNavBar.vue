@@ -2,64 +2,79 @@
   <header className="main-header">
     <div class="container">
       <div class="main-header__navbar main-header__navbar--flex">
-        <Popover
-          :renderPopover="`<div class='main-header__popover'>
-              <div class='main-header__popover-content'>
-                <button class='main-header__popover-content-title'>Tiếng Việt</button>
-                <button class='main-header__popover-content-title main-header__popover-content-title--mt-2'>English</button>
+        <Popover :className="'main-header__navbar-language main-header__navbar-language--hover'">
+          <template v-slot:main>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="main-header__icon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
+              ></path>
+            </svg>
+            <span class="main-header__navbar-language--title">Tiếng Việt</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="main-header__icon"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+            </svg>
+          </template>
+          <template v-slot:renderPopover>
+            <div class="main-header__popover">
+              <div class="main-header__popover-content">
+                <button class="main-header__popover-content-title">Tiếng Việt</button>
+                <button class="main-header__popover-content-title main-header__popover-content-title--mt-2">
+                  English
+                </button>
               </div>
-          </div>`"
-          :className="'main-header__navbar-language main-header__navbar-language--hover'"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="main-header__icon"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
-            ></path>
-          </svg>
-          <span class="main-header__navbar-language--title">Tiếng Việt</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="main-header__icon"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
-          </svg>
+            </div>
+          </template>
         </Popover>
 
-        <div v-if="!isAuthenticated" class="main-header__navbar-register">
+        <div v-if="!isLoggedIn" class="main-header__navbar-register">
           <router-link :to="{ name: 'register' }">Đăng Ký</router-link>
         </div>
-        <div v-if="!isAuthenticated" class="main-header__navbar-login">
+        <div v-if="!isLoggedIn" class="main-header__navbar-login">
           <router-link :to="{ name: 'login' }">Đăng Nhập</router-link>
         </div>
 
-        <div v-if="isAuthenticated">
-          <Popover
-            :renderPopover="`<div class='main-header__popover'>
-              <div class='main-header__popover-content'>
-                <a  href='/' class='main-header__popover-content-title main-header__link'>Tài khoản của tôi</a>
-                <a href='/' class='main-header__popover-content-title main-header__popover-content-title--mt-2 main-header__link'>Đơn mua</a>
-                <a href='/' class='main-header__popover-content-title main-header__popover-content-title--mt-2 main-header__link'>Đăng xuất</a>
+        <div v-if="isLoggedIn">
+          <Popover :className="'main-header__navbar-profile'">
+            <template v-slot:main>
+              <div class="main-header__navbar-avatar">
+                <img :src="getAvatarUrl(profile?.avatar)" alt="avatar" />
               </div>
-          </div>`"
-            :className="'main-header__navbar-profile'"
-          >
-            <div class="main-header__navbar-avatar">
-              <img :src="getAvatarUrl(profile?.avatar)" alt="avatar" />
-            </div>
-            <div class="main-header__name">{{ profile?.email }}</div>
+              <div class="main-header__name">{{ profile?.email }}</div></template
+            >
+            <template v-slot:renderPopover>
+              <div class="main-header__popover">
+                <div class="main-header__popover-content">
+                  <a href="/" class="main-header__popover-content-title main-header__link">Tài khoản của tôi</a>
+                  <a
+                    href="/"
+                    class="main-header__popover-content-title main-header__popover-content-title--mt-2 main-header__link"
+                    >Đơn mua</a
+                  >
+                  <button
+                    class="main-header__popover-content-title main-header__popover-content-title--mt-2"
+                    @click="handleLogout"
+                  >
+                    Đăng xuất
+                  </button>
+                </div>
+              </div>
+            </template>
           </Popover>
         </div>
       </div>
@@ -138,8 +153,15 @@
 import { useUserStore } from 'src/stores/user.store';
 import { getAvatarUrl } from 'src/utils/utils';
 import Popover from 'src/components/Popover/Popover.vue';
+import { ref } from 'vue';
 
-const { isAuthenticated, profile } = useUserStore();
+const { isAuthenticated, profile, logoutUser } = useUserStore();
+
+const isLoggedIn = ref(isAuthenticated);
+const handleLogout = () => {
+  logoutUser();
+  isLoggedIn.value = false;
+};
 </script>
 
 <style scoped lang="scss"></style>

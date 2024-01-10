@@ -1,14 +1,19 @@
 import { defineStore } from 'pinia';
-import { loginAccount, registerAccount } from 'src/apis/auth.api';
+import { loginAccount, logout, registerAccount } from 'src/apis/auth.api';
 import { AuthResponse, FormDataUser } from 'src/types/auth.type';
 import { User } from 'src/types/user.type';
-import { getAccessTokenFromLS, getProfileFromLocalStorage, saveAccessTokenToLS, saveProfileToLS } from 'src/utils/auth';
+import {
+  clearAccessTokenFromLS,
+  clearProfileFromLS,
+  getAccessTokenFromLS,
+  getProfileFromLocalStorage,
+  saveProfileToLS
+} from 'src/utils/auth';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     userData: null as AuthResponse | null,
     profile: getProfileFromLocalStorage(),
-    token: null as string | null,
     isLoading: false,
     isAuthenticated: Boolean(getAccessTokenFromLS())
   }),
@@ -24,9 +29,7 @@ export const useUserStore = defineStore('user', {
         this.userData = response.data;
 
         this.profile = response.data.data.user;
-        this.token = response.data.data.access_token;
 
-        saveAccessTokenToLS(this.token);
         saveProfileToLS(this.profile);
 
         this.isLoading = false;
@@ -46,13 +49,20 @@ export const useUserStore = defineStore('user', {
 
         this.profile = response.data.data.user;
 
-        this.token = response.data.data.access_token;
-
-        saveAccessTokenToLS(this.token);
         saveProfileToLS(this.profile);
 
         this.isLoading = false;
         return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+    async logoutUser() {
+      try {
+        this.isLoading = true;
+        await logout(); // Assuming logout is a function that calls the logout API
+        this.clearUserData();
+        this.isLoading = false;
       } catch (error) {
         throw error;
       }
@@ -65,6 +75,13 @@ export const useUserStore = defineStore('user', {
     },
     setIsLoading(value: boolean): void {
       this.isLoading = value;
+    },
+    clearUserData() {
+      this.userData = null;
+      this.profile = null;
+      this.setIsAuthenticated(false);
+      clearAccessTokenFromLS();
+      clearProfileFromLS();
     }
   }
 });

@@ -59,7 +59,7 @@ const router = useRouter();
 const autoFill = ref(false);
 
 const userStore = useUserStore();
-console.log(userStore.token, 'ttttttttttttt');
+
 const emailError = ref({ messageError: '', status: false });
 const passwordError = ref({ messageError: '', status: false });
 
@@ -172,7 +172,6 @@ const onSubmit = async () => {
       const response = await userStore.loginUser(formLogin.value);
 
       //save token
-      userStore.token = response.data.data.access_token;
       userStore.setIsAuthenticated(true);
 
       //save profile
