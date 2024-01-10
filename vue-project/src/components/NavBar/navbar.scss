@@ -27,7 +27,7 @@
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       padding-left: 0.75rem;
-      padding-right: 7rem;
+      padding-right: 6rem;
       display: flex;
       flex-direction: column;
 
@@ -49,6 +49,11 @@
         }
       }
     }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: black;
   }
 
   &__navbar {

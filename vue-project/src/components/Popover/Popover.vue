@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="main-header__navbar-language main-header__navbar-language--hover"
-    ref="reference"
-    @mouseenter="showPopover"
-    @mouseleave="handleMouseLeave"
-  >
+  <div :class="className" ref="reference" @mouseenter="showPopover" @mouseleave="handleMouseLeave">
     <slot />
 
     <Teleport to="body">
@@ -47,9 +42,10 @@ import { useFloating, arrow, shift, offset } from '@floating-ui/vue';
 
 interface Props {
   renderPopover: string;
+  className: string;
 }
 
-const { renderPopover } = defineProps<Props>();
+const { renderPopover, className } = defineProps<Props>();
 
 const reference = ref(null);
 const floating = ref(null);
@@ -90,7 +86,6 @@ const handleMouseLeave = (event: MouseEvent | any) => {
 };
 
 const renderedContent = computed(() => {
-  // Ensure that the HTML content is safe and does not contain malicious code
   return renderPopover;
 });
 </script>

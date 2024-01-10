@@ -2,7 +2,15 @@
   <header className="main-header">
     <div class="container">
       <div class="main-header__navbar main-header__navbar--flex">
-        <Popover :renderPopover="popoverContent">
+        <Popover
+          :renderPopover="`<div class='main-header__popover'>
+              <div class='main-header__popover-content'>
+                <button class='main-header__popover-content-title'>Tiếng Việt</button>
+                <button class='main-header__popover-content-title main-header__popover-content-title--mt-2'>English</button>
+              </div>
+          </div>`"
+          :className="'main-header__navbar-language main-header__navbar-language--hover'"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -37,11 +45,22 @@
           <router-link :to="{ name: 'login' }">Đăng Nhập</router-link>
         </div>
 
-        <div v-if="isAuthenticated" class="main-header__navbar-profile">
-          <div class="main-header__navbar-avatar">
-            <img :src="getAvatarUrl(profile?.avatar)" alt="avatar" />
-          </div>
-          <div class="main-header__name">{{ profile?.email }}</div>
+        <div v-if="isAuthenticated">
+          <Popover
+            :renderPopover="`<div class='main-header__popover'>
+              <div class='main-header__popover-content'>
+                <a  href='/' class='main-header__popover-content-title main-header__link'>Tài khoản của tôi</a>
+                <a href='/' class='main-header__popover-content-title main-header__popover-content-title--mt-2 main-header__link'>Đơn mua</a>
+                <a href='/' class='main-header__popover-content-title main-header__popover-content-title--mt-2 main-header__link'>Đăng xuất</a>
+              </div>
+          </div>`"
+            :className="'main-header__navbar-profile'"
+          >
+            <div class="main-header__navbar-avatar">
+              <img :src="getAvatarUrl(profile?.avatar)" alt="avatar" />
+            </div>
+            <div class="main-header__name">{{ profile?.email }}</div>
+          </Popover>
         </div>
       </div>
       <div class="main-header__shopping">
@@ -121,13 +140,6 @@ import { getAvatarUrl } from 'src/utils/utils';
 import Popover from 'src/components/Popover/Popover.vue';
 
 const { isAuthenticated, profile } = useUserStore();
-
-const popoverContent = `<div class='main-header__popover'>
-              <div class='main-header__popover-content'>
-                <button class='main-header__popover-content-title'>Tiếng Việt</button>
-                <button class='main-header__popover-content-title main-header__popover-content-title--mt-2'>English</button>
-              </div>
-          </div>`;
 </script>
 
 <style scoped lang="scss"></style>
