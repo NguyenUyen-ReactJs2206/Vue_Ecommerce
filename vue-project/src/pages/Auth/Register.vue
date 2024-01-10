@@ -143,6 +143,7 @@ const onSubmit = async () => {
         name: 'login'
       });
     } catch (error) {
+      userStore.setIsLoading(false);
       if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormDataUser>>(error)) {
         const formError = error.response?.data.data;
 

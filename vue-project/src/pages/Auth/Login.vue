@@ -183,6 +183,7 @@ const onSubmit = async () => {
         name: 'main'
       });
     } catch (error) {
+      userStore.setIsLoading(false);
       if (isAxiosUnprocessableEntityError<ErrorResponseApi<Omit<FormDataUser, 'confirm_password'>>>(error)) {
         const formError = error.response?.data.data;
 
