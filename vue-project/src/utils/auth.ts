@@ -9,7 +9,7 @@ export const clearAccessTokenFromLS = () => {
   localStorage.removeItem('access_token');
 };
 
-export const getAccessTokenFromLS = () => localStorage.getItem('access_token' || '');
+export const getAccessTokenFromLS = () => localStorage.getItem('access_token') || '';
 
 // PROFILE --- LS
 export const saveProfileToLS = (profile: User) => {

@@ -50,6 +50,8 @@ import { isAxiosUnprocessableEntityError } from 'src/utils/utils';
 import { ErrorResponseApi } from 'src/types/utils.type';
 import { FormDataUser } from 'src/types/auth.type';
 import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const formLogin = ref({
   email: '',
@@ -170,6 +172,7 @@ const onSubmit = async () => {
       userStore.setIsLoading(true);
       // Call the action to register the user
       const response = await userStore.loginUser(formLogin.value);
+      const message = response.data.message;
 
       //save token
       userStore.setIsAuthenticated(true);
@@ -178,6 +181,16 @@ const onSubmit = async () => {
       userStore.setProfile(response.data.data.user);
 
       userStore.setIsLoading(false);
+
+      //Toast Message Success
+      setTimeout(() => {
+        toast(message, {
+          theme: 'auto',
+          type: 'success',
+          dangerouslyHTMLString: true
+        });
+      }, 100);
+
       //navigate
       router.push({
         name: 'main'

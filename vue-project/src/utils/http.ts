@@ -14,9 +14,10 @@ import { URL_LOGIN, URL_LOGOUT, URL_REGISTER } from 'src/apis/auth.api';
 
 class Http {
   instance: AxiosInstance;
-  accessToken = getAccessTokenFromLS();
 
+  private accessToken: string;
   constructor() {
+    this.accessToken = getAccessTokenFromLS();
     this.instance = axios.create({
       baseURL: 'https://api-ecom.duthanhduoc.com/',
       timeout: 10000,
