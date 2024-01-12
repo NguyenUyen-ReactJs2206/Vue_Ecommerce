@@ -1,14 +1,43 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 import Register from '../pages/Auth/Register.vue';
 import Login from '../pages/Auth/Login.vue';
 import path from 'src/constants/path';
 import MainLayoutVue from '../Layout/MainLayout/MainLayout.vue';
 import ProductList from 'src/pages/ProductList/ProductList.vue';
 import ProductDetail from 'src/pages/ProductDetail/ProductDetail.vue';
+import { useUserStore } from 'src/stores/user.store';
 
-const routes = [
-  { name: 'login', path: `${path.login}`, component: Login },
-  { name: 'register', path: `${path.register}`, component: Register },
+const routes: RouteRecordRaw[] = [
+  {
+    name: 'login',
+    path: `${path.login}`,
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      const { isAuthenticated } = useUserStore();
+      // Nếu người dùng đã đăng nhập,muốn chuyển hướng đến trang login => quay về trang home
+      if (isAuthenticated) {
+        next({ name: 'main' });
+      } else {
+        // Nếu chưa có token => vào được login
+        next();
+      }
+    }
+  },
+  {
+    name: 'register',
+    path: `${path.register}`,
+    component: Register,
+    beforeEnter: (to, from, next) => {
+      const { isAuthenticated } = useUserStore();
+      // Nếu người dùng đã đăng nhập,muốn chuyển hướng đến trang login => quay về trang home
+      if (isAuthenticated) {
+        next({ name: 'main' });
+      } else {
+        // Nếu chưa có token
+        next();
+      }
+    }
+  },
   {
     path: `${path.home}`,
     component: MainLayoutVue,
