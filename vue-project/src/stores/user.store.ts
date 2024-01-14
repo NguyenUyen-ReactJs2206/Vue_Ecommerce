@@ -1,4 +1,4 @@
-import { createPinia, defineStore } from 'pinia';
+import { defineStore } from 'pinia';
 import { loginAccount, logout, registerAccount } from 'src/apis/auth.api';
 import { AuthResponse, FormDataUser } from 'src/types/auth.type';
 import { User } from 'src/types/user.type';
@@ -10,7 +10,6 @@ import {
   saveProfileToLS
 } from 'src/utils/auth';
 
-const pinia = createPinia();
 export const useUserStore = defineStore('user', {
   state: () => ({
     userData: null as AuthResponse | null,
