@@ -65,12 +65,25 @@ import AsideFilter from './components/AsideFilter/AsideFilter.vue';
 import SortProductList from './components/SortProductList/SortProductList.vue';
 import { ref, onMounted, onBeforeUnmount, watchEffect, Transition } from 'vue';
 import Product from './components/Product/Product.vue';
+import { useProductStore } from 'src/stores/product.store';
 
 // const showPopupAsideFilterMobile = ref(false);
 
 // const showPopup = () => {
 //   showPopupAsideFilterMobile.value = !showPopupAsideFilterMobile.value;
 // };
+
+const productStore = useProductStore();
+const queryParams = ref({});
+
+onMounted(() => {
+  productStore.getProducts(queryParams.value);
+});
+
+watchEffect(() => {
+  // Watch for changes in queryParams and call getProducts when it changes
+  productStore.getProducts(queryParams.value);
+});
 </script>
 
 <style scoped lang="scss">
