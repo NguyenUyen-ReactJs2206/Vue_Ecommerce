@@ -12,10 +12,10 @@ const routes: RouteRecordRaw[] = [
     name: 'login',
     path: `${path.login}`,
     component: Login,
-    beforeEnter: (to, from, next) => {
+    beforeEnter: (to, _from, next) => {
       const { isAuthenticated } = useUserStore();
       // Nếu người dùng đã đăng nhập,muốn chuyển hướng đến trang login => quay về trang home
-      if (isAuthenticated) {
+      if (to.name === 'login' && isAuthenticated) {
         next({ name: 'main' });
       } else {
         // Nếu chưa có token => vào được login
@@ -27,10 +27,10 @@ const routes: RouteRecordRaw[] = [
     name: 'register',
     path: `${path.register}`,
     component: Register,
-    beforeEnter: (to, from, next) => {
+    beforeEnter: (to, _from, next) => {
       const { isAuthenticated } = useUserStore();
       // Nếu người dùng đã đăng nhập,muốn chuyển hướng đến trang login => quay về trang home
-      if (isAuthenticated) {
+      if (to.name === 'register' && isAuthenticated) {
         next({ name: 'main' });
       } else {
         // Nếu chưa có token
