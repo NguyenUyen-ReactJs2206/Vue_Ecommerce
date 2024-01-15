@@ -23,7 +23,10 @@
           <SortProductList />
 
           <div class="product-list__products">
-            <div class="product-list__item">
+            <div v-for="product in productStore.productList.products" :key="product.id" class="product-list__item">
+              <Product :product="product" />
+            </div>
+            <!-- <div class="product-list__item">
               <Product />
             </div>
             <div class="product-list__item">
@@ -46,10 +49,7 @@
             </div>
             <div class="product-list__item">
               <Product />
-            </div>
-            <div class="product-list__item">
-              <Product />
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -63,9 +63,10 @@
 import PopupAsideFilterMobile from 'src/components/PopupAsideFilterMobile/PopupAsideFilterMobile.vue';
 import AsideFilter from './components/AsideFilter/AsideFilter.vue';
 import SortProductList from './components/SortProductList/SortProductList.vue';
-import { ref, onMounted, onBeforeUnmount, watchEffect, Transition } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watchEffect, Transition, watch } from 'vue';
 import Product from './components/Product/Product.vue';
 import { useProductStore } from 'src/stores/product.store';
+import { useRoute } from 'vue-router';
 
 // const showPopupAsideFilterMobile = ref(false);
 
@@ -76,12 +77,28 @@ import { useProductStore } from 'src/stores/product.store';
 const productStore = useProductStore();
 const queryParams = ref({});
 
-onMounted(() => {
-  productStore.getProducts(queryParams.value);
-});
+const route = useRoute();
+queryParams.value = route.query;
 
-watchEffect(() => {
-  // Watch for changes in queryParams and call getProducts when it changes
+console.log(queryParams.value, 'vvvvvvvv');
+// Watch for changes in queryParams and call getProducts when it changes
+watch(
+  //giá trị cần theo dõi
+  () => route.query,
+  //hàm được gọi khi giá trị thay đổi gồm giá trị mới và gía trị cũ
+  (newQueryParams) => {
+    queryParams.value = newQueryParams;
+    productStore.getProducts(queryParams.value);
+  }
+  // options (tuỳ chọn, không bắt buộc)
+  //  {
+  //   deep: true, // theo dõi sâu vào các thuộc tính của đối tượng
+  //   immediate: true, // gọi ngay lập tức handler khi đăng ký watch
+  // }
+);
+
+onMounted(() => {
+  // Initial fetch when the component is mounted
   productStore.getProducts(queryParams.value);
 });
 </script>

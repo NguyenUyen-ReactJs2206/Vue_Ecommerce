@@ -14,3 +14,17 @@ export function isAxiosUnprocessableEntityError<FormError>(error: unknown): erro
 //Get URL AVATAR
 export const getAvatarUrl = (avatarName?: string) =>
   avatarName ? `https://api-ecom.duthanhduoc.com/images/${avatarName}` : userImage;
+
+//Format
+export function formatCurrency(currency: number) {
+  return new Intl.NumberFormat('de-DE').format(currency);
+}
+export function formatNumberToSocialStyle(value: number) {
+  return Intl.NumberFormat('en', {
+    notation: 'compact',
+    maximumFractionDigits: 1
+  })
+    .format(value)
+    .replace('.', ',')
+    .toLowerCase();
+}
