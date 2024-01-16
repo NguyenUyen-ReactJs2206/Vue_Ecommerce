@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="product__additional-info">
-          <ProductRating :rating="product.rating" />
+          <ProductRating class="product__rating" :rating="product.rating" />
           <div class="product__sold-info">
             <span class="product__sold-count">{{ formatNumberToSocialStyle(product.quantity) }}</span>
             <span class="product__sold-text">Đã bán</span>
