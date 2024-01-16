@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="product__additional-info">
-          <ProductRating class="product__rating" />
+          <ProductRating :rating="product.rating" />
           <div class="product__sold-info">
             <span class="product__sold-count">{{ formatNumberToSocialStyle(product.quantity) }}</span>
             <span class="product__sold-text">Đã bán</span>
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import ProductRating from 'src/components/ProductRating/ProductRating.vue';
+import ProductRating from '../../../../components/ProductRating/ProductRating.vue';
 import { Product } from 'src/types/product.type';
 import { formatCurrency, formatNumberToSocialStyle } from 'src/utils/utils';
 

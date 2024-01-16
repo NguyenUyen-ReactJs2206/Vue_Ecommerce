@@ -26,30 +26,6 @@
             <div v-for="product in productStore.productList.products" :key="product.id" class="product-list__item">
               <Product :product="product" />
             </div>
-            <!-- <div class="product-list__item">
-              <Product />
-            </div>
-            <div class="product-list__item">
-              <Product />
-            </div>
-            <div class="product-list__item">
-              <Product />
-            </div>
-            <div class="product-list__item">
-              <Product />
-            </div>
-            <div class="product-list__item">
-              <Product />
-            </div>
-            <div class="product-list__item">
-              <Product />
-            </div>
-            <div class="product-list__item">
-              <Product />
-            </div>
-            <div class="product-list__item">
-              <Product />
-            </div> -->
           </div>
         </div>
       </div>
