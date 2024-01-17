@@ -29,7 +29,7 @@
   }
 }
 
-//-----CSS FOR COMPONENT ASIDE FILTER-------//
+//-----CSS FOR COMPONENT ASIDE-FILTER-------//
 .asideFilter {
   display: flex;
   flex-direction: column;
@@ -102,7 +102,7 @@
   }
 }
 
-//-----CSS FOR COMPONENT RATING START-------//
+//-----CSS FOR COMPONENT RATING-START-------//
 .rating-stars {
   list-style: none;
 
@@ -133,7 +133,7 @@
   }
 }
 
-//-----CSS FOR COMPONENT SORT PRODUCT LIST-------//
+//-----CSS FOR COMPONENT SORT-PRODUCT-LIST-------//
 .sort-product-list {
   background-color: #c8ced466;
   padding: 10px;
@@ -324,6 +324,22 @@
     width: fit-content;
     margin-left: 0.25rem;
     font-size: 0.75rem;
+  }
+}
+
+//-----CSS FOR COMPONENT PAGINATION-------//
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  justify-content: center;
+  &__prev,
+  &__next {
+    background-color: var(--light);
+    padding: 0.5rem 0.75rem;
+    box-shadow: var(--shadow);
+    margin: 0 0.5rem;
+    cursor: pointer;
   }
 }
 

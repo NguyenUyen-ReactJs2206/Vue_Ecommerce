@@ -23,10 +23,12 @@
           <SortProductList />
 
           <div class="product-list__products">
-            <div v-for="product in productStore.productList.products" :key="product.id" class="product-list__item">
+            <div v-for="product in productStore.productList.products" :key="product._id" class="product-list__item">
               <Product :product="product" />
             </div>
           </div>
+
+          <Pagination :page="page" :pageSize="20" />
         </div>
       </div>
     </div>
@@ -35,11 +37,12 @@
   </div>
 </template>
 
-<script setup>
-import PopupAsideFilterMobile from 'src/components/PopupAsideFilterMobile/PopupAsideFilterMobile.vue';
+<script setup lang="ts">
+// import PopupAsideFilterMobile from 'src/components/PopupAsideFilterMobile/PopupAsideFilterMobile.vue';
 import AsideFilter from './components/AsideFilter/AsideFilter.vue';
 import SortProductList from './components/SortProductList/SortProductList.vue';
-import { ref, onMounted, onBeforeUnmount, watchEffect, Transition, watch } from 'vue';
+import Pagination from 'src/components/Pagination/Pagination.vue';
+import { ref, onMounted, watch } from 'vue';
 import Product from './components/Product/Product.vue';
 import { useProductStore } from 'src/stores/product.store';
 import { useRoute } from 'vue-router';
@@ -52,6 +55,7 @@ import { useRoute } from 'vue-router';
 
 const productStore = useProductStore();
 const queryParams = ref({});
+const page = ref<number>(1);
 
 const route = useRoute();
 queryParams.value = route.query;

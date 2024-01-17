@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 
-const props = defineProps(['rating', 'activeClassname', 'nonActiveClassname']);
+const props = defineProps(['rating']);
 
 const handleWidth = (order: number) => {
   if (order <= props.rating) {
