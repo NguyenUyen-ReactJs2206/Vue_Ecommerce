@@ -1,31 +1,91 @@
 <template>
   <div class="pagination">
-    <button class="pagination__prev">Prev</button>
-    <!-- <div v-html="renderPagination()"></div> -->
-    <button v-for="index in pageSize" :key="index" class="pagination__number">
-      {{ index + 1 }}
-    </button>
-    <button class="pagination__next">Next</button>
+    <button class="pagination__prev" @click="prevPage">Prev</button>
+    <template v-for="pageNumber in renderPagination()" :key="pageNumber">
+      <button class="pagination__number" :class="{ active: pageNumber === page }" @click="handleClick(pageNumber)">
+        {{ pageNumber }}
+      </button>
+    </template>
+    <button class="pagination__next" @click="nextPage">Next</button>
   </div>
 </template>
 
 <script setup lang="ts">
-interface Props {
-  page: number;
-  pageSize: number;
-}
+import { ref } from 'vue';
 
-const { page, pageSize } = defineProps<Props>();
-// const renderPagination = () => {
-//   let paginationHTML = '<div>';
-//   for (let index = 0; index < pageSize; index++) {
-//     paginationHTML += `
-//           <button :key="index" class="pagination__next">
-//            ${index + 1}
-//           </button>
-//         `;
-//   }
-//   paginationHTML += '</div>';
-//   return paginationHTML;
-// };
+const RANGE = 2;
+
+const page = ref<number>(1);
+const pageSize = 20;
+const setPage = (newPage: number) => {
+  page.value = newPage;
+};
+
+const renderPagination = () => {
+  let dotAfter = false;
+  let dotBefore = false;
+  const pagination = [];
+
+  const renderDotBefore = () => {
+    if (!dotBefore) {
+      dotBefore = true;
+      return pagination.push('...');
+    }
+    return null;
+  };
+
+  const renderDotAfter = () => {
+    if (!dotAfter) {
+      dotAfter = true;
+      return pagination.push('...');
+    }
+    return null;
+  };
+
+  for (let index = 0; index < pageSize; index++) {
+    const pageNumber = index + 1;
+
+    if (page.value <= RANGE * 2 + 1 && pageNumber > page.value + RANGE && pageNumber < pageSize - RANGE + 1) {
+      renderDotAfter();
+    } else if (page.value > RANGE * 2 + 1 && page.value < pageSize - RANGE * 2) {
+      if (pageNumber < page.value - RANGE && pageNumber > RANGE) {
+        renderDotBefore();
+      } else if (pageNumber > page.value + RANGE && pageNumber < pageSize - RANGE + 1) {
+        renderDotAfter();
+      } else {
+        pagination.push(pageNumber);
+      }
+    } else if (page.value >= pageSize - RANGE * 2 && pageNumber > RANGE && pageNumber < page.value - RANGE) {
+      renderDotBefore();
+    } else {
+      pagination.push(pageNumber);
+    }
+  }
+
+  return pagination;
+};
+
+const handleClick = (pageNumber: number) => {
+  setPage(pageNumber);
+  console.log(pageNumber, '......');
+};
+
+const prevPage = () => {
+  if (page.value > 1) {
+    setPage(page.value - 1);
+  }
+};
+
+const nextPage = () => {
+  if (page.value < pageSize) {
+    setPage(page.value + 1);
+  }
+};
 </script>
+
+<style scoped>
+/* Add your component-specific styles here */
+.active {
+  color: red;
+}
+</style>

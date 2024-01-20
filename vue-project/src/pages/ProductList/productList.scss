@@ -333,13 +333,16 @@
   flex-wrap: wrap;
   margin-top: 1.5rem;
   justify-content: center;
+  gap: 0.5rem;
   &__prev,
-  &__next {
+  &__next,
+  &__number {
     background-color: var(--light);
     padding: 0.5rem 0.75rem;
     box-shadow: var(--shadow);
-    margin: 0 0.5rem;
+
     cursor: pointer;
+    border: none;
   }
 }
 

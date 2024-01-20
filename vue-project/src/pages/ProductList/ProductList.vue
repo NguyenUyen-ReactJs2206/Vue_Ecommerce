@@ -27,8 +27,8 @@
               <Product :product="product" />
             </div>
           </div>
-
-          <Pagination :page="page" :pageSize="20" />
+          <!-- :page="page" :setPage="setPage" :pageSize="20" -->
+          <Pagination />
         </div>
       </div>
     </div>
@@ -55,8 +55,11 @@ import { useRoute } from 'vue-router';
 
 const productStore = useProductStore();
 const queryParams = ref({});
-const page = ref<number>(1);
+// const page = ref<number>(1);
 
+// const setPage = (newPage: number) => {
+//   page.value = newPage;
+// };
 const route = useRoute();
 queryParams.value = route.query;
 

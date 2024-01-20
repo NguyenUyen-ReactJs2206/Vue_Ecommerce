@@ -5,6 +5,8 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -13,6 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
 
     /* Linting */
     "strict": true,
@@ -23,6 +26,7 @@
     "allowJs": true,
     "types": ["vue3-toastify/global"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "exclude": ["node_modules"]
 }
