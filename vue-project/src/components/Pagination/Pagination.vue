@@ -1,12 +1,21 @@
 <template>
   <div class="pagination">
-    <button class="pagination__prev" @click="prevPage">Prev</button>
-    <template v-for="pageNumber in renderPagination()" :key="pageNumber">
+    <button class="pagination__prev" :disabled="page <= 1" :class="{ cursorNotAllowed: page <= 1 }" @click="prevPage">
+      Prev
+    </button>
+    <template v-for="(pageNumber, index) in renderPagination()" :key="index">
       <button class="pagination__number" :class="{ active: pageNumber === page }" @click="handleClick(pageNumber)">
         {{ pageNumber }}
       </button>
     </template>
-    <button class="pagination__next" @click="nextPage">Next</button>
+    <button
+      class="pagination__next"
+      :disabled="page >= pageSize"
+      :class="{ cursorNotAllowed: page >= pageSize }"
+      @click="nextPage"
+    >
+      Next
+    </button>
   </div>
 </template>
 
@@ -84,8 +93,10 @@ const nextPage = () => {
 </script>
 
 <style scoped>
-/* Add your component-specific styles here */
 .active {
-  color: red;
+  border: 2px solid var(--primary);
+}
+.cursorNotAllowed {
+  cursor: not-allowed;
 }
 </style>
