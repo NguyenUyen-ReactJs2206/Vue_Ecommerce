@@ -3,7 +3,7 @@
     <router-link
       :to="{
         name: 'main',
-        query: { ...queryConfig, page: (page - 1).toString() }
+        query: { ...queryConfig, page: (page > 1 ? page - 1 : 1).toString() }
       }"
       class="pagination__prev"
       :disabled="page <= 1"
@@ -28,7 +28,7 @@
     <router-link
       :to="{
         name: 'main',
-        query: { ...queryConfig, page: (page + 1).toString() }
+        query: { ...queryConfig, page: (page < pageSize ? page + 1 : pageSize).toString() }
       }"
       class="pagination__next"
       :disabled="page >= pageSize"
