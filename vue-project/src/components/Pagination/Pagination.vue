@@ -1,31 +1,62 @@
 <template>
   <div class="pagination">
-    <button class="pagination__prev" :disabled="page <= 1" :class="{ cursorNotAllowed: page <= 1 }" @click="prevPage">
+    <router-link
+      :to="{
+        name: 'main',
+        query: { ...queryConfig, page: (page - 1).toString() }
+      }"
+      class="pagination__prev"
+      :disabled="page <= 1"
+      :class="{ cursorNotAllowed: page <= 1 }"
+      @click="prevPage"
+    >
       Prev
-    </button>
-    <template v-for="(pageNumber, index) in renderPagination()" :key="index">
-      <button class="pagination__number" :class="{ active: pageNumber === page }" @click="handleClick(pageNumber)">
+    </router-link>
+    <template v-for="pageNumber in renderPagination()" :key="pageNumber">
+      <router-link
+        :to="{
+          name: 'main',
+          query: { ...queryConfig, page: pageNumber.toString() }
+        }"
+        class="pagination__number"
+        :class="{ active: pageNumber === page }"
+        @click="handleClick(pageNumber)"
+      >
         {{ pageNumber }}
-      </button>
+      </router-link>
     </template>
-    <button
+    <router-link
+      :to="{
+        name: 'main',
+        query: { ...queryConfig, page: (page + 1).toString() }
+      }"
       class="pagination__next"
       :disabled="page >= pageSize"
       :class="{ cursorNotAllowed: page >= pageSize }"
       @click="nextPage"
     >
       Next
-    </button>
+    </router-link>
   </div>
 </template>
 
 <script setup lang="ts">
+import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
 import { ref } from 'vue';
+
+interface Props {
+  queryConfig: QueryConfig;
+  pageSize: number;
+}
+
+const { pageSize, queryConfig } = defineProps<Props>();
+
+console.log(pageSize, 'hhhhhhhhhhh');
 
 const RANGE = 2;
 
-const page = ref<number>(1);
-const pageSize = 20;
+const page = ref<number>(Number(queryConfig.page));
+
 const setPage = (newPage: number) => {
   page.value = newPage;
 };
