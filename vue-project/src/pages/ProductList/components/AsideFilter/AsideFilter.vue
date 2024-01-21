@@ -71,7 +71,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import path from 'src/constants/path';
 import RatingStart from '../RatingStart/RatingStart.vue';
 </script>

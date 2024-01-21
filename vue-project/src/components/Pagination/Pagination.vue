@@ -51,8 +51,6 @@ interface Props {
 
 const { pageSize, queryConfig } = defineProps<Props>();
 
-console.log(pageSize, 'hhhhhhhhhhh');
-
 const RANGE = 2;
 
 const page = ref<number>(Number(queryConfig.page));

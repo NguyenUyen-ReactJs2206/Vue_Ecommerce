@@ -20,7 +20,7 @@
           <!-- <button @click="showPopup">click</button> -->
         </div>
         <div class="product-list__main-right">
-          <SortProductList />
+          <SortProductList :queryConfig="queryConfig" :pageSize="productStore?.productList?.pagination?.page_size" />
 
           <div class="product-list__products">
             <div v-for="product in productStore.productList.products" :key="product._id" class="product-list__item">

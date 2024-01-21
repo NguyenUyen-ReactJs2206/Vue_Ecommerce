@@ -132,7 +132,10 @@
     font-size: small;
   }
 }
-
+select option:hover {
+  background-color: gray;
+  color: white;
+}
 //-----CSS FOR COMPONENT SORT-PRODUCT-LIST-------//
 .sort-product-list {
   background-color: #c8ced466;
@@ -161,9 +164,6 @@
   &__select {
     min-width: 150px;
     padding: 8px;
-    // outline: 2px solid transparent;
-    // background-color: var(--primary);
-    // color: var(--light);
 
     &:focus {
       outline: none;
@@ -171,9 +171,13 @@
     }
 
     &-option {
-      padding: 9px 0;
-      // background-color: var(--light);
-      // color: var(--primary);
+      background-color: var(--light);
+      color: black;
+
+      &:hover {
+        background-color: var(--primary);
+        color: var(--light);
+      }
     }
   }
 
