@@ -11,11 +11,11 @@
         <div class="product__prices">
           <div class="product__price">
             <span class="product__currency">₫</span>
-            <span class="product__value">{{ formatCurrency(product.price) }}</span>
+            <span class="product__value">{{ formatCurrency(product.price_before_discount) }}</span>
           </div>
           <div class="product__price">
             <span class="product__currency">₫</span>
-            <span class="product__value">{{ formatCurrency(product.price_before_discount) }}</span>
+            <span class="product__value">{{ formatCurrency(product.price) }}</span>
           </div>
         </div>
         <div class="product__additional-info">

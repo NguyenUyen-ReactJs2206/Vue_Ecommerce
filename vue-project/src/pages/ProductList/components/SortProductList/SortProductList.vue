@@ -28,13 +28,18 @@
       </button>
 
       <select
+        :value="order || ''"
+        aria-label="Sắp xếp theo giá"
         class="sort-product-list__select"
         :class="{ activeSortBy: isActiveSortBy(sortBy.price) }"
-        @click="handleSort(sortBy.price)"
+        @change="
+          (event) =>
+            handlePriceOrder((event.target as HTMLInputElement).value as Exclude<ProductListConfig['order'], undefined>)
+        "
       >
-        <option class="sort-product-list__select-option" disabled>Giá</option>
-        <option class="sort-product-list__select-option">Giá: Thấp đến cao</option>
-        <option class="sort-product-list__select-option">Giá: Cao đến thấp</option>
+        <option class="sort-product-list__select-option" value="" disabled>Giá</option>
+        <option class="sort-product-list__select-option" :value="orderConstant.asc">Giá: Thấp đến cao</option>
+        <option class="sort-product-list__select-option" :value="orderConstant.desc">Giá: Cao đến thấp</option>
       </select>
     </div>
     <div class="sort-product-list__count-page">
@@ -80,6 +85,7 @@ import { ProductListConfig } from 'src/types/product.type';
 import { useRoute, useRouter } from 'vue-router';
 import { omit } from 'lodash';
 import { ref, watch } from 'vue';
+import { orderConstant } from 'src/constants/product';
 
 interface Props {
   queryConfig: QueryConfig;
@@ -93,6 +99,8 @@ const route = useRoute();
 
 // Sử dụng biến ref để theo dõi giá trị sort_by
 const sort_by = ref(queryConfig.sort_by || sortBy.createdAt);
+
+const { order } = queryConfig;
 
 //chỉ lấy sort_by và Exclude undefine
 const isActiveSortBy = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
@@ -108,6 +116,7 @@ watch(
     sort_by.value = (newQuery.sort_by as string) || sortBy.createdAt;
   }
 );
+
 const handleSort = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
   router.push({
     name: 'main',
@@ -118,6 +127,17 @@ const handleSort = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined
       },
       ['order']
     )
+  });
+};
+
+const handlePriceOrder = (orderValue: Exclude<ProductListConfig['order'], undefined>) => {
+  router.push({
+    name: 'main',
+    query: {
+      ...queryConfig,
+      sort_by: sortBy.price, // <-- Corrected from sort_by.price to sortBy.price
+      order: orderValue
+    }
   });
 };
 </script>
