@@ -41,12 +41,21 @@
     </div>
     <div class="sort-product-list__count-page">
       <div class="sort-product-list__page-indicator">
-        <span class="sort-product-list__current-page">1</span>
+        <span class="sort-product-list__current-page">{{ page }}</span>
         <span class="sort-product-list__separator">/</span>
-        <span class="sort-product-list__total-pages">3</span>
+        <span class="sort-product-list__total-pages">{{ pageSize }}</span>
       </div>
       <div class="sort-product-list__navigation">
-        <div class="sort-product-list__next">
+        <router-link
+          :to="{
+            name: 'main',
+            query: { ...queryConfig, page: (page > 1 ? page - 1 : 1).toString() }
+          }"
+          class="sort-product-list__next"
+          :disabled="page <= 1"
+          :class="{ cursorNotAllowed: page <= 1 }"
+          @click="prevPage"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -57,8 +66,17 @@
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
           </svg>
-        </div>
-        <div class="sort-product-list__prev">
+        </router-link>
+        <router-link
+          :to="{
+            name: 'main',
+            query: { ...queryConfig, page: (page < pageSize ? page + 1 : pageSize).toString() }
+          }"
+          class="sort-product-list__prev"
+          :disabled="page >= pageSize"
+          :class="{ cursorNotAllowed: page >= pageSize }"
+          @click="nextPage"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -69,7 +87,7 @@
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -89,10 +107,15 @@ interface Props {
   pageSize: number;
 }
 
-const { queryConfig } = defineProps<Props>();
+const { queryConfig, pageSize } = defineProps<Props>();
 
 const router = useRouter();
 const route = useRoute();
+
+const page = ref<number>(Number(queryConfig.page));
+const setPage = (newPage: number) => {
+  page.value = newPage;
+};
 
 // Sử dụng biến ref để theo dõi giá trị sort_by
 const sort_by = ref(queryConfig.sort_by || sortBy.createdAt);
@@ -137,10 +160,27 @@ const handlePriceOrder = () => {
     }
   });
 };
+
+const prevPage = () => {
+  if (page.value > 1) {
+    setPage(page.value - 1);
+  }
+};
+
+const nextPage = () => {
+  if (page.value < pageSize) {
+    setPage(page.value + 1);
+  }
+};
 </script>
-<style>
+
+<style scoped>
 .activeSortBy {
   background-color: var(--primary);
   color: var(--light);
+}
+
+.cursorNotAllowed {
+  cursor: not-allowed;
 }
 </style>
