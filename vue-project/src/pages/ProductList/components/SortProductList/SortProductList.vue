@@ -28,14 +28,11 @@
       </button>
 
       <select
-        :value="order || ''"
+        v-model="selectedOrder"
         aria-label="Sắp xếp theo giá"
         class="sort-product-list__select"
         :class="{ activeSortBy: isActiveSortBy(sortBy.price) }"
-        @change="
-          (event) =>
-            handlePriceOrder((event.target as HTMLInputElement).value as Exclude<ProductListConfig['order'], undefined>)
-        "
+        @change="handlePriceOrder"
       >
         <option class="sort-product-list__select-option" value="" disabled>Giá</option>
         <option class="sort-product-list__select-option" :value="orderConstant.asc">Giá: Thấp đến cao</option>
@@ -99,8 +96,7 @@ const route = useRoute();
 
 // Sử dụng biến ref để theo dõi giá trị sort_by
 const sort_by = ref(queryConfig.sort_by || sortBy.createdAt);
-
-const { order } = queryConfig;
+const selectedOrder = ref(queryConfig.order || '');
 
 //chỉ lấy sort_by và Exclude undefine
 const isActiveSortBy = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
@@ -114,6 +110,7 @@ watch(
   (newQuery) => {
     // Cập nhật giá trị sort_by từ query mới
     sort_by.value = (newQuery.sort_by as string) || sortBy.createdAt;
+    selectedOrder.value = (newQuery.order as string) || '';
   }
 );
 
@@ -130,13 +127,13 @@ const handleSort = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined
   });
 };
 
-const handlePriceOrder = (orderValue: Exclude<ProductListConfig['order'], undefined>) => {
+const handlePriceOrder = () => {
   router.push({
     name: 'main',
     query: {
       ...queryConfig,
-      sort_by: sortBy.price, // <-- Corrected from sort_by.price to sortBy.price
-      order: orderValue
+      sort_by: sortBy.price,
+      order: selectedOrder.value
     }
   });
 };
