@@ -1,48 +1,28 @@
 <template>
   <div class="pagination">
-    <router-link
-      :to="{
-        name: 'main',
-        query: { ...queryConfig, page: (page > 1 ? page - 1 : 1).toString() }
-      }"
-      class="pagination__prev"
-      :disabled="page <= 1"
-      :class="{ cursorNotAllowed: page <= 1 }"
-      @click="prevPage"
-    >
+    <button class="pagination__prev" :disabled="page <= 1" :class="{ cursorNotAllowed: page <= 1 }" @click="prevPage">
       Prev
-    </router-link>
+    </button>
     <template v-for="pageNumber in renderPagination()" :key="pageNumber">
-      <router-link
-        :to="{
-          name: 'main',
-          query: { ...queryConfig, page: pageNumber.toString() }
-        }"
-        class="pagination__number"
-        :class="{ active: pageNumber === page }"
-        @click="handleClick(pageNumber)"
-      >
+      <button class="pagination__number" :class="{ active: pageNumber === page }" @click="handleClick(pageNumber)">
         {{ pageNumber }}
-      </router-link>
+      </button>
     </template>
-    <router-link
-      :to="{
-        name: 'main',
-        query: { ...queryConfig, page: (page < pageSize ? page + 1 : pageSize).toString() }
-      }"
+    <button
       class="pagination__next"
       :disabled="page >= pageSize"
       :class="{ cursorNotAllowed: page >= pageSize }"
       @click="nextPage"
     >
       Next
-    </router-link>
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 interface Props {
   queryConfig: QueryConfig;
@@ -50,6 +30,10 @@ interface Props {
 }
 
 const { pageSize, queryConfig } = defineProps<Props>();
+//push query params
+const router = useRouter();
+//get query params
+const route = useRoute();
 
 const RANGE = 2;
 
@@ -103,20 +87,51 @@ const renderPagination = () => {
   return pagination;
 };
 
+watch(
+  // Giá trị cần theo dõi
+  () => route.query,
+  // Hàm được gọi khi giá trị thay đổi gồm giá trị mới và giá trị cũ
+  (newQuery) => {
+    // Cập nhật giá trị sort_by từ query mới
+
+    page.value = Number(newQuery.page as string);
+  }
+);
+
 const handleClick = (pageNumber: number) => {
   setPage(pageNumber);
-  console.log(pageNumber, '......');
+  router.push({
+    name: 'main',
+    query: {
+      ...queryConfig,
+      page: pageNumber.toString()
+    }
+  });
 };
 
 const prevPage = () => {
   if (page.value > 1) {
     setPage(page.value - 1);
+    router.push({
+      name: 'main',
+      query: {
+        ...queryConfig,
+        page: page.value.toString()
+      }
+    });
   }
 };
 
 const nextPage = () => {
   if (page.value < pageSize) {
     setPage(page.value + 1);
+    router.push({
+      name: 'main',
+      query: {
+        ...queryConfig,
+        page: page.value.toString()
+      }
+    });
   }
 };
 </script>

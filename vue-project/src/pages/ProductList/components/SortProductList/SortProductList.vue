@@ -46,11 +46,7 @@
         <span class="sort-product-list__total-pages">{{ pageSize }}</span>
       </div>
       <div class="sort-product-list__navigation">
-        <router-link
-          :to="{
-            name: 'main',
-            query: { ...queryConfig, page: (page > 1 ? page - 1 : 1).toString() }
-          }"
+        <button
           class="sort-product-list__next"
           :disabled="page <= 1"
           :class="{ cursorNotAllowed: page <= 1 }"
@@ -66,12 +62,9 @@
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
           </svg>
-        </router-link>
-        <router-link
-          :to="{
-            name: 'main',
-            query: { ...queryConfig, page: (page < pageSize ? page + 1 : pageSize).toString() }
-          }"
+        </button>
+
+        <button
           class="sort-product-list__prev"
           :disabled="page >= pageSize"
           :class="{ cursorNotAllowed: page >= pageSize }"
@@ -87,7 +80,7 @@
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
-        </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -119,7 +112,7 @@ const setPage = (newPage: number) => {
 
 // Sử dụng biến ref để theo dõi giá trị sort_by
 const sort_by = ref(queryConfig.sort_by || sortBy.createdAt);
-const selectedOrder = ref(queryConfig.order || '');
+const selectedOrder = ref((queryConfig.order as string) || '');
 
 //chỉ lấy sort_by và Exclude undefine
 const isActiveSortBy = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
@@ -133,7 +126,7 @@ watch(
   (newQuery) => {
     // Cập nhật giá trị sort_by từ query mới
     sort_by.value = (newQuery.sort_by as string) || sortBy.createdAt;
-    selectedOrder.value = (newQuery.order as string) || '';
+    page.value = Number(newQuery.page as string);
   }
 );
 
@@ -164,12 +157,26 @@ const handlePriceOrder = () => {
 const prevPage = () => {
   if (page.value > 1) {
     setPage(page.value - 1);
+    router.push({
+      name: 'main',
+      query: {
+        ...queryConfig,
+        page: page.value.toString()
+      }
+    });
   }
 };
 
 const nextPage = () => {
   if (page.value < pageSize) {
     setPage(page.value + 1);
+    router.push({
+      name: 'main',
+      query: {
+        ...queryConfig,
+        page: page.value.toString()
+      }
+    });
   }
 };
 </script>
