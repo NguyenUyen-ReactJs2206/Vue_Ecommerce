@@ -3,11 +3,13 @@
     <button class="pagination__prev" :disabled="page <= 1" :class="{ cursorNotAllowed: page <= 1 }" @click="prevPage">
       Prev
     </button>
-    <template v-for="pageNumber in renderPagination()" :key="pageNumber">
+    <div>{{ pageSize }}</div>
+    <template v-for="pageNumber in renderPagination(pageSize)" :key="pageNumber">
       <button class="pagination__number" :class="{ active: pageNumber === page }" @click="handleClick(pageNumber)">
         {{ pageNumber }}
       </button>
     </template>
+
     <button
       class="pagination__next"
       :disabled="page >= pageSize"
@@ -21,7 +23,7 @@
 
 <script setup lang="ts">
 import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
-import { ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 interface Props {
@@ -43,7 +45,7 @@ const setPage = (newPage: number) => {
   page.value = newPage;
 };
 
-const renderPagination = () => {
+const renderPagination = (pageSizeNumber: number) => {
   let dotAfter = false;
   let dotBefore = false;
   const pagination = [];
@@ -64,20 +66,20 @@ const renderPagination = () => {
     return null;
   };
 
-  for (let index = 0; index < pageSize; index++) {
+  for (let index = 0; index < pageSizeNumber; index++) {
     const pageNumber = index + 1;
 
-    if (page.value <= RANGE * 2 + 1 && pageNumber > page.value + RANGE && pageNumber < pageSize - RANGE + 1) {
+    if (page.value <= RANGE * 2 + 1 && pageNumber > page.value + RANGE && pageNumber < pageSizeNumber - RANGE + 1) {
       renderDotAfter();
-    } else if (page.value > RANGE * 2 + 1 && page.value < pageSize - RANGE * 2) {
+    } else if (page.value > RANGE * 2 + 1 && page.value < pageSizeNumber - RANGE * 2) {
       if (pageNumber < page.value - RANGE && pageNumber > RANGE) {
         renderDotBefore();
-      } else if (pageNumber > page.value + RANGE && pageNumber < pageSize - RANGE + 1) {
+      } else if (pageNumber > page.value + RANGE && pageNumber < pageSizeNumber - RANGE + 1) {
         renderDotAfter();
       } else {
         pagination.push(pageNumber);
       }
-    } else if (page.value >= pageSize - RANGE * 2 && pageNumber > RANGE && pageNumber < page.value - RANGE) {
+    } else if (page.value >= pageSizeNumber - RANGE * 2 && pageNumber > RANGE && pageNumber < page.value - RANGE) {
       renderDotBefore();
     } else {
       pagination.push(pageNumber);
@@ -87,16 +89,11 @@ const renderPagination = () => {
   return pagination;
 };
 
-watch(
-  // Giá trị cần theo dõi
-  () => route.query,
-  // Hàm được gọi khi giá trị thay đổi gồm giá trị mới và giá trị cũ
-  (newQuery) => {
-    // Cập nhật giá trị sort_by từ query mới
-
-    page.value = Number(newQuery.page as string) || 1;
-  }
-);
+watchEffect(() => {
+  // Mỗi khi route.query thay đổi, cập nhật page.value và render lại phân trang
+  page.value = Number(route.query.page) || 1;
+  renderPagination(pageSize);
+});
 
 const handleClick = (pageNumber: number) => {
   setPage(pageNumber);

@@ -3,7 +3,7 @@
     <div class="container">
       <div v-if="productStore.productList.products" class="product-list__main">
         <div class="product-list__main-left">
-          <AsideFilter />
+          <AsideFilter :queryConfig="queryConfig" :categories="categoriesStore.categories || []" />
 
           <!-- <button class="product-list__button-show-popup" v-if="!isVisible" @click="onShowPopup">
             <svg
@@ -20,7 +20,7 @@
           <!-- <button @click="showPopup">click</button> -->
         </div>
         <div class="product-list__main-right">
-          <SortProductList :queryConfig="queryConfig" :pageSize="productStore?.productList?.pagination?.page_size" />
+          <SortProductList :queryConfig="queryConfig" :pageSize="productStore.pageSize" />
 
           <div class="product-list__products">
             <div v-for="product in productStore.productList.products" :key="product._id" class="product-list__item">
@@ -28,7 +28,7 @@
             </div>
           </div>
 
-          <Pagination :queryConfig="queryConfig" :pageSize="productStore?.productList?.pagination?.page_size" />
+          <Pagination :queryConfig="queryConfig" :pageSize="productStore.pageSize" />
         </div>
       </div>
     </div>
@@ -45,6 +45,7 @@ import Pagination from 'src/components/Pagination/Pagination.vue';
 import { ref, onMounted, watch } from 'vue';
 import Product from './components/Product/Product.vue';
 import { useProductStore } from 'src/stores/product.store';
+import { useCategoriesStore } from 'src/stores/category.store';
 import { useRoute } from 'vue-router';
 import { ProductListConfig } from 'src/types/product.type';
 import omitBy from 'lodash/omitBy';
@@ -59,6 +60,7 @@ export type QueryConfig = {
 };
 
 const productStore = useProductStore();
+const categoriesStore = useCategoriesStore();
 
 const route = useRoute();
 const queryParams = ref<QueryConfig>({});
@@ -116,6 +118,8 @@ onMounted(() => {
   // Initial fetch when the component is mounted
   updateQueryConfig();
   productStore.getProducts(queryConfig);
+
+  categoriesStore.getCategories();
 });
 </script>
 

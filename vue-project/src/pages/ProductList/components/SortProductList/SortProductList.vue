@@ -126,6 +126,7 @@ watch(
   (newQuery) => {
     // Cập nhật giá trị sort_by từ query mới
     sort_by.value = (newQuery.sort_by as string) || sortBy.createdAt;
+    selectedOrder.value = (newQuery.order as string) || '';
     page.value = Number(newQuery.page as string) || 1;
   }
 );

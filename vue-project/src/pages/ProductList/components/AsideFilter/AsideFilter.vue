@@ -19,9 +19,24 @@
       </router-link>
       <div className="asideFilter__line" />
       <ul class="asideFilter__category-list">
-        <li class="asideFilter__category-item">Đồng hồ</li>
-        <li class="asideFilter__category-item">Áo thun</li>
-        <li class="asideFilter__category-item">Điện thoại</li>
+        <li v-for="categoryItem in categories" :key="categoryItem._id" class="asideFilter__category-item">
+          <RouterLink
+            :to="{
+              name: 'main',
+              query: {
+                ...queryConfig,
+                category: categoryItem._id
+              }
+            }"
+            class="asideFilter__category-link"
+            :class="{ activeCategory: category === categoryItem._id }"
+          >
+            <svg viewBox="0 0 4 7" v-if="category === categoryItem._id" class="asideFilter__category-svg">
+              <polygon points="4 3.5 0 0 0 7"></polygon>
+            </svg>
+            {{ categoryItem.name }}</RouterLink
+          >
+        </li>
       </ul>
     </div>
 
@@ -74,4 +89,33 @@
 <script setup lang="ts">
 import path from 'src/constants/path';
 import RatingStart from '../RatingStart/RatingStart.vue';
+import { QueryConfig } from '../../ProductList.vue';
+import { Category } from 'src/types/category.type';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+
+interface Props {
+  queryConfig: QueryConfig;
+  categories: Category[];
+}
+
+const { queryConfig, categories } = defineProps<Props>();
+
+const category = ref(queryConfig.category as string);
+console.log(categories, 'c1', category, 'c2');
+const route = useRoute();
+
+watch(
+  () => route.query,
+  (newQuery) => {
+    category.value = newQuery.category as string;
+  }
+);
 </script>
+
+<style scoped>
+.activeCategory {
+  color: #ee4d2d;
+  font-weight: 700;
+}
+</style>

@@ -68,6 +68,21 @@
       padding: 3px 0;
       margin: 4px 0;
     }
+
+    &-link {
+      position: relative;
+      text-decoration: none;
+      color: var(--dark);
+    }
+
+    &-svg {
+      position: absolute;
+      left: -16px;
+      top: 0.25rem;
+      fill: #ee4d2d;
+      width: 0.5rem;
+      height: 0.5rem;
+    }
   }
 
   &__price-form-input {
