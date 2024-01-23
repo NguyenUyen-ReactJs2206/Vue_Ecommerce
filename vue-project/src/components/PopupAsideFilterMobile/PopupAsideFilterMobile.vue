@@ -9,7 +9,7 @@
       >
         <div class="popup">
           <div class="content">
-            <AsideFilter />
+            <!-- <AsideFilter /> -->
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { Teleport } from 'vue';
-import AsideFilter from 'src/pages/ProductList/components/AsideFilter/AsideFilter.vue';
+// import AsideFilter from 'src/pages/ProductList/components/AsideFilter/AsideFilter.vue';
 
 const { showPopupAsideFilterMobile } = defineProps(['showPopupAsideFilterMobile']);
 defineEmits(['closePopup']);
