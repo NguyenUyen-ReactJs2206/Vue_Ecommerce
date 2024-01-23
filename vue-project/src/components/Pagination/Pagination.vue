@@ -37,7 +37,7 @@ const route = useRoute();
 
 const RANGE = 2;
 
-const page = ref<number>(Number(queryConfig.page));
+const page = ref<number>(Number(queryConfig.page) || 1);
 
 const setPage = (newPage: number) => {
   page.value = newPage;
@@ -94,7 +94,7 @@ watch(
   (newQuery) => {
     // Cập nhật giá trị sort_by từ query mới
 
-    page.value = Number(newQuery.page as string);
+    page.value = Number(newQuery.page as string) || 1;
   }
 );
 

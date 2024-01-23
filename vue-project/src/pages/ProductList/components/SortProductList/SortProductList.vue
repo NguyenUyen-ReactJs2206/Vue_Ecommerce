@@ -105,7 +105,7 @@ const { queryConfig, pageSize } = defineProps<Props>();
 const router = useRouter();
 const route = useRoute();
 
-const page = ref<number>(Number(queryConfig.page));
+const page = ref<number>(Number(queryConfig.page) || 1);
 const setPage = (newPage: number) => {
   page.value = newPage;
 };
@@ -126,7 +126,7 @@ watch(
   (newQuery) => {
     // Cập nhật giá trị sort_by từ query mới
     sort_by.value = (newQuery.sort_by as string) || sortBy.createdAt;
-    page.value = Number(newQuery.page as string);
+    page.value = Number(newQuery.page as string) || 1;
   }
 );
 
