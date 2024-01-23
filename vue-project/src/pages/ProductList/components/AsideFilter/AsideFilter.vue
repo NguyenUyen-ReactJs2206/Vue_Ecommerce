@@ -61,14 +61,18 @@
       </router-link>
       <div className="asideFilter__line" />
       <div class="asideFilter__price-range">Khoản giá</div>
-      <form action="">
+      <form action="" @submit.prevent="handleApplyPrice">
         <div class="asideFilter__price-form-input">
-          <input type="number" placeholder="₫ TỪ" class="asideFilter__price-input" />
+          <input type="number" placeholder="₫ TỪ" class="asideFilter__price-input" v-model="formPrice.price_min" />
           <div class="asideFilter__price-divider">-</div>
-          <input type="number" placeholder="₫ ĐẾN" class="asideFilter__price-input" />
+          <input type="number" placeholder="₫ ĐẾN" class="asideFilter__price-input" v-model="formPrice.price_max" />
         </div>
 
-        <button class="button asideFilter__apply-button">Áp dụng</button>
+        <div class="error-text opacity-none" :class="{ 'opacity-block': priceError.status }">
+          *{{ priceError.messageError }}
+        </div>
+
+        <button class="button asideFilter__apply-button" type="submit">Áp dụng</button>
       </form>
     </div>
 
@@ -76,7 +80,7 @@
 
     <div class="asideFilter__rating-start">
       <div class="asideFilter__rating-title">Đánh giá</div>
-      <RatingStart />
+      <RatingStart :queryConfig="queryConfig" />
     </div>
 
     <div className="asideFilter__line" />
@@ -96,6 +100,10 @@ interface Props {
   queryConfig: QueryConfig;
   categories: Category[];
 }
+type FormDataPrice = {
+  price_min: string | number;
+  price_max: string | number;
+};
 
 const { queryConfig, categories } = defineProps<Props>();
 
@@ -104,10 +112,19 @@ const category = ref(queryConfig.category as string);
 const route = useRoute();
 const router = useRouter();
 
+//filter theo khoản giá
+const formPrice = ref<FormDataPrice>({
+  price_min: '',
+  price_max: ''
+});
+const priceError = ref({ messageError: '', status: false });
+
 watch(
   () => route.query,
   (newQuery) => {
     category.value = newQuery.category as string;
+    formPrice.value.price_max = newQuery.price_max as string | number;
+    formPrice.value.price_min = newQuery.price_min as string | number;
   }
 );
 
@@ -116,6 +133,51 @@ const handleClickCategory = (categoryItem: Category) => {
     name: 'main',
     query: { ...queryConfig, category: categoryItem._id }
   });
+};
+
+const handleApplyPrice = () => {
+  let isValid = false;
+
+  if (formPrice.value.price_min === '' && formPrice.value.price_max === '') {
+    priceError.value = {
+      messageError: 'Vui lòng nhập khoản giá',
+      status: true
+    };
+  } else if (formPrice.value.price_min !== '' && formPrice.value.price_max !== '') {
+    const minPrice = parseInt(formPrice.value.price_min as string);
+    const maxPrice = parseInt(formPrice.value.price_max as string);
+
+    if (minPrice <= maxPrice || formPrice.value.price_min <= formPrice.value.price_max) {
+      isValid = true;
+    } else {
+      priceError.value = {
+        messageError: 'Giá không phù hợp',
+        status: true
+      };
+    }
+  } else {
+    priceError.value = {
+      messageError: '',
+      status: false
+    };
+    isValid = true;
+  }
+
+  if (isValid) {
+    console.log(formPrice.value.price_min, formPrice.value.price_max);
+    priceError.value = {
+      messageError: '',
+      status: false
+    };
+    router.push({
+      name: 'main',
+      query: {
+        ...queryConfig,
+        price_min: formPrice.value.price_min.toString(),
+        price_max: formPrice.value.price_max.toString()
+      }
+    });
+  }
 };
 </script>
 
@@ -126,5 +188,18 @@ const handleClickCategory = (categoryItem: Category) => {
 }
 .activeCategoryIcon {
   fill: #ee4d2d;
+}
+
+.error-text {
+  color: var(--error);
+  padding-bottom: 4px;
+  font-size: smaller;
+}
+
+.opacity-none {
+  opacity: 0;
+}
+.opacity-block {
+  opacity: 1;
 }
 </style>

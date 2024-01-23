@@ -61,9 +61,22 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { QueryConfig } from '../../ProductList.vue';
+
+type Props = {
+  queryConfig: QueryConfig;
+};
+const { queryConfig } = defineProps<Props>();
+
+const router = useRouter();
 // Define methods
-const handleFilterStar = (rating: number) => {
-  console.log(`Filter stars for rating: ${rating}`);
+const handleFilterStar = (ratingFilter: number) => {
+  console.log(`Filter stars for rating: ${ratingFilter}`);
+  router.push({
+    name: 'main',
+    query: { ...queryConfig, rating_filter: String(ratingFilter) }
+  });
 };
 </script>
 
