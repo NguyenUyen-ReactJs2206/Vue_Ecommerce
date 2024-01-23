@@ -3,7 +3,7 @@
     <button class="pagination__prev" :disabled="page <= 1" :class="{ cursorNotAllowed: page <= 1 }" @click="prevPage">
       Prev
     </button>
-    <div>{{ pageSize }}</div>
+
     <template v-for="pageNumber in renderPagination(pageSize)" :key="pageNumber">
       <button class="pagination__number" :class="{ active: pageNumber === page }" @click="handleClick(pageNumber)">
         {{ pageNumber }}

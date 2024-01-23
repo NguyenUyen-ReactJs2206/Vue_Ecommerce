@@ -1,8 +1,12 @@
 <template>
   <div class="asideFilter">
     <div class="asideFilter__category">
-      <router-link :to="`${path.home}`" class="asideFilter__link asideFilter__link--flex">
-        <svg viewBox="0 0 12 10" class="asideFilter__icon">
+      <router-link
+        :to="`${path.home}`"
+        class="asideFilter__link asideFilter__link--flex"
+        :class="{ activeCategory: !category }"
+      >
+        <svg viewBox="0 0 12 10" class="asideFilter__icon" :class="{ activeCategoryIcon: !category }">
           <g fillRule="evenodd" stroke="none" strokeWidth="1">
             <g transform="translate(-373 -208)">
               <g transform="translate(155 191)">
@@ -20,22 +24,16 @@
       <div className="asideFilter__line" />
       <ul class="asideFilter__category-list">
         <li v-for="categoryItem in categories" :key="categoryItem._id" class="asideFilter__category-item">
-          <RouterLink
-            :to="{
-              name: 'main',
-              query: {
-                ...queryConfig,
-                category: categoryItem._id
-              }
-            }"
+          <div
             class="asideFilter__category-link"
             :class="{ activeCategory: category === categoryItem._id }"
+            @click="handleClickCategory(categoryItem)"
           >
             <svg viewBox="0 0 4 7" v-if="category === categoryItem._id" class="asideFilter__category-svg">
               <polygon points="4 3.5 0 0 0 7"></polygon>
             </svg>
-            {{ categoryItem.name }}</RouterLink
-          >
+            {{ categoryItem.name }}
+          </div>
         </li>
       </ul>
     </div>
@@ -92,7 +90,7 @@ import RatingStart from '../RatingStart/RatingStart.vue';
 import { QueryConfig } from '../../ProductList.vue';
 import { Category } from 'src/types/category.type';
 import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 interface Props {
   queryConfig: QueryConfig;
@@ -102,8 +100,9 @@ interface Props {
 const { queryConfig, categories } = defineProps<Props>();
 
 const category = ref(queryConfig.category as string);
-console.log(categories, 'c1', category, 'c2');
+
 const route = useRoute();
+const router = useRouter();
 
 watch(
   () => route.query,
@@ -111,11 +110,21 @@ watch(
     category.value = newQuery.category as string;
   }
 );
+
+const handleClickCategory = (categoryItem: Category) => {
+  router.push({
+    name: 'main',
+    query: { ...queryConfig, category: categoryItem._id }
+  });
+};
 </script>
 
 <style scoped>
 .activeCategory {
   color: #ee4d2d;
   font-weight: 700;
+}
+.activeCategoryIcon {
+  fill: #ee4d2d;
 }
 </style>

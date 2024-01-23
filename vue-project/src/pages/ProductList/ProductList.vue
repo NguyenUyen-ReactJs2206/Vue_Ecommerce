@@ -114,12 +114,12 @@ watch(
   // }
 );
 
-onMounted(() => {
+onMounted(async () => {
   // Initial fetch when the component is mounted
   updateQueryConfig();
-  productStore.getProducts(queryConfig);
+  await productStore.getProducts(queryConfig);
 
-  categoriesStore.getCategories();
+  await categoriesStore.getCategories();
 });
 </script>
 
