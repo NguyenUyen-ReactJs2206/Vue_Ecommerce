@@ -91,44 +91,19 @@
           </div>
         </router-link>
 
-        <div class="main-header__form-search">
-          <form action="">
-            <div className="main-header__input-group">
-              <input type="text" placeholder="Free Ship Đơn từ 0Đ" className="main-header__input" />
-              <button className="button main-header__button">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="{1.5}"
-                  stroke="currentColor"
-                  className="main-header__icon"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                  />
-                </svg>
-              </button>
-            </div>
-          </form>
-          <div class="main-header__search-mobile">
-            <div class="main-header__search-mobile-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="{1.5}"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
-              </svg>
-            </div>
+        <FormSearch :className="'main-header__form-search'" />
+
+        <div class="main-header__navigate-mobile">
+          <div class="main-header__navigate-mobile-icon" @click="handleShowPopupNavMobile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
           </div>
         </div>
         <div class="main-header__cart">
@@ -146,6 +121,8 @@
         </div>
       </div>
     </div>
+
+    <PopupNavBarMobile @close-popup="handleClosePopupNavMobile" :showPopupNavMobile="showPopupNavMobile" />
   </header>
 </template>
 
@@ -154,13 +131,25 @@ import { useUserStore } from 'src/stores/user.store';
 import { getAvatarUrl } from 'src/utils/utils';
 import Popover from 'src/components/Popover/Popover.vue';
 import { ref } from 'vue';
+import PopupNavBarMobile from 'src/components/PopupNavBarMobile/PopupNavBarMobile.vue';
+import FormSearch from 'src/components/FormSearch/FormSearch.vue';
 
 const { isAuthenticated, profile, logoutUser } = useUserStore();
 
 const isLoggedIn = ref(isAuthenticated);
+
 const handleLogout = () => {
   logoutUser();
   isLoggedIn.value = false;
+};
+const showPopupNavMobile = ref(false);
+
+const handleShowPopupNavMobile = () => {
+  showPopupNavMobile.value = true;
+};
+
+const handleClosePopupNavMobile = () => {
+  showPopupNavMobile.value = false;
 };
 </script>
 

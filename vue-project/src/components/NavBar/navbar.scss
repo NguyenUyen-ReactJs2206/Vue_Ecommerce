@@ -156,7 +156,7 @@
     @include grid-col-styles(3, 9);
   }
 
-  &__search-mobile {
+  &__navigate-mobile {
     display: none;
   }
 
@@ -356,17 +356,16 @@
     }
 
     &__form-search {
-      @include grid-col-styles(9, 2);
-    }
-
-    &__input-group {
       display: none;
     }
 
-    &__search-mobile {
+    &__navigate-mobile {
+      @include grid-col-styles(9, 2);
       display: block;
       color: var(--light);
       cursor: pointer;
+      margin-right: 6px;
+      margin-top: 10px;
 
       &-icon {
         display: flex;
@@ -383,7 +382,7 @@
 
     &__cart {
       @include grid-col-styles(11, 2);
-
+      margin-top: 10px;
       &-link {
         color: var(--light);
       }
@@ -398,6 +397,10 @@
           max-width: 2rem;
         }
       }
+    }
+
+    &__popup-navbar-mobile {
+      display: block;
     }
   }
 }
@@ -416,14 +419,17 @@
       }
     }
 
-    &__form-search {
-      @include grid-col-styles(7, 3);
-    }
+    // &__form-search {
+    //   @include grid-col-styles(7, 3);
+    // }
 
-    &__search-mobile {
+    &__navigate-mobile {
+      @include grid-col-styles(7, 3);
+      margin-right: 2px;
+
       &-icon {
         svg {
-          width: 1.25rem;
+          width: 1.5rem;
         }
       }
     }
@@ -433,7 +439,7 @@
 
       &-icon {
         svg {
-          width: 1.25rem;
+          width: 1.5rem;
         }
       }
     }
