@@ -84,7 +84,7 @@
     </div>
 
     <div className="asideFilter__line" />
-    <button class="button asideFilter__reset-button">Xóa tất cả</button>
+    <button class="button asideFilter__reset-button" @click="handleRemoveAll">Xóa tất cả</button>
   </div>
 </template>
 
@@ -95,6 +95,7 @@ import { QueryConfig } from '../../ProductList.vue';
 import { Category } from 'src/types/category.type';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import omit from 'lodash/omit';
 
 interface Props {
   queryConfig: QueryConfig;
@@ -178,6 +179,13 @@ const handleApplyPrice = () => {
       }
     });
   }
+};
+
+const handleRemoveAll = () => {
+  router.push({
+    name: 'main',
+    query: omit(queryConfig, ['price_min', 'price_max', 'category', 'rating_filter'])
+  });
 };
 </script>
 
