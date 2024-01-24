@@ -1,10 +1,7 @@
 <template>
   <div class="product-rating__list">
     <div v-for="index in 5" :key="index" class="product-rating__item">
-      <div
-        class="product-rating__star absolute left-0 top-0 h-full overflow-hidden"
-        :style="{ width: handleWidth(index + 1) }"
-      >
+      <div class="product-rating__star" :style="{ width: handleWidth(index) }">
         <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="activeClassname">
           <polygon
             points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
