@@ -122,7 +122,11 @@
       </div>
     </div>
 
-    <PopupNavBarMobile @close-popup="handleClosePopupNavMobile" :showPopupNavMobile="showPopupNavMobile" />
+    <PopupNavBarMobile
+      @close-popup="handleClosePopupNavMobile"
+      :showPopupNavMobile="showPopupNavMobile"
+      :handleClosePopupNavMobile="handleClosePopupNavMobile"
+    />
   </header>
 </template>
 

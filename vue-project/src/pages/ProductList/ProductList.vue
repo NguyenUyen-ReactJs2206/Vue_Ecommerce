@@ -3,7 +3,11 @@
     <div class="container">
       <div v-if="productStore.productList.products" class="product-list__main">
         <div class="product-list__main-left">
-          <AsideFilter :queryConfig="queryConfig" :categories="categoriesStore.categories || []" />
+          <AsideFilter
+            :handleClosePopupNavMobile="handleClosePopupNavMobile"
+            :queryConfig="queryConfig"
+            :categories="categoriesStore.categories || []"
+          />
         </div>
         <div class="product-list__main-right">
           <SortProductList :queryConfig="queryConfig" :pageSize="productStore.pageSize" />
@@ -31,8 +35,7 @@ import { useProductStore } from 'src/stores/product.store';
 import { useCategoriesStore } from 'src/stores/category.store';
 import { useRoute } from 'vue-router';
 import { ProductListConfig } from 'src/types/product.type';
-import omitBy from 'lodash/omitBy';
-import isUndefined from 'lodash/isUndefined';
+import useQueryConfig from 'src/hooks/useQueryConfig';
 
 export type QueryConfig = {
   [key in keyof ProductListConfig]: string;
@@ -44,22 +47,7 @@ const categoriesStore = useCategoriesStore();
 const route = useRoute();
 const queryParams = ref<QueryConfig>({});
 
-const queryConfig: QueryConfig = omitBy(
-  {
-    page: queryParams.value.page || '1',
-    limit: queryParams.value.limit || '10',
-    sort_by: queryParams.value.sort_by,
-    exclude: queryParams.value.exclude,
-    name: queryParams.value.name,
-    order: queryParams.value.order,
-    price_max: queryParams.value.price_max,
-    price_min: queryParams.value.price_min,
-    rating_filter: queryParams.value.rating_filter,
-    category: queryParams.value.category
-  },
-  isUndefined
-);
-queryParams.value = route.query;
+const queryConfig: QueryConfig = useQueryConfig(queryParams);
 
 const updateQueryConfig = () => {
   queryParams.value = route.query;
@@ -100,6 +88,8 @@ onMounted(async () => {
 
   await categoriesStore.getCategories();
 });
+
+const handleClosePopupNavMobile = () => {};
 </script>
 
 <style scoped lang="scss">

@@ -80,7 +80,7 @@
 
     <div class="asideFilter__rating-start">
       <div class="asideFilter__rating-title">Đánh giá</div>
-      <RatingStart :queryConfig="queryConfig" />
+      <RatingStart :queryConfig="queryConfig" :handleClosePopupNavMobile="handleClosePopupNavMobile" />
     </div>
 
     <div className="asideFilter__line" />
@@ -100,13 +100,14 @@ import omit from 'lodash/omit';
 interface Props {
   queryConfig: QueryConfig;
   categories: Category[];
+  handleClosePopupNavMobile: () => void;
 }
 type FormDataPrice = {
   price_min: string | number;
   price_max: string | number;
 };
 
-const { queryConfig, categories } = defineProps<Props>();
+const { queryConfig, categories, handleClosePopupNavMobile } = defineProps<Props>();
 
 const category = ref(queryConfig.category as string);
 
@@ -134,6 +135,7 @@ const handleClickCategory = (categoryItem: Category) => {
     name: 'main',
     query: { ...queryConfig, category: categoryItem._id }
   });
+  handleClosePopupNavMobile();
 };
 
 const handleApplyPrice = () => {
@@ -165,7 +167,6 @@ const handleApplyPrice = () => {
   }
 
   if (isValid) {
-    console.log(formPrice.value.price_min, formPrice.value.price_max);
     priceError.value = {
       messageError: '',
       status: false
@@ -178,6 +179,8 @@ const handleApplyPrice = () => {
         price_max: formPrice.value.price_max.toString()
       }
     });
+
+    handleClosePopupNavMobile();
   }
 };
 
@@ -186,6 +189,7 @@ const handleRemoveAll = () => {
     name: 'main',
     query: omit(queryConfig, ['price_min', 'price_max', 'category', 'rating_filter'])
   });
+  handleClosePopupNavMobile();
 };
 </script>
 

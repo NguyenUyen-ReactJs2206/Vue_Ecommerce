@@ -10,8 +10,13 @@
         <div class="popup-nav-mobile">
           <div class="popup-nav-mobile__content">
             <FormSearch :className="'main-header__form-search-mobile'" />
-
-            <!-- <AsideFilter /> -->
+            <div class="popup-nav-mobile__aside-filter">
+              <AsideFilter
+                :handleClosePopupNavMobile="handleClosePopupNavMobile"
+                :queryConfig="queryConfig"
+                :categories="categoriesStore.categories || []"
+              />
+            </div>
           </div>
 
           <button class="popup-nav-mobile__button-close" @click="$emit('close-popup')">x</button>
@@ -22,12 +27,59 @@
 </template>
 
 <script setup lang="ts">
-import { Teleport } from 'vue';
+import { Teleport, onMounted, ref, watch } from 'vue';
 import FormSearch from '../FormSearch/FormSearch.vue';
-// import AsideFilter from 'src/pages/ProductList/components/AsideFilter/AsideFilter.vue';
+import { useRoute } from 'vue-router';
+import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
+import AsideFilter from 'src/pages/ProductList/components/AsideFilter/AsideFilter.vue';
+import { useCategoriesStore } from 'src/stores/category.store';
+import useQueryConfig from 'src/hooks/useQueryConfig';
 
-const { showPopupNavMobile } = defineProps(['showPopupNavMobile']);
+type Props = { showPopupNavMobile: boolean; handleClosePopupNavMobile: () => void };
+
+const { showPopupNavMobile, handleClosePopupNavMobile } = defineProps<Props>();
 defineEmits(['close-popup']);
+
+const categoriesStore = useCategoriesStore();
+const route = useRoute();
+const queryParams = ref<QueryConfig>({});
+
+const queryConfig: QueryConfig = useQueryConfig(queryParams);
+
+const updateQueryConfig = () => {
+  queryParams.value = route.query;
+
+  queryConfig.page = queryParams.value.page || '1';
+  queryConfig.limit = queryParams.value.limit || '10';
+  queryConfig.sort_by = queryParams.value.sort_by;
+  queryConfig.exclude = queryParams.value.exclude;
+  queryConfig.name = queryParams.value.name;
+  queryConfig.order = queryParams.value.order;
+  queryConfig.price_max = queryParams.value.price_max;
+  queryConfig.price_min = queryParams.value.price_min;
+  queryConfig.rating_filter = queryParams.value.rating_filter;
+  queryConfig.category = queryParams.value.category;
+};
+
+// Watch for changes in queryParams and call getProducts when it changes
+watch(
+  //giá trị cần theo dõi
+  () => route.query,
+  //hàm được gọi khi giá trị thay đổi gồm giá trị mới và gía trị cũ
+  () => {
+    updateQueryConfig();
+  }
+  // options (tuỳ chọn, không bắt buộc)
+  //  {
+  //   deep: true, // theo dõi sâu vào các thuộc tính của đối tượng
+  //   immediate: true, // gọi ngay lập tức handler khi đăng ký watch
+  // }
+);
+
+onMounted(async () => {
+  // Initial fetch when the component is mounted
+  updateQueryConfig();
+});
 </script>
 
 <style scoped lang="scss">
@@ -49,6 +101,7 @@ defineEmits(['close-popup']);
   padding: 0.5rem 0.25px;
   background-color: rgb(237, 237, 237);
   position: relative;
+  overflow-y: auto;
 
   &__content {
     padding: 4rem 10px;
@@ -75,6 +128,10 @@ defineEmits(['close-popup']);
       color: var(--light);
       transition: all 0.1s ease-in-out;
     }
+  }
+
+  &__aside-filter {
+    margin: 2rem 0;
   }
 }
 

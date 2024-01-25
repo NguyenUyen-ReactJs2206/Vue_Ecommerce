@@ -100,7 +100,7 @@ interface Props {
   pageSize: number;
 }
 
-const { queryConfig, pageSize } = defineProps<Props>();
+const { pageSize, queryConfig } = defineProps<Props>();
 
 const router = useRouter();
 const route = useRoute();
