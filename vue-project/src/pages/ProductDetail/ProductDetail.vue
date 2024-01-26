@@ -52,17 +52,15 @@
           <div class="product-detail__col-right">
             <h1 class="product-detail__title">ĐIỆN THOẠI VSMART ACTIVE 3 6GB/64GB - HÀNG CHÍNH HÃNG</h1>
 
-            <div class="product-detail__ratings-section mt-8 flex">
-              <div class="product-detail__ratings-section-item flex items-center">
-                <span class="product-detail__ratings-section-rating mr-1 border-b border-b-orange text-orange"
-                  >4.6</span
-                >
+            <div class="product-detail__ratings-section">
+              <div class="product-detail__ratings-section-item">
+                <span class="product-detail__ratings-section-rating">4.6</span>
                 <ProductRating :rating="4.6" />
               </div>
-              <div class="product-detail__ratings-section-divider mx-4 h-4 w-[1px] bg-gray-300"></div>
+              <div class="product-detail__ratings-section-divider"></div>
               <div>
                 <span class="product-detail__ratings-section-sold">1,2k</span>
-                <span class="product-detail__ratings-section-sold-label ml-1 text-gray-500">Đã bán</span>
+                <span class="product-detail__ratings-section-sold-label">Đã bán</span>
               </div>
             </div>
 
