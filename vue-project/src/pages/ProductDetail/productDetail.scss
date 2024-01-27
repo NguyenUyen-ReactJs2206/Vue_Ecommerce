@@ -236,6 +236,11 @@
   }
 
   &__cart {
+    //Desktop
+    &-desktop {
+      display: block;
+    }
+
     &-buttons {
       display: flex;
       align-items: center;
@@ -284,6 +289,78 @@
       cursor: pointer;
 
       border-radius: 4px;
+      background-color: var(--primary);
+      text-transform: capitalize;
+      font-size: medium;
+
+      color: var(--light);
+      box-shadow: var(--shadow);
+      outline: none;
+      border: none;
+
+      &:hover {
+        background-color: var(--primary-light);
+      }
+    }
+
+    //Mobile
+    &-mobile {
+      display: none;
+    }
+
+    &-buttons-mobile {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+
+      display: flex;
+      justify-content: space-between;
+      background-color: var(--light);
+      right: 0;
+      width: 100%;
+    }
+
+    &-add-product-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50%;
+      height: 3rem;
+      padding: 0 1.5rem;
+      text-transform: capitalize;
+      cursor: pointer;
+
+      border: none;
+      box-shadow: var(--shadow);
+      background-color: rgba(38, 168, 243, 0.2);
+      color: var(--primary);
+      font-size: medium;
+
+      &:hover {
+        background-color: rgba(38, 168, 243, 0.4);
+      }
+    }
+
+    &-icon-mobile {
+      margin-right: 10px;
+      height: 1.25rem;
+      width: 1.25rem;
+      fill: currentColor;
+      stroke: var(--primary);
+      color: var(--primary);
+    }
+
+    &-buy-now-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+
+      padding: 0 1.25rem;
+      height: 3rem;
+      min-width: 5rem;
+      cursor: pointer;
+
       background-color: var(--primary);
       text-transform: capitalize;
       font-size: medium;
@@ -439,6 +516,7 @@
     }
   }
 }
+
 @media screen and (max-width: 640px) {
   .product-detail {
     //col-left
@@ -495,6 +573,17 @@
     &__related-product {
       &-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    //Mobile
+    &__cart {
+      &-desktop {
+        display: none;
+      }
+
+      &-mobile {
+        display: block;
       }
     }
   }

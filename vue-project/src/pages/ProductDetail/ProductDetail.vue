@@ -104,34 +104,44 @@
               <div class="product-detail__quantity-available">333 sản phẩm có sẵn</div>
             </div>
 
-            <div class="product-detail__cart-buttons">
-              <button class="product-detail__cart-add-product">
-                <svg
-                  enable-background="new 0 0 15 15"
-                  viewBox="0 0 15 15"
-                  x="0"
-                  y="0"
-                  class="product-detail__cart-icon"
-                >
-                  <g>
+            <div class="product-detail__cart-desktop">
+              <div class="product-detail__cart-buttons">
+                <button class="product-detail__cart-add-product">
+                  <svg
+                    enable-background="new 0 0 15 15"
+                    viewBox="0 0 15 15"
+                    x="0"
+                    y="0"
+                    class="product-detail__cart-icon"
+                  >
                     <g>
-                      <polyline
+                      <g>
+                        <polyline
+                          fill="none"
+                          points=".5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-miterlimit="10"
+                        />
+                        <circle cx="6" cy="13.5" r="1" stroke="none" />
+                        <circle cx="11.5" cy="13.5" r="1" stroke="none" />
+                      </g>
+                      <line
                         fill="none"
-                        points=".5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5"
                         stroke-linecap="round"
-                        stroke-linejoin="round"
                         stroke-miterlimit="10"
+                        x1="7.5"
+                        x2="10.5"
+                        y1="7"
+                        y2="7"
                       />
-                      <circle cx="6" cy="13.5" r="1" stroke="none" />
-                      <circle cx="11.5" cy="13.5" r="1" stroke="none" />
+                      <line fill="none" stroke-linecap="round" stroke-miterlimit="10" x1="9" x2="9" y1="8.5" y2="5.5" />
                     </g>
-                    <line fill="none" stroke-linecap="round" stroke-miterlimit="10" x1="7.5" x2="10.5" y1="7" y2="7" />
-                    <line fill="none" stroke-linecap="round" stroke-miterlimit="10" x1="9" x2="9" y1="8.5" y2="5.5" />
-                  </g>
-                </svg>
-                Thêm vào giỏ hàng
-              </button>
-              <button class="product-detail__cart-buy-now">Mua ngay</button>
+                  </svg>
+                  Thêm vào giỏ hàng
+                </button>
+                <button class="product-detail__cart-buy-now">Mua ngay</button>
+              </div>
             </div>
           </div>
         </div>
@@ -169,6 +179,38 @@
           <div class="product-detail__related-product-item">Product</div>
           <div class="product-detail__related-product-item">Product</div>
         </div>
+      </div>
+    </div>
+
+    <div class="product-detail__cart-mobile">
+      <div class="product-detail__cart-buttons-mobile">
+        <button class="product-detail__cart-add-product-mobile">
+          <svg
+            enable-background="new 0 0 15 15"
+            viewBox="0 0 15 15"
+            x="0"
+            y="0"
+            class="product-detail__cart-icon-mobile"
+          >
+            <g>
+              <g>
+                <polyline
+                  fill="none"
+                  points=".5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                />
+                <circle cx="6" cy="13.5" r="1" stroke="none" />
+                <circle cx="11.5" cy="13.5" r="1" stroke="none" />
+              </g>
+              <line fill="none" stroke-linecap="round" stroke-miterlimit="10" x1="7.5" x2="10.5" y1="7" y2="7" />
+              <line fill="none" stroke-linecap="round" stroke-miterlimit="10" x1="9" x2="9" y1="8.5" y2="5.5" />
+            </g>
+          </svg>
+          Thêm vào giỏ hàng
+        </button>
+        <button class="product-detail__cart-buy-now-mobile">Mua ngay</button>
       </div>
     </div>
   </div>
