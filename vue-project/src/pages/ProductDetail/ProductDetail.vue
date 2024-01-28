@@ -169,7 +169,14 @@
         <div class="container">
           <div class="product-detail__related-product-title">Có thể bạn cũng thích</div>
           <div class="product-detail__related-product-grid">
-            <div class="product-detail__related-product-item">Product</div>
+            <div
+              class="product-detail__related-product-item"
+              v-if="productStore.productList.products"
+              v-for="product in productStore.productList.products"
+              :key="product._id"
+            >
+              <Product :product="product" />
+            </div>
             <div class="product-detail__related-product-item">Product</div>
             <div class="product-detail__related-product-item">Product</div>
             <div class="product-detail__related-product-item">Product</div>
@@ -215,10 +222,11 @@
 <script setup lang="ts">
 import ProductRating from 'src/components/ProductRating/ProductRating.vue';
 import { useProductStore } from 'src/stores/product.store';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { getIdFromNameId, formatNumberToSocialStyle, formatCurrency, rateSale } from 'src/utils/utils';
 import DOMPurify from 'dompurify';
+import Product from 'src/pages/ProductList/components/Product/Product.vue';
 
 const route = useRoute();
 const id = route.params.nameId;
@@ -229,6 +237,19 @@ const productStore = useProductStore();
 
 const nameId = getIdFromNameId(id as string);
 
+const queryConfig = {
+  limit: '20',
+  page: '1',
+  category: productStore.productDetail.category._id
+};
+
+// Khi productDetail thay đổi, cập nhật description
+watchEffect(() => {
+  if (productStore.productDetail) {
+    description.value = DOMPurify.sanitize(productStore.productDetail.description);
+  }
+});
+
 watch(
   () => nameId,
   (newId) => {
@@ -236,16 +257,20 @@ watch(
   }
 );
 
-if (productStore.productDetail) {
-  description.value = DOMPurify.sanitize(productStore.productDetail.description);
-}
+watch(
+  () => productStore.productDetail,
+  (newProductDetail) => {
+    productStore.getProducts({ ...queryConfig, category: newProductDetail.category._id });
+  }
+);
 
 // Lấy chi tiết sản phẩm khi component được mount
 onMounted(async () => {
   await productStore.getProductDetail(nameId as string);
-
-  console.log(productStore.productDetail, 'Product Detail in Store');
+  await productStore.getProducts(queryConfig);
 });
+
+console.log(productStore.productList.products, 'product list related');
 
 const handlePrev = () => {};
 
