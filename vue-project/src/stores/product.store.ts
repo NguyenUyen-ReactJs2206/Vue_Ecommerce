@@ -1,9 +1,18 @@
 import { defineStore } from 'pinia';
 import { getProductDetailApi, getProductsApi } from 'src/apis/product.api';
-import { ProductDetail, ProductList } from 'src/types/product.type';
+import { ProductDetail, ProductList, ProductListConfig } from 'src/types/product.type';
 
 export const useProductStore = defineStore('product', {
-  state: () => ({ productList: {} as ProductList, pageSize: 1 as number, productDetail: {} as ProductDetail }),
+  state: () => ({
+    productList: {} as ProductList,
+    pageSize: 1 as number,
+    productDetail: {} as ProductDetail,
+    queryConfig: {
+      limit: '20',
+      page: '1',
+      category: ''
+    } as ProductListConfig
+  }),
   getters: {},
   actions: {
     async getProducts(queryParams: any) {
@@ -12,6 +21,7 @@ export const useProductStore = defineStore('product', {
 
         this.productList = response.data.data;
         this.pageSize = response.data.data.pagination.page_size;
+        return response;
       } catch (error) {}
     },
     async getProductDetail(id: string) {
@@ -19,6 +29,8 @@ export const useProductStore = defineStore('product', {
         const response = await getProductDetailApi(id);
 
         this.productDetail = response.data.data;
+
+        this.queryConfig.category = this.productDetail.category._id;
         return response;
       } catch (error) {}
     }

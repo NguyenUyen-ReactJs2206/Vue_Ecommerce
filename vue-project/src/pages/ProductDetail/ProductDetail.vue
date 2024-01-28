@@ -177,9 +177,6 @@
             >
               <Product :product="product" />
             </div>
-            <div class="product-detail__related-product-item">Product</div>
-            <div class="product-detail__related-product-item">Product</div>
-            <div class="product-detail__related-product-item">Product</div>
           </div>
         </div>
       </div>
@@ -237,12 +234,6 @@ const productStore = useProductStore();
 
 const nameId = getIdFromNameId(id as string);
 
-const queryConfig = {
-  limit: '20',
-  page: '1',
-  category: productStore.productDetail.category._id
-};
-
 // Khi productDetail thay đổi, cập nhật description
 watchEffect(() => {
   if (productStore.productDetail) {
@@ -250,24 +241,21 @@ watchEffect(() => {
   }
 });
 
+// Khi route params thay đổi, cập nhật sản phẩm
 watch(
-  () => nameId,
+  () => route.params.nameId,
   (newId) => {
-    productStore.getProductDetail(newId as string) || productStore.getProductDetail(nameId as string);
-  }
-);
-
-watch(
-  () => productStore.productDetail,
-  (newProductDetail) => {
-    productStore.getProducts({ ...queryConfig, category: newProductDetail.category._id });
+    if (newId) {
+      productStore.getProductDetail(getIdFromNameId(newId as string));
+    }
   }
 );
 
 // Lấy chi tiết sản phẩm khi component được mount
 onMounted(async () => {
   await productStore.getProductDetail(nameId as string);
-  await productStore.getProducts(queryConfig);
+
+  await productStore.getProducts(productStore.queryConfig);
 });
 
 console.log(productStore.productList.products, 'product list related');
