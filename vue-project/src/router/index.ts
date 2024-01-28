@@ -50,8 +50,8 @@ const routes: RouteRecordRaw[] = [
     ]
   },
   {
-    // path: `${path.productDetail}`,
-    path: '/product-detail',
+    path: `${path.productDetail}`,
+    // path: '/product-detail',
     component: MainLayoutVue,
     children: [
       {

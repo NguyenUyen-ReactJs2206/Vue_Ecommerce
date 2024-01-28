@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/product-detail" class="product">
+  <router-link :to="`${generateNameId({ name: product.name, id: product._id })}`" class="product">
     <div class="product__container">
       <div class="product__image-container">
         <img :src="product.image" :alt="product.name" class="product__image" />
@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import ProductRating from '../../../../components/ProductRating/ProductRating.vue';
 import { Product } from 'src/types/product.type';
-import { formatCurrency, formatNumberToSocialStyle } from 'src/utils/utils';
+import { formatCurrency, formatNumberToSocialStyle, generateNameId } from 'src/utils/utils';
 
 type ProductProps = {
   product: Product;
