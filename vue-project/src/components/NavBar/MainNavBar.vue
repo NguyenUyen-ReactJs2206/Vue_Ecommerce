@@ -91,7 +91,11 @@
           </div>
         </router-link>
 
-        <FormSearch :className="'main-header__form-search'" />
+        <FormSearch
+          :handleClosePopupNavMobile="handleClose"
+          :className="'main-header__form-search'"
+          :queryConfig="queryConfig"
+        />
 
         <div class="main-header__navigate-mobile">
           <div class="main-header__navigate-mobile-icon" @click="handleShowPopupNavMobile">
@@ -126,6 +130,7 @@
       @close-popup="handleClosePopupNavMobile"
       :showPopupNavMobile="showPopupNavMobile"
       :handleClosePopupNavMobile="handleClosePopupNavMobile"
+      :queryConfig="queryConfig"
     />
   </header>
 </template>
@@ -134,13 +139,57 @@
 import { useUserStore } from 'src/stores/user.store';
 import { getAvatarUrl } from 'src/utils/utils';
 import Popover from 'src/components/Popover/Popover.vue';
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import PopupNavBarMobile from 'src/components/PopupNavBarMobile/PopupNavBarMobile.vue';
 import FormSearch from 'src/components/FormSearch/FormSearch.vue';
+import { useRoute } from 'vue-router';
+import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
+import useQueryConfig from 'src/hooks/useQueryConfig';
 
 const { isAuthenticated, profile, logoutUser } = useUserStore();
 
 const isLoggedIn = ref(isAuthenticated);
+
+const route = useRoute();
+
+const queryParams = ref<QueryConfig>({});
+const queryConfig: QueryConfig = useQueryConfig(queryParams);
+
+//Sử dụng updateQueryConfig để cập nhật queryParams
+//và queryConfig dựa trên route.query,
+//và sử dụng watch để theo dõi sự thay đổi của route.query
+//và gọi updateQueryConfig khi nó thay đổi.
+//Cách làm này giúp đồng bộ hóa queryParams và queryConfig với giá trị trong URL.
+
+const updateQueryConfig = () => {
+  queryParams.value = route.query;
+
+  queryConfig.page = queryParams.value.page || '1';
+  queryConfig.limit = queryParams.value.limit || '10';
+  queryConfig.sort_by = queryParams.value.sort_by;
+  queryConfig.exclude = queryParams.value.exclude;
+  queryConfig.name = queryParams.value.name;
+  queryConfig.order = queryParams.value.order;
+  queryConfig.price_max = queryParams.value.price_max;
+  queryConfig.price_min = queryParams.value.price_min;
+  queryConfig.rating_filter = queryParams.value.rating_filter;
+  queryConfig.category = queryParams.value.category;
+};
+
+// Watch for changes in queryParams and call getProducts when it changes
+watch(
+  //giá trị cần theo dõi
+  () => route.query,
+  //hàm được gọi khi giá trị thay đổi gồm giá trị mới và gía trị cũ
+  () => {
+    updateQueryConfig();
+  }
+);
+
+onMounted(async () => {
+  // Initial fetch when the component is mounted
+  updateQueryConfig();
+});
 
 const handleLogout = () => {
   logoutUser();
@@ -155,6 +204,8 @@ const handleShowPopupNavMobile = () => {
 const handleClosePopupNavMobile = () => {
   showPopupNavMobile.value = false;
 };
+
+const handleClose = () => {};
 </script>
 
 <style scoped lang="scss"></style>
