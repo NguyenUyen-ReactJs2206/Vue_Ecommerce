@@ -442,7 +442,6 @@
     &__thumbnail {
       position: relative;
       margin-top: 1rem;
-      @include grid-template-styles(4, 1rem);
     }
 
     &__cart {
@@ -462,7 +461,6 @@
   .product-detail {
     &__thumbnail {
       margin-top: 1rem;
-      @include grid-template-styles(4, 1rem);
     }
 
     &__ratings-section {
@@ -532,7 +530,6 @@
     &__thumbnail {
       position: relative;
       margin-top: 1rem;
-      @include grid-template-styles(5, 1rem);
     }
 
     &__ratings-section {
@@ -608,7 +605,6 @@
     &__thumbnail {
       position: relative;
       margin-top: 1rem;
-      @include grid-template-styles(4, 1rem);
     }
   }
 }
@@ -618,7 +614,6 @@
     &__thumbnail {
       position: relative;
       margin-top: 1rem;
-      @include grid-template-styles(3, 1rem);
     }
 
     &__related-product {

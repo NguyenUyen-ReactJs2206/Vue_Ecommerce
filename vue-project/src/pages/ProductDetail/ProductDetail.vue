@@ -6,7 +6,7 @@
           <div class="product-detail__grid">
             <div class="product-detail__col-left">
               <div class="product-detail__image">
-                <img :src="productStore.productDetail.image" :alt="productStore.productDetail.name" />
+                <img :src="activeCurrentImage" :alt="productStore.productDetail.name" />
               </div>
               <div class="product-detail__thumbnail">
                 <button class="product-detail__left-arrow" @click="handlePrev">
@@ -21,8 +21,14 @@
                   </svg>
                 </button>
 
-                <div class="product-detail__image-item" v-for="image in productStore.productDetail.images">
+                <div
+                  class="product-detail__image-item"
+                  v-for="(image, index) in currentImages.slice(0, 5)"
+                  :key="index"
+                  @mouseenter="chooseActive(image)"
+                >
                   <img :src="image" :alt="productStore.productDetail.name" />
+                  <div :class="{ activeImage: image === activeCurrentImage }"></div>
                 </div>
 
                 <button class="product-detail__right-arrow" @click="handleNext">
@@ -219,11 +225,12 @@
 <script setup lang="ts">
 import ProductRating from 'src/components/ProductRating/ProductRating.vue';
 import { useProductStore } from 'src/stores/product.store';
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { getIdFromNameId, formatNumberToSocialStyle, formatCurrency, rateSale } from 'src/utils/utils';
 import DOMPurify from 'dompurify';
 import Product from 'src/pages/ProductList/components/Product/Product.vue';
+import { ProductDetail } from 'src/types/product.type';
 
 const route = useRoute();
 const id = route.params.nameId;
@@ -234,6 +241,16 @@ const productStore = useProductStore();
 
 const nameId = getIdFromNameId(id as string);
 
+const currentIndexImages = ref([0, 5]);
+const currentImages = computed(() =>
+  productStore.productDetail ? productStore.productDetail.images.slice(...currentIndexImages.value) : []
+);
+
+const activeCurrentImage = ref('');
+
+const chooseActive = (img: string) => {
+  activeCurrentImage.value = img;
+};
 // Khi productDetail thay đổi, cập nhật description
 watchEffect(() => {
   if (productStore.productDetail) {
@@ -244,9 +261,24 @@ watchEffect(() => {
 // Khi route params thay đổi, cập nhật sản phẩm
 watch(
   () => route.params.nameId,
-  (newId) => {
+  async (newId) => {
     if (newId) {
-      productStore.getProductDetail(getIdFromNameId(newId as string));
+      await productStore.getProductDetail(getIdFromNameId(newId as string));
+
+      if (productStore.productDetail && productStore.productDetail.images.length > 0) {
+        activeCurrentImage.value = productStore.productDetail.images[0];
+      }
+    }
+  }
+);
+
+watch(
+  () => productStore.productDetail,
+  (newProductDetail) => {
+    // Kiểm tra xem newProduct và newProduct.images có giá trị không và có hình ảnh không
+    if (newProductDetail && newProductDetail.images.length > 0) {
+      // Thiết lập activeImage là hình ảnh đầu tiên trong mảng newProduct.images
+      activeCurrentImage.value = newProductDetail.images[0];
     }
   }
 );
@@ -258,9 +290,23 @@ onMounted(async () => {
   await productStore.getProducts(productStore.queryConfig);
 });
 
-console.log(productStore.productList.products, 'product list related');
+const handlePrev = () => {
+  if (currentIndexImages.value[0] > 0) {
+    currentIndexImages.value = [currentIndexImages.value[0] - 1, currentIndexImages.value[1] - 1];
+  }
+};
 
-const handlePrev = () => {};
-
-const handleNext = () => {};
+const handleNext = () => {
+  if (currentIndexImages.value[1] < (productStore.productDetail as ProductDetail).images.length) {
+    currentIndexImages.value = [currentIndexImages.value[0] + 1, currentIndexImages.value[1] + 1];
+  }
+};
 </script>
+
+<style>
+.activeImage {
+  position: absolute;
+  inset: 0;
+  border: 2px solid orangered;
+}
+</style>
