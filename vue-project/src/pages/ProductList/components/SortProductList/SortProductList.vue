@@ -92,7 +92,7 @@ import { QueryConfig } from '../../ProductList.vue';
 import { ProductListConfig } from 'src/types/product.type';
 import { useRoute, useRouter } from 'vue-router';
 import { omit } from 'lodash';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { orderConstant } from 'src/constants/product';
 
 interface Props {
@@ -131,6 +131,9 @@ watch(
   }
 );
 
+onMounted(() => {
+  sort_by.value = route.query.sort_by as string;
+});
 const handleSort = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
   router.push({
     name: 'main',
