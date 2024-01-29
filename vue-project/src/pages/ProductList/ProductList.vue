@@ -64,7 +64,6 @@ const updateQueryConfig = () => {
   queryConfig.category = queryParams.value.category;
 };
 
-console.log(queryConfig, 'vvvvvvvv');
 // Watch for changes in queryParams and call getProducts when it changes
 watch(
   //giá trị cần theo dõi
@@ -73,12 +72,8 @@ watch(
   () => {
     updateQueryConfig();
     productStore.getProducts(queryConfig);
+    categoriesStore.getCategories();
   }
-  // options (tuỳ chọn, không bắt buộc)
-  //  {
-  //   deep: true, // theo dõi sâu vào các thuộc tính của đối tượng
-  //   immediate: true, // gọi ngay lập tức handler khi đăng ký watch
-  // }
 );
 
 onMounted(async () => {

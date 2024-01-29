@@ -93,7 +93,7 @@ import path from 'src/constants/path';
 import RatingStart from '../RatingStart/RatingStart.vue';
 import { QueryConfig } from '../../ProductList.vue';
 import { Category } from 'src/types/category.type';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import omit from 'lodash/omit';
 
@@ -129,6 +129,10 @@ watch(
     formPrice.value.price_min = newQuery.price_min as string | number;
   }
 );
+
+onMounted(() => {
+  category.value = route.query.category as string;
+});
 
 const handleClickCategory = (categoryItem: Category) => {
   router.push({

@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
-import { ref, watchEffect } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 interface Props {
@@ -89,11 +89,27 @@ const renderPagination = (pageSizeNumber: number) => {
   return pagination;
 };
 
-watchEffect(() => {
-  // Mỗi khi route.query thay đổi, cập nhật page.value và render lại phân trang
-  page.value = Number(route.query.page) || 1;
-  renderPagination(pageSize);
-});
+watch(
+  () => queryConfig,
+  (newQueryConfig) => {
+    page.value = Number(newQueryConfig.page) || 1;
+  }
+);
+
+watch(
+  () => route.query,
+  (newQuery) => {
+    page.value = Number(newQuery.page) || 1;
+    renderPagination(pageSize);
+  }
+);
+
+watch(
+  () => pageSize,
+  (newPageSize) => {
+    renderPagination(newPageSize);
+  }
+);
 
 const handleClick = (pageNumber: number) => {
   setPage(pageNumber);
@@ -120,8 +136,10 @@ const prevPage = () => {
 };
 
 const nextPage = () => {
+  console.log(page.value, 'pppppppppp');
   if (page.value < pageSize) {
     setPage(page.value + 1);
+
     router.push({
       name: 'main',
       query: {
