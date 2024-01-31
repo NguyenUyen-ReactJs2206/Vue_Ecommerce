@@ -112,6 +112,7 @@ const setPage = (newPage: number) => {
 
 // Sử dụng biến ref để theo dõi giá trị sort_by
 const sort_by = ref(queryConfig.sort_by || sortBy.createdAt);
+
 const selectedOrder = ref((queryConfig.order as string) || '');
 
 //chỉ lấy sort_by và Exclude undefine
@@ -132,8 +133,10 @@ watch(
 );
 
 onMounted(() => {
-  sort_by.value = route.query.sort_by as string;
+  sort_by.value = (route.query.sort_by as string) || sortBy.createdAt;
+  page.value = Number(route.query.page) || 1;
 });
+
 const handleSort = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
   router.push({
     name: 'main',

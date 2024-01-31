@@ -14,7 +14,7 @@
       class="pagination__next"
       :disabled="page >= pageSize"
       :class="{ cursorNotAllowed: page >= pageSize }"
-      @click="nextPage"
+      @click="nextPage()"
     >
       Next
     </button>
@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 interface Props {
@@ -44,6 +44,8 @@ const page = ref<number>(Number(queryConfig.page) || 1);
 const setPage = (newPage: number) => {
   page.value = newPage;
 };
+
+const category = ref<string>(queryConfig.category as string);
 
 const renderPagination = (pageSizeNumber: number) => {
   let dotAfter = false;
@@ -100,6 +102,8 @@ watch(
   () => route.query,
   (newQuery) => {
     page.value = Number(newQuery.page) || 1;
+    category.value = newQuery.category as string;
+
     renderPagination(pageSize);
   }
 );
@@ -107,9 +111,32 @@ watch(
 watch(
   () => pageSize,
   (newPageSize) => {
+    console.log('New pageSize:', newPageSize);
+
     renderPagination(newPageSize);
   }
 );
+
+watch(
+  () => category.value,
+  (newCategory) => {
+    // Reset page to 1 when category changes
+    setPage(1);
+
+    // Update the URL
+    router.push({
+      query: {
+        ...queryConfig,
+        page: page.value.toString(),
+        category: newCategory // Ensure category is present in the URL
+      }
+    });
+  }
+);
+
+onMounted(() => {
+  page.value = Number(route.query.page) || 1;
+});
 
 const handleClick = (pageNumber: number) => {
   setPage(pageNumber);

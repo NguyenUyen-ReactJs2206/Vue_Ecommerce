@@ -45,6 +45,7 @@ const productStore = useProductStore();
 const categoriesStore = useCategoriesStore();
 
 const route = useRoute();
+
 const queryParams = ref<QueryConfig>({});
 
 const queryConfig: QueryConfig = useQueryConfig(queryParams);
