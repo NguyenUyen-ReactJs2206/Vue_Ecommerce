@@ -5,9 +5,11 @@
 
   <testsuite name="authLogin.auth.login.test"
     errors="0" failures="0" hostname="" id="" package="authLogin" skipped="0"
-    tests="1" time="14.46" timestamp="">
+    tests="1" time="13.07" timestamp="">
   
-    <testcase name="Test Login and Verify Access Token in LocalStorage" classname="authLogin.auth.login.test" time="7.230" assertions="2">
+    <testcase name="Test Login and Verify Access Token in LocalStorage" classname="authLogin.auth.login.test" time="6.534" assertions="3">
+
+    
 
     
 
