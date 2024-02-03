@@ -1,5 +1,9 @@
 <template>
-  <button class="button" :class="{ 'button--cursor-not-allowed': userStore.isLoading }" :disabled="userStore.isLoading">
+  <button
+    class="button sign-in"
+    :class="{ 'button--cursor-not-allowed': userStore.isLoading }"
+    :disabled="userStore.isLoading"
+  >
     <svg
       v-if="userStore.isLoading"
       aria-hidden="true"

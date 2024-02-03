@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import {
   clearAccessTokenFromLS,
   clearProfileFromLS,
@@ -7,7 +7,6 @@ import {
   saveAccessTokenToLS,
   saveProfileToLS
 } from '../auth';
-import { beforeEach } from 'node:test';
 
 const access_token =
   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OTZlNmZjYjExNDAwODkzZGY3MjNlMCIsImVtYWlsIjoidXllbjk5bnR0QGdtYWlsLmNvbSIsInJvbGVzIjpbIlVzZXIiXSwiY3JlYXRlZF9hdCI6IjIwMjQtMDEtMTdUMTU6MzE6MjguODU1WiIsImlhdCI6MTcwNTUwNTQ4OCwiZXhwIjoxNzA2MTEwMjg4fQ.21-kctuxANPcYdLHE0vxC2zrDvpnoyU2c_zV9yV60rU';

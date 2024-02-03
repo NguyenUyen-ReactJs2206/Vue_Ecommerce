@@ -4,14 +4,14 @@ import { AxiosError } from 'axios';
 import HttpStatusCode from 'src/constants/httpStatusCode.enum';
 
 // describe dùng để mô tả tập hợp các ngữ cảnh
-//hoặc 1 đơn vị cần test: Ví dụ function, component
-// describe('isAxiosError', () => {
-//   it('isAxiosError trả về boolean', () => {
-//     //expect dùng để mong đợi giá trị trả về
-//     expect(isAxiosError(new Error())).toBe(false);
-//     expect(isAxiosError(new AxiosError())).toBe(true);
-//   });
-// });
+// hoặc 1 đơn vị cần test: Ví dụ function, component
+describe('isAxiosError', () => {
+  it('isAxiosError trả về boolean', () => {
+    //expect dùng để mong đợi giá trị trả về
+    expect(isAxiosError(new Error())).toBe(false);
+    expect(isAxiosError(new AxiosError())).toBe(true);
+  });
+});
 
 //Cách khác
 describe('isAxiosError', () => {

@@ -24,9 +24,17 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "allowJs": true,
-    "types": ["vue3-toastify/global", "node"]
+    "types": ["vue3-toastify/global", "node", "karma-jasmine"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "karma.conf.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/**/*.spec.ts",
+    "*.conf.ts",
+    "test/*.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }],
   "exclude": ["node_modules"]
 }
