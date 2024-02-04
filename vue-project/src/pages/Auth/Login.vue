@@ -9,7 +9,7 @@
             <div class="authForm__content">
               <h1>Đăng Nhập</h1>
               <div class="input-wrap" :class="{ 'input-wrap--flex-column': emailError.status || emailSuccess.status }">
-                <input type="text" placeholder="Email" v-model="formLogin.email" />
+                <input type="text" data-test="email-input" placeholder="Email" v-model="formLogin.email" />
                 <p class="error-text" v-if="emailError.status">*{{ emailError.messageError }}</p>
                 <p class="success-text" v-else-if="emailSuccess.status">
                   {{ emailSuccess.messageSuccess }}
@@ -19,7 +19,7 @@
                 class="input-wrap"
                 :class="{ 'input-wrap--flex-column': passwordError.status || passwordSuccess.status }"
               >
-                <input type="password" placeholder="Password" v-model="formLogin.password" />
+                <input type="password" data-test="password-input" placeholder="Password" v-model="formLogin.password" />
                 <p class="error-text" v-if="passwordError.status">*{{ passwordError.messageError }}</p>
                 <p class="success-text" v-else-if="passwordSuccess.status">
                   {{ passwordSuccess.messageSuccess }}

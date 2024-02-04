@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "test:e2e": "npx nightwatch"
+    "nightwatch": "npx nightwatch",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.3",
@@ -28,6 +30,7 @@
     "vue3-toastify": "^0.2.1"
   },
   "devDependencies": {
+    "@types/cypress": "^1.1.3",
     "@types/jsdom": "^21.1.6",
     "@types/karma": "^6.3.8",
     "@types/karma-chrome-launcher": "^3.1.4",
@@ -36,6 +39,7 @@
     "@types/node": "^20.11.16",
     "@vue/babel-plugin-jsx": "^1.1.6",
     "chromedriver": "^121.0.0",
+    "cypress": "^13.6.4",
     "eslint": "^8.54.0",
     "jasmine-core": "^5.1.1",
     "jsdom": "^24.0.0",

@@ -1,5 +1,5 @@
 module.exports = {
-  'Test Login, Verify Access Token and Profile in LocalStorage': function (browser) {
+  'Test Login, Verify Access Token and Profile in LocalStorage': function (browser: any) {
     const email = 'uyen99ntt@gmail.com';
     const password = '123123I';
 
@@ -13,14 +13,14 @@ module.exports = {
 
       // Execute code to create and save access_token to localStorage
       .executeAsync(
-        function (tokenCallback) {
+        function (tokenCallback: any) {
           // Replace the following code with actual code to obtain the access_token
           const token = 'your_generated_access_token';
           localStorage.setItem('access_token', token);
           tokenCallback(token);
         },
         [],
-        function (result) {
+        function (result: any) {
           const generatedToken = result.value;
 
           // Check if access_token is set in localStorage
@@ -29,7 +29,7 @@ module.exports = {
               return localStorage.getItem('access_token');
             },
             [],
-            function (result) {
+            function (result: any) {
               const storedToken = result.value;
               //storedToken (lấy từ localStorage) với generatedToken (giá trị mà bạn mong đợi đã được tạo ra và đặt vào localStorage)
               browser.assert.equal(storedToken, generatedToken, 'Access token is set in localStorage');
@@ -40,14 +40,14 @@ module.exports = {
 
       // Execute code to create and save profile to localStorage
       .executeAsync(
-        function (profileCallback) {
+        function (profileCallback: any) {
           // Replace the following code with actual code to obtain the profile
           const profile = 'your_generated_profile';
           localStorage.setItem('profile', profile);
           profileCallback(profile);
         },
         [],
-        function (result) {
+        function (result: any) {
           const generatedProfile = result.value;
 
           // Check if profile is set in localStorage
@@ -56,7 +56,7 @@ module.exports = {
               return localStorage.getItem('profile');
             },
             [],
-            function (result) {
+            function (result: any) {
               const storedProfile = result.value;
               //storedToken (lấy từ localStorage) với generatedToken (giá trị mà bạn mong đợi đã được tạo ra và đặt vào localStorage)
               browser.assert.equal(storedProfile, generatedProfile, 'Profile is set in localStorage');

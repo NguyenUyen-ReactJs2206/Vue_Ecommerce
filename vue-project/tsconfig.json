@@ -24,7 +24,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "allowJs": true,
-    "types": ["vue3-toastify/global", "node", "karma-jasmine"]
+    "types": ["vue3-toastify/global", "node", "karma-jasmine", "cypress"]
   },
   "include": [
     "src/**/*.ts",
@@ -33,7 +33,9 @@
     "src/**/*.vue",
     "src/**/*.spec.ts",
     "*.conf.ts",
-    "test/*.ts"
+    "tests/**/*.ts",
+    "cypress/**/*.cy.ts",
+    "karma.conf.js"
   ],
   "references": [{ "path": "./tsconfig.node.json" }],
   "exclude": ["node_modules"]
