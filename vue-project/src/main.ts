@@ -8,13 +8,14 @@ import router from './router';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 
-const pinia = createPinia();
 const app = createApp(App);
+const pinia = createPinia();
 
 app.use(Vue3Toastify, {
   autoClose: 3000
 } as ToastContainerOptions);
 
-app.use(router);
 app.use(pinia);
+app.use(router);
+
 app.mount('#app');

@@ -6,6 +6,7 @@ import MainLayoutVue from '../Layout/MainLayout/MainLayout.vue';
 import ProductList from 'src/pages/ProductList/ProductList.vue';
 import ProductDetail from 'src/pages/ProductDetail/ProductDetail.vue';
 import { useUserStore } from 'src/stores/user.store';
+import Cart from 'src/pages/Cart/Cart.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -60,11 +61,35 @@ const routes: RouteRecordRaw[] = [
         component: ProductDetail
       }
     ]
+  },
+  {
+    path: `${path.cart}`,
+    // path: '/product-detail',
+    component: MainLayoutVue,
+    children: [
+      {
+        name: 'cart',
+        path: '',
+        component: Cart,
+        beforeEnter: (to, _from, next) => {
+          const { isAuthenticated } = useUserStore();
+          // Nếu người dùng đã đăng nhập, muốn chuyển hướng đến trang cart
+          if (to.name === 'cart' && isAuthenticated) {
+            next();
+          } else {
+            // Nếu chưa có token quay về login khi click cart
+            next({ name: 'login' });
+          }
+        }
+      }
+    ]
   }
 ];
+
 const router = createRouter({
   // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
   history: createWebHistory(),
   routes // short for `routes: routes`
 });
+
 export default router;

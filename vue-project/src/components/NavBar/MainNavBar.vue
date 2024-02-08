@@ -111,7 +111,7 @@
           </div>
         </div>
         <div class="main-header__cart">
-          <router-link to="/" class="main-header__cart-link">
+          <router-link :to="{ name: 'cart' }" class="main-header__cart-link">
             <div className="main-header__cart-icon">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
