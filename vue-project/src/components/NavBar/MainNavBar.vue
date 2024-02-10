@@ -127,19 +127,42 @@
           </template>
           <template v-slot:renderPopover>
             <div class="main-header__popover">
-              <div class="main-header__popover-content">
-                <a href="/" class="main-header__popover-content-title main-header__link">Tài khoản của tôi</a>
-                <a
-                  href="/"
-                  class="main-header__popover-content-title main-header__popover-content-title--mt-2 main-header__link"
-                  >Đơn mua</a
-                >
-                <button
-                  class="main-header__popover-content-title main-header__popover-content-title--mt-2"
-                  @click="handleLogout"
-                >
-                  Đăng xuất
-                </button>
+              <!-- <div class="main-header__popover-cart-no-product">
+                <img :src="noproduct" alt="no purchase" class="main-header__popover-cart-no-product-image" />
+                <div className="main-header__popover-cart-no-product-title mt-3 capitalize">Chưa có sản phẩm</div>
+              </div> -->
+              <div class="main-header__popover-cart-have-product">
+                <div class="main-header__popover-cart-have-product-title">Sản phẩm mới thêm</div>
+                <div class="main-header__popover-cart-purchases">
+                  <div class="main-header__popover-cart-purchases-item">
+                    <div class="main-header__popover-cart-purchases-img">
+                      <img
+                        src="https://api-ecom.duthanhduoc.com/images/bbea6d3e-e5b1-494f-ab16-02eece816d50.jpg"
+                        alt="purchase"
+                      />
+                    </div>
+                    <div class="main-header__popover-cart-purchases-title">
+                      <div>ĐIỆN THOẠI OPPO A12 (3GB/32GB) - HÀNG CHÍNH HÃNG dddddddd Gaaaaaaaaaaaa aaaaaaaaaaaa</div>
+                    </div>
+                    <div class="main-header__popover-cart-purchases-price"><span>₫2.345.678</span></div>
+                  </div>
+                  <div class="main-header__popover-cart-purchases-item">
+                    <div class="main-header__popover-cart-purchases-img">
+                      <img
+                        src="https://api-ecom.duthanhduoc.com/images/bbea6d3e-e5b1-494f-ab16-02eece816d50.jpg"
+                        alt="purchase"
+                      />
+                    </div>
+                    <div class="main-header__popover-cart-purchases-title">
+                      <div>ĐIỆN THOẠI OPPO A12 (3GB/32GB) - HÀNG CHÍNH HÃNG dddddddd Gaaaaaaaaaaaa aaaaaaaaaaaa</div>
+                    </div>
+                    <div class="main-header__popover-cart-purchases-price"><span>₫2.345.678</span></div>
+                  </div>
+                </div>
+                <div class="main-header__popover-cart-summary">
+                  <div class="main-header__popover-cart-summary-info">Thêm hàng vào giỏ</div>
+                  <router-link to="/" class="main-header__popover-cart-summary-link">Xem giỏ hàng</router-link>
+                </div>
               </div>
             </div>
           </template>
@@ -166,6 +189,7 @@ import FormSearch from 'src/components/FormSearch/FormSearch.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
 import useQueryConfig from 'src/hooks/useQueryConfig';
+// import noproduct from 'src/assets/images/no-product.png';
 
 const { isAuthenticated, profile, logoutUser } = useUserStore();
 

@@ -73,7 +73,7 @@ const cancelHidePopover = () => {
   clearTimeout(hidePopoverTimeout);
 };
 
-let hidePopoverTimeout: number | undefined;
+let hidePopoverTimeout: number | undefined | any;
 
 const handleMouseLeave = (event: MouseEvent | any) => {
   // Kiểm tra xem target liên quan có nằm trong phần tử cha không
