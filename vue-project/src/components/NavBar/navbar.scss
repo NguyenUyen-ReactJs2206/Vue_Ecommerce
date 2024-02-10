@@ -194,8 +194,7 @@
 
     &-link {
       display: flex;
-      justify-content: start;
-      margin-left: 8px;
+      justify-content: center;
       color: var(--light);
     }
 
@@ -286,6 +285,66 @@
     &__button {
       width: 4.5rem;
     }
+
+    &__logo {
+      &-link {
+        @include grid-col-styles(2, 5);
+      }
+
+      &-icon {
+        max-width: 8rem;
+        fill: var(--light);
+      }
+    }
+
+    &__form-search {
+      display: none;
+    }
+
+    &__navigate-mobile {
+      @include grid-col-styles(9, 2);
+      display: block;
+      color: var(--light);
+      cursor: pointer;
+      margin-right: 6px;
+      margin-top: 10px;
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+
+        width: 100%;
+
+        svg {
+          max-width: 2rem;
+        }
+      }
+    }
+
+    &__cart {
+      @include grid-col-styles(11, 1);
+      margin-top: 10px;
+
+      &-link {
+        color: var(--light);
+      }
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        svg {
+          max-width: 2rem;
+        }
+      }
+    }
+
+    &__popup-navbar-mobile {
+      display: block;
+    }
   }
   //---SCREEN FOR AUTH NAVBAR----//
   .auth-header {
@@ -343,65 +402,6 @@
     &__shopping {
       padding: 1.5rem;
     }
-
-    &__logo {
-      &-link {
-        @include grid-col-styles(1, 5);
-      }
-
-      &-icon {
-        max-width: 8rem;
-        fill: var(--light);
-      }
-    }
-
-    &__form-search {
-      display: none;
-    }
-
-    &__navigate-mobile {
-      @include grid-col-styles(9, 2);
-      display: block;
-      color: var(--light);
-      cursor: pointer;
-      margin-right: 6px;
-      margin-top: 10px;
-
-      &-icon {
-        display: flex;
-        align-items: center;
-        justify-content: end;
-
-        width: 100%;
-
-        svg {
-          max-width: 2rem;
-        }
-      }
-    }
-
-    &__cart {
-      @include grid-col-styles(11, 2);
-      margin-top: 10px;
-      &-link {
-        color: var(--light);
-      }
-
-      &-icon {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        width: 100%;
-
-        svg {
-          max-width: 2rem;
-        }
-      }
-    }
-
-    &__popup-navbar-mobile {
-      display: block;
-    }
   }
 }
 
@@ -418,10 +418,6 @@
         width: 100%;
       }
     }
-
-    // &__form-search {
-    //   @include grid-col-styles(7, 3);
-    // }
 
     &__navigate-mobile {
       @include grid-col-styles(7, 3);

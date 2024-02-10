@@ -110,19 +110,40 @@
             </svg>
           </div>
         </div>
-        <div class="main-header__cart">
-          <router-link :to="{ name: 'cart' }" class="main-header__cart-link">
-            <div className="main-header__cart-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                />
-              </svg>
+
+        <Popover :className="'main-header__cart'">
+          <template v-slot:main>
+            <router-link :to="{ name: 'cart' }" class="main-header__cart-link">
+              <div className="main-header__cart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                  />
+                </svg>
+              </div>
+            </router-link>
+          </template>
+          <template v-slot:renderPopover>
+            <div class="main-header__popover">
+              <div class="main-header__popover-content">
+                <a href="/" class="main-header__popover-content-title main-header__link">Tài khoản của tôi</a>
+                <a
+                  href="/"
+                  class="main-header__popover-content-title main-header__popover-content-title--mt-2 main-header__link"
+                  >Đơn mua</a
+                >
+                <button
+                  class="main-header__popover-content-title main-header__popover-content-title--mt-2"
+                  @click="handleLogout"
+                >
+                  Đăng xuất
+                </button>
+              </div>
             </div>
-          </router-link>
-        </div>
+          </template>
+        </Popover>
       </div>
     </div>
 
@@ -142,7 +163,7 @@ import Popover from 'src/components/Popover/Popover.vue';
 import { onMounted, ref, watch } from 'vue';
 import PopupNavBarMobile from 'src/components/PopupNavBarMobile/PopupNavBarMobile.vue';
 import FormSearch from 'src/components/FormSearch/FormSearch.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { QueryConfig } from 'src/pages/ProductList/ProductList.vue';
 import useQueryConfig from 'src/hooks/useQueryConfig';
 
@@ -151,6 +172,7 @@ const { isAuthenticated, profile, logoutUser } = useUserStore();
 const isLoggedIn = ref(isAuthenticated);
 
 const route = useRoute();
+const router = useRouter();
 
 const queryParams = ref<QueryConfig>({});
 const queryConfig: QueryConfig = useQueryConfig(queryParams);
@@ -194,6 +216,7 @@ onMounted(async () => {
 const handleLogout = () => {
   logoutUser();
   isLoggedIn.value = false;
+  router.push({ name: 'main' });
 };
 const showPopupNavMobile = ref(false);
 
