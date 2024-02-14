@@ -1,1 +1,3 @@
-<template>Cart</template>
+<template>
+  <div class="cart">Cart page</div>
+</template>

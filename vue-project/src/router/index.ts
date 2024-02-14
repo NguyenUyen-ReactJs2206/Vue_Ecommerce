@@ -7,6 +7,7 @@ import ProductList from 'src/pages/ProductList/ProductList.vue';
 import ProductDetail from 'src/pages/ProductDetail/ProductDetail.vue';
 import { useUserStore } from 'src/stores/user.store';
 import Cart from 'src/pages/Cart/Cart.vue';
+import CartLayout from 'src/Layout/CartLayout/CartLayout.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -64,8 +65,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: `${path.cart}`,
-    // path: '/product-detail',
-    component: MainLayoutVue,
+    component: CartLayout,
     children: [
       {
         name: 'cart',
